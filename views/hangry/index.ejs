@@ -1,0 +1,22 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container my-3">
+    <h1 class="">Locations</h1>
+    <a href="hangry/results">Search locations</a>
+</div>
+
+<% for(let hangry of hangryz) { %>
+<div class="card container my-2">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card-body">
+                <h3 class="card-title">Location: <%=hangry.data.title%></h5>
+                    <p class="card-text">Category: <%=hangry.data.entity_type%></p>
+                    <p class="text-muted">Entity Number: <%=hangry.data.entity_id%></p>
+                    <p class="card-text">Geolocation: <br>
+                        Long: <%=hangry.data.longitude%>, Lat: <%=hangry.data.latitude%></p>
+            </div>
+        </div>
+    </div>
+</div>
+<% } %>

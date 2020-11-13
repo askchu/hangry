@@ -1,0 +1,25 @@
+<% layout('layouts/boilerplate') %>
+
+<main class="container mt-4">
+    <h1>Can't decide what to eat?</h1>
+    <h4>Don't have to argue anymore of who's turn it is to decide.
+        <br> Fill in the details below and we will do the job for
+        you.
+    </h4>
+
+    <a href="/hangry">Back to all locations</a>
+
+
+    <form action="/hangry" class="card mt-5" id="searchForm" method="POST">
+        <div class="card-body">
+            <div class="mb-3">
+                <label class="form-label" for="location">Location</label>
+                <input class="form-control" type="text" id="location" name="location"
+                    placeholder="For example: Mississauga, Toronto" required>
+            </div>
+
+            <button class="btn btn-block btn-success">Search</button>
+        </div>
+    </form>
+
+</main>
