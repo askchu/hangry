@@ -2,10 +2,14 @@
 
 <div class="row">
     <!-- details -->
-    <div class="col-8">
+    <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title"><%=hangry.data.title%></h5>
+                <h3 class="card-title"><%=hangry.data.title%></h3>
+                <p class="card-text">Entity Id: <%=hangry.data.entity_id %></p>
+                <p class="card-text">Type: <%=hangry.data.entity_type %> </p>
+                <h5 class="card-text">City: <%=hangry.data.city_name%></h5>
+                <p class="card-text">City Id: <%= hangry.data.city_id%> </p>
             </div>
         </div>
     </div>
