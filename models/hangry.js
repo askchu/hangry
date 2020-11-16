@@ -3,7 +3,10 @@ const Schema = mongoose.Schema;
 
 const HangrySchema = new Schema({
     data: {
-        title: String,
+        title: {
+            type: String,
+            unique: true
+        },
         latitude: Number,
         longitude: Number,
         entity_id: Number,

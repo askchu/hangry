@@ -45,8 +45,14 @@ module.exports.search = async (req, res) => {
     };
     getLocation();
     res.redirect('/hangry');
+};
+
+module.exports.showSearch = async (req, res) => {
+    const { id } = req.params;
+    const hangry = await Hangry.findById(id);
+    res.render('hangry/show', { hangry });
 }
 
 module.exports.results = async (req, res) => {
     res.render('hangry/results');
-}
+};

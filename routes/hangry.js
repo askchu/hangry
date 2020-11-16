@@ -11,4 +11,7 @@ router.route('/')
 router.route('/results')
     .get(catchAsync(hangry.results))
 
+router.route('/:id')
+    .get(catchAsync(hangry.showSearch))
+
 module.exports = router;
