@@ -12,8 +12,10 @@ const HangrySchema = new Schema({
     entity_type: String,
     city_id: Number,
     city_name: String,
-    cuisine_name: [String],
-    cuisine_id: Number
+    cuisine: [{
+        cuisine_name: String,
+        cuisine_id: Number
+    }]
 });
 
 module.exports = mongoose.model('Hangry', HangrySchema);

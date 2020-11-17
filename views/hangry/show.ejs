@@ -19,13 +19,13 @@
 
                 <form action="/hangry/<%=hangry._id%>" method="post">
                     <label>Pick a cuisine from <%=hangry.city_name%>: </label>
-                    <select class="select" id="cuisine" name="cuisine_name">
+                    <select class="select btn-block w-50" id="cuisine" name="cuisine_name">
                         <option value="">Select a Cuisine</option>
-                        <% for(food of hangry.cuisine_name){ %>
-                        <option value="<%=food%>"><%=food%></option>
+                        <% for (let i = 0; i < hangry.cuisine.length; i++) {  %>
+                        <option value="<%=hangry.cuisine[i].cuisine_id%>"><%=hangry.cuisine[i].cuisine_name%></option>
                         <% } %>
                     </select>
-                    <button class="btn">Search</button>
+                    <button class="btn btn-success btn-block w-50">Search</button>
                 </form>
 
 
