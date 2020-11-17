@@ -82,8 +82,9 @@ module.exports.search = async (req, res) => {
                     const cuisines = await axios.get(urlTwo, options);
                     // for (food of cuisines.data.cuisines) {
                     //     console.log(food.cuisine.cuisine_name);
-                    // }
+                    // } 
 
+                    // adds every cuisines found onto the database of the location searched
                     for (food of cuisines.data.cuisines) {
                         const x = await Hangry.findByIdAndUpdate(id, { $addToSet: { cuisine_name: [food.cuisine.cuisine_name] } }, { new: true },
                             //     //setting new: true shows the new updated model.
