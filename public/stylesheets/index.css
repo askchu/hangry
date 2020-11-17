@@ -1,0 +1,10 @@
+body {
+  height: 100vh;
+  background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)),
+    url(https://images.unsplash.com/photo-1505935428862-770b6f24f629?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=60);
+  background-size: cover;
+  background-position: center;
+  box-shadow: nset 0 0 5rem rgba(0, 0, 0, 0.5);
+}
+
+

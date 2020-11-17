@@ -5,7 +5,7 @@ const HangrySchema = new Schema({
     data: {
         title: {
             type: String,
-            unique: true
+            // unique: true
         },
         latitude: Number,
         longitude: Number,
@@ -13,6 +13,12 @@ const HangrySchema = new Schema({
         entity_type: String,
         city_id: Number,
         city_name: String,
+        cuisine: [
+            {
+                cuisine_id: Number,
+                cuisine_name: String
+            }
+        ]
     }
 });
 

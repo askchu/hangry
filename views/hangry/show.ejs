@@ -1,19 +1,27 @@
 <% layout('layouts/boilerplate') %>
+<link rel="stylesheet" href="/stylesheets/show.css">
 
-<div class="row">
+
+
+<div class="mt-3 row">
     <!-- details -->
     <div class="col-12">
         <div class="card">
             <div class="card-body">
                 <h3 class="card-title mb-1"><%=hangry.data.title%></h3>
-                <p class="card-text">Type: <%=hangry.data.entity_type %> <br> Entity Id:<%=hangry.data.entity_id %> </p>
+                <p class="card-text">Type: <%=hangry.data.entity_type %>
+                    <br> Entity Id: <%=hangry.data.entity_id %>
+                </p>
                 <p class="card-text">City: <%=hangry.data.city_name%> <br>Id Number: <%= hangry.data.city_id%></p>
+                <button class="btn btn-secondary">
+                    <a class="text-light" href="/hangry">Back to all locations</a>
+                </button>
             </div>
         </div>
     </div>
-
     <!-- picture -->
     <div class="col-4">
-
     </div>
+
+
 </div>

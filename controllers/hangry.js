@@ -18,10 +18,11 @@ module.exports.index = async (req, res) => {
 };
 
 module.exports.search = async (req, res) => {
-    const hangry = req.body;
-    const location = hangry.location;
+    const hangries = req.body;
+    const location = hangries.location;
     const url = "https://developers.zomato.com/api/v2.1/locations?query=" + location;
-    const getLocation = async () => {
+
+    const getStuff = async () => {
         try {
             const res = await axios.get(url, options);
             // console.log(res) //show directory
@@ -34,17 +35,20 @@ module.exports.search = async (req, res) => {
                     latitude: res.data.location_suggestions[0].latitude,
                     longitude: res.data.location_suggestions[0].longitude,
                     city_id: res.data.location_suggestions[0].city_id,
-                    city_name: res.data.location_suggestions[0].city_name
+                    city_name: res.data.location_suggestions[0].city_name,
                 }
             })
+
+            console.log(results);
             await results.save();
-            console.log("Saved to DB");
+
+
         } catch (e) {
             console.log(e);
         }
     };
-    getLocation();
-    res.redirect('/hangry');
+    getStuff();
+    res.redirect(`/hangry`);
 };
 
 module.exports.showSearch = async (req, res) => {

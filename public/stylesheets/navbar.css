@@ -1,0 +1,32 @@
+.navbar {
+  background: linear-gradient(rgba(26,183,234, 80%), rgba(85,172,238 , 1))
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+}
+
+.cover-container {
+  max-width: 60vw;
+}
+
+
+.nav-link {
+  color: white;
+  text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, 0.5);
+  font-size: 1.25rem;
+  padding: 0.25rem 0;
+  font-weight: 700;
+  margin-left: 1rem;
+  border-bottom: 0.25rem solid transparent;
+}
+
+.nav-link:hover {
+  color: white;
+  border-bottom-color: rgba(255, 255, 255, 0.5);
+}
+
+.nav-link.active {
+  color: white;
+  border-bottom-color: white;
+}
