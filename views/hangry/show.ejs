@@ -17,14 +17,16 @@
 
 
 
-
-                <label>Pick a cuisine from <%=hangry.city_name%>: </label>
-                <select class="select">
-                    <% for(food of hangry.cuisine_name){ %>
-                    <option value="<%=food%>"><%=food%></option>
-                    <% } %>
-                </select>
-
+                <form action="/hangry/<%=hangry._id%>" method="post">
+                    <label>Pick a cuisine from <%=hangry.city_name%>: </label>
+                    <select class="select" id="cuisine" name="cuisine_name">
+                        <option value="">Select a Cuisine</option>
+                        <% for(food of hangry.cuisine_name){ %>
+                        <option value="<%=food%>"><%=food%></option>
+                        <% } %>
+                    </select>
+                    <button class="btn">Search</button>
+                </form>
 
 
                 <br>

@@ -106,19 +106,24 @@ module.exports.search = async (req, res) => {
             console.log(e);
         }
     };
-
-
-
-
     getLocation();
     res.redirect(`/hangry`);
 };
 
-module.exports.showSearch = async (req, res) => {
+module.exports.showLocation = async (req, res) => {
     const { id } = req.params;
     const hangry = await Hangry.findById(id);
     res.render('hangry/show', { hangry });
 }
+
+module.exports.cuisineSearch = async (req, res) => {
+    const hangry = await Hangry.findById(req.params.id);
+    const hangries = req.body;
+    const cuisine = hangries.cuisine_name;
+    console.log(cuisine);
+    res.redirect(`/hangry/${hangry._id}`)
+}
+
 
 module.exports.results = async (req, res) => {
     res.render('hangry/results');

@@ -12,6 +12,7 @@ router.route('/results')
     .get(catchAsync(hangry.results))
 
 router.route('/:id')
-    .get(catchAsync(hangry.showSearch))
+    .get(catchAsync(hangry.showLocation))
+    .post(catchAsync(hangry.cuisineSearch))
 
 module.exports = router;
