@@ -1,12 +1,6 @@
 <% layout('layouts/boilerplate') %>
 <link rel="stylesheet" href="/stylesheets/show.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/selectize.min.js"
-    integrity="sha512-F7O0WjUWT+8qVnkKNDeXPt+uwW51fA8QLbqEYiyZfyG8cR0oaodl2oOFWODnV3zZvcy0IruaTosDiSDSeS9LIA=="
-    crossorigin="anonymous"></script>
-<link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap2.min.css"
-    integrity="sha512-oL7BDzjHVSAd9DDrJbr1+XmYfSxFyp1bo7AzdhFwYUsjhtI6lBKS+oEXjt35hxV0AFAcY+DzbkPQyR5AH5KxIg=="
-    crossorigin="anonymous" />
+
 
 
 <div class="mt-3 row">
@@ -19,13 +13,17 @@
                     <br> Entity Id: <%=hangry.entity_id %>
                 </p>
                 <p class="card-text">City: <%=hangry.city_name%> <br>Id Number: <%= hangry.city_id%></p>
-                <p class="card-text">Cuisines in the city of <%=hangry.city_name%>: </p>
-                <select class="btn btn-light border-1" id="select-state" placeholder="Pick a cuisine">
+
+
+
+
+
+                <label>Pick a cuisine from <%=hangry.city_name%>: </label>
+                <select class="select">
                     <% for(food of hangry.cuisine_name){ %>
                     <option value="<%=food%>"><%=food%></option>
                     <% } %>
                 </select>
-                <!-- <p><%=hangry.cuisine_name%></p> -->
 
 
 
@@ -41,5 +39,3 @@
     </div>
 
 </div>
-
-<script src="/javascripts/show"></script>
