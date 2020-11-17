@@ -42,34 +42,6 @@ module.exports.search = async (req, res) => {
 
             await results.save();
 
-            // $ADDTOSET
-
-            // const id = results._id;
-            // const x = await Hangry.findByIdAndUpdate(id, { $addToSet: { cuisine_name: ["HOLY MOLY", "DINGLE BERRY", "BEAN STALK"] } }, { new: true },
-            //     //setting new: true shows the new updated model.
-            //     function (err, res) {
-            //         if (err) {
-            //             console.log(err);
-            //         } else {
-            //             console.log(res);
-            //         }
-            //     }
-            // )
-
-
-            // UPDATE BY ID
-
-            // const id = results._id;
-            // const x = await Hangry.findByIdAndUpdate(id, { "entity_type": "Grace is HOTTTTUUUUU" }, { new: true },
-            //     //setting new: true shows the new updated model.
-            //     function (err, res) {
-            //         if (err) {
-            //             console.log(err);
-            //         } else {
-            //             console.log(res);
-            //         }
-            //     }
-            // )
 
 
             // RUN GET CUISINE OF CITY API
@@ -85,6 +57,7 @@ module.exports.search = async (req, res) => {
                         // console.log(food.cuisine.cuisine_name);
                         // console.log(food.cuisine.cuisine_id);
                         const x = await Hangry.findByIdAndUpdate(id, { $addToSet: { cuisine: [{ cuisine_name: food.cuisine.cuisine_name, cuisine_id: food.cuisine.cuisine_id }] } }, { new: true })
+                        // shows the updated lists
                         //     function (err, res) {
                         //         if (err) {
                         //             console.log(err);
@@ -94,28 +67,6 @@ module.exports.search = async (req, res) => {
                         //     }
                         // );
                     }
-
-
-                    //     const x = await Hangry.findByIdAndUpdate(id, { $addToSet: { cuisine_name: [food.cuisine.cuisine_name] } }, { new: true },
-
-
-
-
-                    // // adds every cuisines found onto the database of the location searched
-                    // for (food of cuisines.data.cuisines) {
-                    //     const x = await Hangry.findByIdAndUpdate(id, { $addToSet: { cuisine_name: [food.cuisine.cuisine_name] } }, { new: true },
-                    //         //     //setting new: true shows the new updated model.
-
-                    //         // shows the updated lists
-                    //         function (err, res) {
-                    //             if (err) {
-                    //                 console.log(err);
-                    //             } else {
-                    //                 console.log(res);
-                    //             }
-                    //         }
-                    //     )
-                    // }
                 } catch (e) {
                     console.log(e);
                 }
@@ -138,7 +89,7 @@ module.exports.showLocation = async (req, res) => {
 module.exports.cuisineSearch = async (req, res) => {
     const hangry = await Hangry.findById(req.params.id);
     const hangries = req.body;
-    const cuisine = hangries.cuisine_name;
+    const cuisine = hangries.cuisine_id;
     console.log(cuisine);
 
     res.redirect(`/hangry/${hangry._id}`)
