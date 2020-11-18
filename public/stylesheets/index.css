@@ -6,3 +6,31 @@ body {
   background-position: center;
   box-shadow: nset 0 0 5rem rgba(0, 0, 0, 0.5);
 }
+
+#title {
+  background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)),
+    url(https://images.unsplash.com/photo-1494859802809-d069c3b71a8a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=60);  
+    background-size: cover;
+  background-position: center;
+  text-align: center;
+  border-bottom: 0.15rem solid black;
+  border-top: 0.15rem solid black;
+}
+ 
+#title h1 {
+  font-size: 3.5rem;
+}
+
+#title button {
+  font-size: 1.2rem;
+}
+
+button a {
+  color:white;
+  text-decoration: none;
+}
+
+button {
+  background: linear-gradient(rgba(26,183,234, 0.5), rgba(85,172,238 , 1))
+}
+

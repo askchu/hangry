@@ -2,25 +2,29 @@
 <link rel="stylesheet" href="/stylesheets/index.css">
 
 
-<div class="my-3">
+<div id="title" class="py-4 bg-light mx-auto">
     <h1 class="">All Locations</h1>
-    <a href="hangry/results">Search locations</a>
+    <button id="button1" class="btn btn-dark">
+        <a href="hangry/results">Add a new location</a>
+    </button>
 </div>
 
-<div class="text-center row">
-    <% for(let hangry of hangryz) { %>
-    <div class="col-md-6 col-lg-4">
-        <div class="card rounded-1 my-2">
-            <div class="card-body bg-light">
-                <h3 class="card-title mb-3"><%=hangry.title%></h5>
-                    <!-- <p class="card-text">Category: <%=hangry.entity_type%></p>
+<div class="container mt-4">
+    <div class="mx-1 text-center row">
+        <% for(let hangry of hangryz) { %>
+        <div class="col-md-12 col-lg-4">
+            <div class="card rounded-1 my-2">
+                <div class="card-body bg-light">
+                    <h3 class="card-title mb-3"><%=hangry.title%></h5>
+                        <!-- <p class="card-text">Category: <%=hangry.entity_type%></p>
                     <p class="card-text text-muted">Entity Number: <%=hangry.entity_id%></p>
                     <p class="card-text">City Id: <%=hangry.city_id%></p> -->
-                    <button class="btn btn-primary">
-                        <a class="text-light" href="/hangry/<%=hangry._id%>">View <%=hangry.title%></a>
-                    </button>
+                        <button class="btn btn-primary">
+                            <a class="text-light" href="/hangry/<%=hangry._id%>">View <%=hangry.title%></a>
+                        </button>
+                </div>
             </div>
         </div>
+        <% } %>
     </div>
-    <% } %>
 </div>
