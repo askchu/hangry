@@ -7,11 +7,9 @@ const app = express();
 const path = require('path');
 const ejsMate = require('ejs-mate');
 const methodOverride = require('method-override');
-const axios = require('axios');
 const hangryRoutes = require('./routes/hangry');
 const zomato = require('zomato-api');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser')
 
 
 
