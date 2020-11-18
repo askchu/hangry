@@ -8,8 +8,8 @@ router.route('/')
     .get(catchAsync(hangry.index))
     .post(catchAsync(hangry.search))
 
-router.route('/results')
-    .get(catchAsync(hangry.results))
+router.route('/searchLocation')
+    .get(catchAsync(hangry.searchLocation))
 
 router.route('/:id')
     .get(catchAsync(hangry.showLocation))

@@ -1,6 +1,5 @@
 const Hangry = require('../models/hangry');
 const config = process.env.ZOMATO
-const fetch = require('node-fetch');
 const zomato = require('zomato-api');
 const axios = require('axios');
 const hangry = require('../models/hangry');
@@ -96,6 +95,6 @@ module.exports.cuisineSearch = async (req, res) => {
 }
 
 
-module.exports.results = async (req, res) => {
-    res.render('hangry/results');
+module.exports.searchLocation = async (req, res) => {
+    res.render('hangry/searchLocation');
 };
