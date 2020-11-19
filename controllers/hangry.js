@@ -12,8 +12,15 @@ const options = {
 
 
 module.exports.index = async (req, res) => {
-    const hangryz = await Hangry.find();
+    // const hangryz = await Hangry.find();
+
+    //   Lists every location alphabetically
+    const hangryz = await Hangry.find().collation({ locale: 'en', strength: 2 }).sort({ title: 1 });
+    // for (let i = 0; i < hangryz.length; i++) {
+    //     console.log(hangryz[i].title);
+    // }
     res.render('hangry/index', { hangryz });
+
 };
 
 module.exports.search = async (req, res) => {

@@ -12,16 +12,21 @@
     </button>
 
 
-    <div class=" card my-3">
+    <div class="card my-3">
         <div class="card-body">
-            <form action="/hangry" class="" id="searchForm" method="POST">
+            <form action="/hangry" class="needs-validation" id="searchForm" method="POST" novalidate>
                 <div class="mb-2">
                     <label class="form-label" for="location"><strong>Location:</strong></label>
                     <input class="form-control" type="text" id="location" name="location"
                         placeholder="For example: Mississauga, Toronto" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
                 </div>
                 <button class="btn btn-block btn-success">Search</button>
             </form>
         </div>
     </div>
 </div>
+
+<script src="/javascripts/searchLocation.js"></script>
