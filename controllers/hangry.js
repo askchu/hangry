@@ -1,8 +1,6 @@
 const Hangry = require('../models/hangry');
 const config = process.env.ZOMATO
-const zomato = require('zomato-api');
 const axios = require('axios');
-const hangry = require('../models/hangry');
 
 
 
@@ -37,16 +35,18 @@ module.exports.search = async (req, res) => {
                 city_id: res.data.location_suggestions[0].city_id,
                 city_name: res.data.location_suggestions[0].city_name,
             })
-            console.log(results);
-
+            // console.log(results);
             await results.save();
 
+            const saved = {
+                id: results._id,
+                cityId: results.city_id
+            };
 
+            const id = saved.id;
+            const cityId = saved.cityId;
 
             // RUN GET CUISINE OF CITY API
-
-            const id = results._id;
-            const cityId = results.city_id;
             const urlTwo = "https://developers.zomato.com/api/v2.1/cuisines?city_id=" + cityId;
 
             const getCuisine = async () => {
@@ -71,11 +71,15 @@ module.exports.search = async (req, res) => {
                 }
             }
             getCuisine();
+            return saved;
         } catch (e) {
             console.log(e);
         }
     };
-    getLocation();
+    const saved = await getLocation();
+    const id = saved.id;
+    console.log("New Location: '" + id + "' saved to Database")
+
     res.redirect(`/hangry`);
 };
 
