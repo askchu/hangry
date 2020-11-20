@@ -23,8 +23,14 @@ body {
   text-shadow: 0 0.2rem 0.3rem rgba(7, 7, 7, 0.7);
 }
 
+#title h3 {
+  font-size: 1.5rem;
+  color:rgba(255, 255, 255, 0.97);
+  text-shadow: 0 0.2rem 0.3rem rgba(7, 7, 7, 0.8);
+}
+
 #title button {
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 button a {
