@@ -8,9 +8,6 @@ router.route('/')
     .get(catchAsync(hangry.index))
     .post(catchAsync(hangry.search))
 
-router.route('/searchLocation')
-    .get(catchAsync(hangry.searchLocation))
-
 router.route('/:id')
     .get(catchAsync(hangry.showLocation))
     .post(catchAsync(hangry.cuisineSearch))

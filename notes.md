@@ -53,3 +53,31 @@
                     //         }
                     //     )
                     // }
+
+
+
+
+
+
+
+
+
+                    <div id="main" class="container my-4 mh-75">
+    <div class="mx-1 text-center row">
+        <% for(let hangry of hangryz) { %>
+        <div class="col-md-12 col-lg-4">
+            <div class="card rounded-1 my-2">
+                <div class="card-body bg-light">
+                    <h3 class="card-title mb-3"><%=hangry.title%></h5>
+                         <p class="card-text">Category: <%=hangry.entity_type%></p>
+                    <p class="card-text text-muted">Entity Number: <%=hangry.entity_id%></p>
+                    <p class="card-text">City Id: <%=hangry.city_id%></p> 
+                        <button class="btn btn-primary">
+                            <a class="text-light" href="/hangry/<%=hangry._id%>">View <%=hangry.title%></a>
+                        </button>
+                </div>
+            </div>
+        </div>
+        <% } %>
+    </div>
+</div>

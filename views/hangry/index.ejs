@@ -3,14 +3,33 @@
 
 
 <div id="title" class="py-4">
-    <h1 class="mb-4">Locations</h1>
-    <h3 class="d-inline">Don't see your location?</h3>
-    <button id="button1" class="ml-2 btn btn-dark d-inline">
-        <a href="/hangry/searchLocation">Add a new location</a>
-    </button>
+    <h1 class="mb-4">Begin your search</h1>
+    <h3 class="title d-inline">Don't see your location? Add one right here!</h3>
+
+    <div class="my-3">
+        <div class="">
+            <form action="/hangry" class="needs-validation" id="searchForm" method="POST" novalidate>
+                <div class="mb-2 ">
+                    <label class="form-label" for="location"><strong>Location:</strong></label>
+                    <input class="" type="text" id="location" name="location"
+                        placeholder="For example: Mississauga, Toronto" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <button id="btn" class="btn btn-success">Search</button>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- <button id="button1" class="ml-2 btn btn-dark d-inline">
+    <a href="/hangry/searchLocation">Add a new location</a>
+</button> -->
 </div>
 
+<!-- Discover the best food & drinks in New York City, NY -->
 <div id="main" class="container my-4 mh-75">
+    <h2 id="title2" class="pb-3 mt-2 text-center">All Locations</h2>
     <div class="mx-1 text-center row">
         <% for(let hangry of hangryz) { %>
         <div class="col-md-12 col-lg-4">
@@ -18,8 +37,8 @@
                 <div class="card-body bg-light">
                     <h3 class="card-title mb-3"><%=hangry.title%></h5>
                         <!-- <p class="card-text">Category: <%=hangry.entity_type%></p>
-                    <p class="card-text text-muted">Entity Number: <%=hangry.entity_id%></p>
-                    <p class="card-text">City Id: <%=hangry.city_id%></p> -->
+                        <p class="card-text text-muted">Entity Number: <%=hangry.entity_id%></p>
+                        <p class="card-text">City Id: <%=hangry.city_id%></p> -->
                         <button class="btn btn-primary">
                             <a class="text-light" href="/hangry/<%=hangry._id%>">View <%=hangry.title%></a>
                         </button>

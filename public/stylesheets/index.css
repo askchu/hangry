@@ -43,6 +43,10 @@ button {
 }
 
 
+input {
+  width: 50%;
+}
+
 #reviews {
   background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)),
     url(https://images.unsplash.com/photo-1495195134817-aeb325a55b65?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60);  
@@ -56,4 +60,21 @@ button {
   font-size: 2.5rem;
   color:rgba(255, 255, 255, 0.97);
   text-shadow: 0 0.2rem 0.3rem rgba(7, 7, 7, 0.7);
+}
+
+#title2 {
+font-size: 3rem;
+  color:rgba(255, 255, 255, 0.97);
+  text-shadow: 0 0.2rem 0.3rem rgba(7, 7, 7, 0.8);
+}
+
+@media (max-width: 992px) {
+#btn {
+  width: 100%;
+}
+
+input {
+  height: 2.5rem;
+  width: 80%;
+}
 }
