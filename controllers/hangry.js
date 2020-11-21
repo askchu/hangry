@@ -144,7 +144,7 @@ module.exports.cuisineSearch = async (req, res) => {
         count: hangries.count
     }
     const id = hangry._id
-    const add = await Hangry.findByIdAndUpdate(id, { $addToSet: { search: [{ entity_id: results.entityId, entity_type: results.entityType, cuisine_id: results.cuisineId, establishment_id: results.establishmentId, count: results.count }] } }, { new: true });
+    const add = await Hangry.findByIdAndUpdate(id, { $addToSet: { search: { entity_id: results.entityId, entity_type: results.entityType, cuisine_id: results.cuisineId, establishment_id: results.establishmentId, count: results.count } } }, { new: true });
     console.log(add.search);
     // console.log("Cuisine Id:" + results.cuisineId);
     // console.log("Establishment Id: " + results.establishmentId);
@@ -158,35 +158,24 @@ module.exports.cuisineSearch = async (req, res) => {
 
 module.exports.searchResults = async (req, res) => {
     const hangry = await Hangry.findById(req.params.id);
+    console.log(hangry.search.entity_id);
 
 
     // WORK IN PROGRESS
 
-    // const url = "https://developers.zomato.com/api/v2.1/establishments?city_id=" + cityId;
+    const url = `https://developers.zomato.com/api/v2.1/search?entity_id=${hangry.search.entity_id}&entity_type=${hangry.search.entity_type}&count=${hangry.search.count}&cuisines=${hangry.search.cuisine_id}&establishment_type=${hangry.search.establishment_id}`;
 
-    // const search = async () => {
-    //     try {
-    //         const est = await axios.get(urlThree, options);
-    //         // console.log(est.data.establishments);
-    //         const k = est.data.establishments;
-    //         for (let i = 0; i < k.length; i++) {
-    //             // Prints out every establishment name
-    //             // console.log(k[i].establishment.name)
-    //             const res = await Hangry.findByIdAndUpdate(id, { $addToSet: { establishment: [{ establishment_name: k[i].establishment.name, establishment_id: k[i].establishment.id }] } }, { new: true },
-    //                 function (err, res) {
-    //                     if (err) {
-    //                         console.log(err);
-    //                     } else {
-    //                         console.log(res);
-    //                     }
-    //                 }
-    //             );
-    //         }
-    //     } catch (e) {
-    //         console.log(e);
-    //     }
-    // };
-    // search();
+    const search = async () => {
+        try {
+            const searchResults = await axios.get(url, options);
+            // Prints out the first restaurant details searched
+            // console.log(searchResults.data.restaurants[0].restaurant);
+
+        } catch (e) {
+            console.log(e);
+        }
+    };
+    search();
 
     res.render(`hangry/search`, { hangry })
 };
