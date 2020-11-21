@@ -141,16 +141,18 @@ module.exports.cuisineSearch = async (req, res) => {
         entityId: hangry.entity_id,
         entityType: hangry.entity_type
     }
-    console.log(results.cuisineId);
-    console.log(results.establishmentId);
-    console.log(results.entityId);
-    console.log(results.entityType);
+    console.log("Cuisine Id:" + results.cuisineId);
+    console.log("Establishment Id: " + results.establishmentId);
+    console.log("Entity Id: " + results.entityId);
+    console.log("Entity Type: " + results.entityType);
 
-    res.redirect(`/hangry/${hangry._id}`)
+    res.redirect(`/hangry/${hangry._id}/search`)
 }
 
-
-module.exports.searchLocation = async (req, res) => {
-    res.render('hangry/searchLocation');
-};
+module.exports.searchResults = async (req, res) => {
+    const hangry = await Hangry.findById(req.params.id);
+    const hangries = req.body;
+    console.log(hangries);
+    res.render(`hangry/search`, { hangry })
+}
 
