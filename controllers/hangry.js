@@ -43,7 +43,7 @@ module.exports.search = async (req, res) => {
                 city_id: res.data.location_suggestions[0].city_id,
                 city_name: res.data.location_suggestions[0].city_name,
             })
-            // console.log(results);
+            console.log(results);
             await results.save();
 
             const saved = {
@@ -77,7 +77,38 @@ module.exports.search = async (req, res) => {
                 } catch (e) {
                     console.log(e);
                 }
-            }
+            };
+
+            const urlThree = "https://developers.zomato.com/api/v2.1/establishments?city_id=" + cityId;
+
+            const getEstablishment = async () => {
+                try {
+                    const est = await axios.get(urlThree, options);
+                    console.log(est.data.establishments)
+                    // for (res of est.data.establishments) {
+                    //     console.log(res.establishment.id);
+                    // }
+                    //     // console.log(food.cuisine.cuisine_id);
+                    //     const x = await Hangry.findByIdAndUpdate(id, { $addToSet: { cuisine: [{ cuisine_name: food.cuisine.cuisine_name, cuisine_id: food.cuisine.cuisine_id }] } }, { new: true })
+                    // shows the updated lists
+                    //     function (err, res) {
+                    //         if (err) {
+                    //             console.log(err);
+                    //         } else {
+                    //             console.log(res);
+                    //         }
+                    //     }
+                    // );
+
+                } catch (e) {
+                    console.log(e);
+                }
+            };
+
+
+
+
+            getEstablishment();
             getCuisine();
             return saved;
         } catch (e) {
