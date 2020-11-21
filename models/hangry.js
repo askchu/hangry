@@ -20,10 +20,13 @@ const HangrySchema = new Schema({
         establishment_name: String,
         establishment_id: Number
     }],
-    restaurants: {
-        type: Schema.Types.ObjectId,
-        ref: "Restaurant"
-    }
+    search: [{
+        entity_id: String,
+        entity_type: String,
+        count: Number,
+        cuisine_id: Number,
+        establishment_id: Number
+    }]
 });
 
 module.exports = mongoose.model('Hangry', HangrySchema);

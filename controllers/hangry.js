@@ -90,15 +90,16 @@ module.exports.search = async (req, res) => {
                     for (let i = 0; i < k.length; i++) {
                         // Prints out every establishment name
                         // console.log(k[i].establishment.name)
-                        const res = await Hangry.findByIdAndUpdate(id, { $addToSet: { establishment: [{ establishment_name: k[i].establishment.name, establishment_id: k[i].establishment.id }] } }, { new: true },
-                            function (err, res) {
-                                if (err) {
-                                    console.log(err);
-                                } else {
-                                    console.log(res);
-                                }
-                            }
-                        );
+                        const res = await Hangry.findByIdAndUpdate(id, { $addToSet: { establishment: [{ establishment_name: k[i].establishment.name, establishment_id: k[i].establishment.id }] } }, { new: true });
+                        // ,
+                        //     function (err, res) {
+                        //         if (err) {
+                        //             console.log(err);
+                        //         } else {
+                        //             console.log(res);
+                        //         }
+                        //     }
+                        // );
                     }
                 } catch (e) {
                     console.log(e);
@@ -139,20 +140,54 @@ module.exports.cuisineSearch = async (req, res) => {
         cuisineId: hangries.cuisine_id,
         establishmentId: hangries.establishment_id,
         entityId: hangry.entity_id,
-        entityType: hangry.entity_type
+        entityType: hangry.entity_type,
+        count: hangries.count
     }
-    console.log("Cuisine Id:" + results.cuisineId);
-    console.log("Establishment Id: " + results.establishmentId);
-    console.log("Entity Id: " + results.entityId);
-    console.log("Entity Type: " + results.entityType);
+    const id = hangry._id
+    const add = await Hangry.findByIdAndUpdate(id, { $addToSet: { search: [{ entity_id: results.entityId, entity_type: results.entityType, cuisine_id: results.cuisineId, establishment_id: results.establishmentId, count: results.count }] } }, { new: true });
+    console.log(add.search);
+    // console.log("Cuisine Id:" + results.cuisineId);
+    // console.log("Establishment Id: " + results.establishmentId);
+    // console.log("Entity Id: " + results.entityId);
+    // console.log("Entity Type: " + results.entityType);
 
+
+    // res.redirect(`/hangry/${hangry._id}`)
     res.redirect(`/hangry/${hangry._id}/search`)
 }
 
 module.exports.searchResults = async (req, res) => {
     const hangry = await Hangry.findById(req.params.id);
-    const hangries = req.body;
-    console.log(hangries);
+
+
+    // WORK IN PROGRESS
+
+    // const url = "https://developers.zomato.com/api/v2.1/establishments?city_id=" + cityId;
+
+    // const search = async () => {
+    //     try {
+    //         const est = await axios.get(urlThree, options);
+    //         // console.log(est.data.establishments);
+    //         const k = est.data.establishments;
+    //         for (let i = 0; i < k.length; i++) {
+    //             // Prints out every establishment name
+    //             // console.log(k[i].establishment.name)
+    //             const res = await Hangry.findByIdAndUpdate(id, { $addToSet: { establishment: [{ establishment_name: k[i].establishment.name, establishment_id: k[i].establishment.id }] } }, { new: true },
+    //                 function (err, res) {
+    //                     if (err) {
+    //                         console.log(err);
+    //                     } else {
+    //                         console.log(res);
+    //                     }
+    //                 }
+    //             );
+    //         }
+    //     } catch (e) {
+    //         console.log(e);
+    //     }
+    // };
+    // search();
+
     res.render(`hangry/search`, { hangry })
-}
+};
 

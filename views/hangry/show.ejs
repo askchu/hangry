@@ -29,30 +29,47 @@
                     <div class="container">
                         <div class="card-body">
                             <h3 class="card-title">Filter down your choices below:</h3>
-                            <form action="/hangry/<%=hangry._id%>" method="post">
+                            <form action="/hangry/<%=hangry._id%>" class="needs-validation" novalidate method="post">
+                                <!-- COUNT - max number of results display -->
+                                <label for="count" class="form-label ">Count - Max Number of
+                                    Results
+                                    Displayed</label>
+                                <input class="form-control mb-1" type="number" name="count" id="count" min="1" max="100"
+                                    placeholder="Choose from 1 to 100" required>
+                                <!-- <div class="valid-feedback"> -->
+                                <!-- Looks good!
+                        </div> -->
+
 
                                 <!-- CUISINE -->
-                                <label class="btn-block">Pick a cuisine: </label>
-                                <select class="select btn-block" id="cuisine" name="cuisine_id">
-                                    <option value="">Select a Cuisine</option>
-                                    <% for (let i = 0; i < hangry.cuisine.length; i++) {  %>
+                                <label class="btn-block" for="cuisine_id">Pick a cuisine: </label>
+                                <select class="select btn-block" id="cuisine_id" name="cuisine_id">
+                                    <option value="<%=hangry.cuisine[0].cuisine_id%>">
+                                        <%=hangry.cuisine[0].cuisine_name%>
+                                    </option>
+                                    <% for (let i = 1; i < hangry.cuisine.length; i++) {  %>
                                     <option value="<%=hangry.cuisine[i].cuisine_id%>">
                                         <%=hangry.cuisine[i].cuisine_name%>
                                     </option>
                                     <% } %>
                                 </select>
 
+
+
                                 <!-- ESTABLISHMENT -->
                                 <label class="btn-block">Pick an establishment: </label>
-                                <select class="select btn-block" id="establishment" name="establishment_id">
-                                    <option value="">Select an Establishment</option>
-                                    <% for (let i = 0; i < hangry.establishment.length; i++) {  %>
+                                <select class="select btn-block mb-3" id="establishment" name="establishment_id">
+                                    <option value="<%=hangry.establishment[0].establishment_id%>" selected>
+                                        <%=hangry.establishment[0].establishment_name%></option>
+                                    <% for (let i = 1; i < hangry.establishment.length; i++) {  %>
                                     <option value="<%=hangry.establishment[i].establishment_id%>">
                                         <%=hangry.establishment[i].establishment_name%>
                                     </option>
                                     <% } %>
                                 </select>
-                                <button class="btn btn-success btn-block">Search</button>
+
+
+                                <button class="mt-2 btn btn-success btn-block">Search</button>
                             </form>
                         </div>
                     </div>
@@ -70,5 +87,23 @@
 
 
 <script>
-    // window.location.reload()
+    (function () {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
 </script>
