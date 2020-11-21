@@ -17,8 +17,8 @@ const HangrySchema = new Schema({
         cuisine_id: Number
     }],
     establishment: [{
-        cuisine_name: String,
-        cuisine_id: Number
+        establishment_name: String,
+        establishment_id: Number
     }],
     restaurants: {
         type: Schema.Types.ObjectId,

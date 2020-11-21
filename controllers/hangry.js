@@ -60,6 +60,7 @@ module.exports.search = async (req, res) => {
             const getCuisine = async () => {
                 try {
                     const cuisines = await axios.get(urlTwo, options);
+                    // console.log(cuisines.data.cuisines);
                     for (food of cuisines.data.cuisines) {
                         // console.log(food.cuisine.cuisine_name);
                         // console.log(food.cuisine.cuisine_id);
@@ -84,22 +85,21 @@ module.exports.search = async (req, res) => {
             const getEstablishment = async () => {
                 try {
                     const est = await axios.get(urlThree, options);
-                    console.log(est.data.establishments)
-                    // for (res of est.data.establishments) {
-                    //     console.log(res.establishment.id);
-                    // }
-                    //     // console.log(food.cuisine.cuisine_id);
-                    //     const x = await Hangry.findByIdAndUpdate(id, { $addToSet: { cuisine: [{ cuisine_name: food.cuisine.cuisine_name, cuisine_id: food.cuisine.cuisine_id }] } }, { new: true })
-                    // shows the updated lists
-                    //     function (err, res) {
-                    //         if (err) {
-                    //             console.log(err);
-                    //         } else {
-                    //             console.log(res);
-                    //         }
-                    //     }
-                    // );
-
+                    // console.log(est.data.establishments);
+                    const k = est.data.establishments;
+                    for (let i = 0; i < k.length; i++) {
+                        // Prints out every establishment name
+                        // console.log(k[i].establishment.name)
+                        const res = await Hangry.findByIdAndUpdate(id, { $addToSet: { establishment: [{ establishment_name: k[i].establishment.name, establishment_id: k[i].establishment.id }] } }, { new: true },
+                            function (err, res) {
+                                if (err) {
+                                    console.log(err);
+                                } else {
+                                    console.log(res);
+                                }
+                            }
+                        );
+                    }
                 } catch (e) {
                     console.log(e);
                 }
@@ -131,8 +131,16 @@ module.exports.showLocation = async (req, res) => {
 module.exports.cuisineSearch = async (req, res) => {
     const hangry = await Hangry.findById(req.params.id);
     const hangries = req.body;
-    const cuisine = hangries.cuisine_id;
-    console.log(cuisine);
+    // const cuisine = hangries.cuisine_id;
+    // console.log(cuisine);
+    // const establishment = hangries.id
+    // console.log(establishment);
+    const results = {
+        cuisineId: hangries.cuisine_id,
+        establishmentId: hangries.establishment_id,
+    }
+    console.log(results.cuisineId);
+    console.log(results.establishmentId);
 
     res.redirect(`/hangry/${hangry._id}`)
 }

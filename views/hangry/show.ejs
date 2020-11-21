@@ -30,12 +30,24 @@
                         <div class="card-body">
                             <h3 class="card-title">Filter down your choices below:</h3>
                             <form action="/hangry/<%=hangry._id%>" method="post">
+                                <!-- CUISINE -->
                                 <label>Pick a cuisine: </label>
                                 <select class="select btn-block" id="cuisine" name="cuisine_id">
                                     <option value="">Select a Cuisine</option>
                                     <% for (let i = 0; i < hangry.cuisine.length; i++) {  %>
                                     <option value="<%=hangry.cuisine[i].cuisine_id%>">
                                         <%=hangry.cuisine[i].cuisine_name%>
+                                    </option>
+                                    <% } %>
+                                </select>
+
+                                <!-- ESTABLISHMENT -->
+                                <label>Pick an establishment: </label>
+                                <select class="select btn-block" id="establishment" name="establishment_id">
+                                    <option value="">Select an Establishment</option>
+                                    <% for (let i = 0; i < hangry.establishment.length; i++) {  %>
+                                    <option value="<%=hangry.establishment[i].establishment_id%>">
+                                        <%=hangry.establishment[i].establishment_name%>
                                     </option>
                                     <% } %>
                                 </select>
