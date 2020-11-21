@@ -21,14 +21,23 @@ const HangrySchema = new Schema({
         establishment_id: Number
     }],
     search: {
-        entity_id: String,
-        entity_type: String,
         count: Number,
         cuisine_id: Number,
         establishment_id: Number
     },
-    restaurants: [{
-
+    restaurant: [{
+        name: String,
+        address: String,
+        locality: String,
+        cuisineType: String,
+        averageCostForTwo: Number,
+        timings: String,
+        currency: String,
+        highlights: [String],
+        averageRating: String,
+        ratingVotes: Number,
+        menu: String,
+        phoneNumber: String
     }]
 });
 

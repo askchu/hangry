@@ -139,12 +139,10 @@ module.exports.cuisineSearch = async (req, res) => {
     const results = {
         cuisineId: hangries.cuisine_id,
         establishmentId: hangries.establishment_id,
-        entityId: hangry.entity_id,
-        entityType: hangry.entity_type,
         count: hangries.count
     }
     const id = hangry._id
-    const add = await Hangry.findByIdAndUpdate(id, { $addToSet: { search: { entity_id: results.entityId, entity_type: results.entityType, cuisine_id: results.cuisineId, establishment_id: results.establishmentId, count: results.count } } }, { new: true });
+    const add = await Hangry.findByIdAndUpdate(id, { $addToSet: { search: { cuisine_id: results.cuisineId, establishment_id: results.establishmentId, count: results.count } } }, { new: true });
     console.log(add.search);
     // console.log("Cuisine Id:" + results.cuisineId);
     // console.log("Establishment Id: " + results.establishmentId);
@@ -158,18 +156,24 @@ module.exports.cuisineSearch = async (req, res) => {
 
 module.exports.searchResults = async (req, res) => {
     const hangry = await Hangry.findById(req.params.id);
-    console.log(hangry.search.entity_id);
+    // console.log(hangry.search.entity_id);
 
 
     // WORK IN PROGRESS
 
-    const url = `https://developers.zomato.com/api/v2.1/search?entity_id=${hangry.search.entity_id}&entity_type=${hangry.search.entity_type}&count=${hangry.search.count}&cuisines=${hangry.search.cuisine_id}&establishment_type=${hangry.search.establishment_id}`;
+    const url = `https://developers.zomato.com/api/v2.1/search?entity_id=${hangry.entity_id}&entity_type=${hangry.entity_type}&count=${hangry.search.count}&cuisines=${hangry.search.cuisine_id}&establishment_type=${hangry.search.establishment_id}`;
 
     const search = async () => {
         try {
             const searchResults = await axios.get(url, options);
+            console.log(searchResults.data.restaurants[0].restaurant);
             // Prints out the first restaurant details searched
-            // console.log(searchResults.data.restaurants[0].restaurant);
+            console.log(searchResults.data.restaurants[0].restaurant.name);
+            // console.log(searchResults.data.restaurants[0].restaurant.location.city);
+            // console.log(searchResults.data.restaurants[0].restaurant.location.address);
+            console.log(searchResults.data.restaurants[0].restaurant.user_rating.aggregate_rating);
+
+
 
         } catch (e) {
             console.log(e);
