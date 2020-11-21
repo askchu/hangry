@@ -43,6 +43,11 @@ button {
 }
 
 
+#btn {
+  text-align: center;
+  width: 50%;
+}
+
 input {
   width: 50%;
 }
