@@ -138,9 +138,13 @@ module.exports.cuisineSearch = async (req, res) => {
     const results = {
         cuisineId: hangries.cuisine_id,
         establishmentId: hangries.establishment_id,
+        entityId: hangry.entity_id,
+        entityType: hangry.entity_type
     }
     console.log(results.cuisineId);
     console.log(results.establishmentId);
+    console.log(results.entityId);
+    console.log(results.entityType);
 
     res.redirect(`/hangry/${hangry._id}`)
 }
