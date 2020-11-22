@@ -142,12 +142,29 @@ module.exports.cuisineSearch = async (req, res) => {
         count: hangries.count
     }
     const id = hangry._id
-    const add = await Hangry.findByIdAndUpdate(id, { $addToSet: { search: { cuisine_id: results.cuisineId, establishment_id: results.establishmentId, count: results.count } } }, { new: true });
+
+
+    // Removes filter search request if there is one already made
+    if (hangry.search.length) {
+        const idTwo = hangry.search[0]._id
+        const remove = await Hangry.updateOne({ _id: id }, { $pull: { search: { _id: idTwo } } }, { new: true },
+            function (err, res) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log(res);
+                }
+            }
+        );
+        console.log("Removed Id:" + idTwo);
+    }
+
+    // Adds a new filter search request
+    const add = await Hangry.findByIdAndUpdate(id, { $addToSet: { search: [{ cuisine_id: results.cuisineId, establishment_id: results.establishmentId, count: results.count }] } }, { new: true });
     console.log(add.search);
-    // console.log("Cuisine Id:" + results.cuisineId);
-    // console.log("Establishment Id: " + results.establishmentId);
-    // console.log("Entity Id: " + results.entityId);
-    // console.log("Entity Type: " + results.entityType);
+    console.log("Cuisine Id:" + results.cuisineId);
+    console.log("Establishment Id: " + results.establishmentId);
+
 
 
     // res.redirect(`/hangry/${hangry._id}`)
@@ -166,12 +183,19 @@ module.exports.searchResults = async (req, res) => {
     const search = async () => {
         try {
             const searchResults = await axios.get(url, options);
-            console.log(searchResults.data.restaurants[0].restaurant);
+            // console.log(searchResults.data.restaurants[0].restaurant);
             // Prints out the first restaurant details searched
-            console.log(searchResults.data.restaurants[0].restaurant.name);
+            // console.log(searchResults.data.restaurants[0].restaurant.name);
             // console.log(searchResults.data.restaurants[0].restaurant.location.city);
             // console.log(searchResults.data.restaurants[0].restaurant.location.address);
-            console.log(searchResults.data.restaurants[0].restaurant.user_rating.aggregate_rating);
+            // console.log(searchResults.data.restaurants[0].restaurant.user_rating.aggregate_rating);
+
+            const res = searchResults.data.restaurants;
+            // console.log(res);
+            for (let i = 0; i < res.length; i++) {
+                console.log(res[i].restaurant.name);
+            }
+
 
 
 

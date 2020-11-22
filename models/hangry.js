@@ -20,11 +20,11 @@ const HangrySchema = new Schema({
         establishment_name: String,
         establishment_id: Number
     }],
-    search: {
+    search: [{
         count: Number,
         cuisine_id: Number,
         establishment_id: Number
-    },
+    }],
     restaurant: [{
         name: String,
         address: String,
