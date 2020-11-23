@@ -174,7 +174,8 @@ module.exports.cuisineSearch = async (req, res) => {
 module.exports.searchResults = async (req, res) => {
     const hangry = await Hangry.findById(req.params.id);
     // console.log(hangry.search.entity_id);
-
+    const hangryz = await Hangry.find().collation({ locale: 'en', strength: 2 }).sort({ title: 1 });
+    console.log(hangry.restaurant);
 
     // WORK IN PROGRESS
 
@@ -192,8 +193,13 @@ module.exports.searchResults = async (req, res) => {
 
             const res = searchResults.data.restaurants;
             // console.log(res);
+            // for (let i = 0; i < res.length; i++) {
+            //     console.log(res[i].restaurant.name);
+            // }
+            const id = hangry._id;
+
             for (let i = 0; i < res.length; i++) {
-                console.log(res[i].restaurant.name);
+                const add = await Hangry.findByIdAndUpdate(id, { $addToSet: { restaurant: [{ name: res[i].restaurant.name }] } }, { new: true });
             }
 
 
@@ -204,7 +210,9 @@ module.exports.searchResults = async (req, res) => {
         }
     };
     search();
+    for (let i = 0; i < hangry.restaurant.length; i++) {
+        console.log(hangry.restaurant[i].name);
+    }
 
     res.render(`hangry/search`, { hangry })
 };
-

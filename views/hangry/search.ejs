@@ -10,16 +10,19 @@
         <a class="text-light" href="/hangry/<%=hangry._id%>">Back to filter your search</a>
     </button>
     <div class="mx-1 row">
-        <div class="col-md-12 col-lg-4">
+
+        <%  for (let i = 0; i < hangry.restaurant.length; i++) { %>
+        <div class="col-md-12 col-lg-4 my-2">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Restaurant Name</h4>
+                    <h4 class="card-title">Restaurant Name: <%=hangry.restaurant[i].name%></h4>
                     <p>Restaurant Picture</p>
                     <p>Locality</p>
                     <p>Rating: </p>
                 </div>
             </div>
         </div>
+        <% } %>
     </div>
 </div>
 
