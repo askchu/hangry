@@ -147,72 +147,99 @@ module.exports.cuisineSearch = async (req, res) => {
     // Removes filter search request if there is one already made
     if (hangry.search.length) {
         const idTwo = hangry.search[0]._id
-        const remove = await Hangry.updateOne({ _id: id }, { $pull: { search: { _id: idTwo } } }, { new: true },
-            function (err, res) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    console.log(res);
-                }
-            }
+        const remove = await Hangry.updateOne({ _id: id }, { $pull: { search: { _id: idTwo } } }, { new: true }
+            // ,
+            // function (err, res) {
+            //     if (err) {
+            //         console.log(err);
+            //     } else {
+            //         console.log(res);
+            //     }
+            // }
         );
-        console.log("Removed Id:" + idTwo);
-    }
+    };
 
     // Adds a new filter search request
     const add = await Hangry.findByIdAndUpdate(id, { $addToSet: { search: [{ cuisine_id: results.cuisineId, establishment_id: results.establishmentId, count: results.count }] } }, { new: true });
-    console.log(add.search);
-    console.log("Cuisine Id:" + results.cuisineId);
-    console.log("Establishment Id: " + results.establishmentId);
+    console.log(`You searched for ${add.search[0].count} restaurants`);
 
+    // If there is data saved in restaurant, delete it.
+    if (hangry.restaurant.length) {
+        await Hangry.updateOne({ _id: id }, { $pull: { restaurant: { name: { $exists: true } } } }, { new: true }
+            // ,
+            // function (err, res) {
+            //     if (err) {
+            //         console.log(err);
+            //     } else {
+            //         console.log(res);
+            //     }
+            // }
+        );
+    }
+    // Searches for restaurant
+    const url = `https://developers.zomato.com/api/v2.1/search?entity_id=${hangry.entity_id}&entity_type=${hangry.entity_type}&count=${add.search[0].count}&cuisines=${add.search[0].cuisine_id}&establishment_type=${add.search[0].establishment_id}`;
 
-
-    // res.redirect(`/hangry/${hangry._id}`)
-    res.redirect(`/hangry/${hangry._id}/search`)
-}
-
-module.exports.searchResults = async (req, res) => {
-    const hangry = await Hangry.findById(req.params.id);
-    // console.log(hangry.search.entity_id);
-    const hangryz = await Hangry.find().collation({ locale: 'en', strength: 2 }).sort({ title: 1 });
-    console.log(hangry.restaurant);
-
-    // WORK IN PROGRESS
-
-    const url = `https://developers.zomato.com/api/v2.1/search?entity_id=${hangry.entity_id}&entity_type=${hangry.entity_type}&count=${hangry.search.count}&cuisines=${hangry.search.cuisine_id}&establishment_type=${hangry.search.establishment_id}`;
+    // console.log(url);
 
     const search = async () => {
         try {
             const searchResults = await axios.get(url, options);
-            // console.log(searchResults.data.restaurants[0].restaurant);
-            // Prints out the first restaurant details searched
-            // console.log(searchResults.data.restaurants[0].restaurant.name);
-            // console.log(searchResults.data.restaurants[0].restaurant.location.city);
-            // console.log(searchResults.data.restaurants[0].restaurant.location.address);
-            // console.log(searchResults.data.restaurants[0].restaurant.user_rating.aggregate_rating);
 
             const res = searchResults.data.restaurants;
-            // console.log(res);
+
+            // Prints the restaurant names
+            if (res.length < 1) {
+                console.log("No results found, filter again")
+            }
             // for (let i = 0; i < res.length; i++) {
             //     console.log(res[i].restaurant.name);
             // }
-            const id = hangry._id;
+
+
+
+            // Adds search results onto restaurant array
 
             for (let i = 0; i < res.length; i++) {
                 const add = await Hangry.findByIdAndUpdate(id, { $addToSet: { restaurant: [{ name: res[i].restaurant.name }] } }, { new: true });
             }
-
-
-
-
+            // console.log(res.length);
+            // console.log(hangry.search[0].count);
+            if (hangry.search[0].count < res.length) {
+                console.log(`Found ${res.length} restaurants`)
+            }
         } catch (e) {
             console.log(e);
         }
     };
-    search();
-    for (let i = 0; i < hangry.restaurant.length; i++) {
-        console.log(hangry.restaurant[i].name);
+    await search();
+    // console.log(save);
+
+    res.redirect(`/hangry/${hangry._id}/search`)
+
+};
+
+module.exports.searchResults = async (req, res) => {
+    const hangry = await Hangry.findById(req.params.id);
+    // console.log(hangry.search.entity_id);
+    const id = hangry._id;
+    // console.log(id);
+
+    const hangryz = await Hangry.aggregate([
+        { $unwind: "$restaurant" },
+        { $sort: { "restaurant.name": 1 } }
+    ])
+
+    // Resets search count back to 0, incase user adds a new filter.
+    const add = await Hangry.findByIdAndUpdate(id, { search: [{ count: 0 }] }, { new: true });
+
+    // Prints out restaurants name alphabetically
+
+    if (hangry.restaurant.length > 0) {
+        console.log("Results....");
+        for (let i = 0; i < hangryz.length; i++) {
+            console.log(hangryz[i].restaurant.name);
+        }
     }
 
-    res.render(`hangry/search`, { hangry })
+    res.render(`hangry/search`, { hangry, hangryz })
 };
