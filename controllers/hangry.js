@@ -237,7 +237,8 @@ module.exports.cuisineSearch = async (req, res) => {
                             thumbnail: res[i].restaurant.thumb,
                             cuisineType: res[i].restaurant.cuisines,
                             averageCostForTwo: res[i].restaurant.average_cost_for_two,
-                            timings: res[i].restaurant.timings
+                            timings: res[i].restaurant.timings,
+                            phoneNumber: res[i].restaurant.phone_numbers
                         }]
                     }
                 }, { new: true });

@@ -52,8 +52,18 @@
                         alt="">
                     <% } %>
                     <img class="mb-3 container" src="<%=hangryz[i].restaurant.thumbnail%>" alt="">
-                    <p>Location: <%=hangryz[i].restaurant.locality%></p>
-                    <p>Rating: <%=hangryz[i].restaurant.averageRating%> </p>
+
+                    <% if(hangryz[i].restaurant.averageRating >= 1) { %>
+                    <p class="text-center">Rating: <%=hangryz[i].restaurant.averageRating%> </p>
+                    <% } else { %>
+                    <p>Not rated</p>
+                    <% } %>
+
+                    <div class="text-left">
+                        <p>Location: <%=hangryz[i].restaurant.locality%></p>
+                        <p class="">Phone number: <%=hangryz[i].restaurant.phoneNumber%></p>
+                    </div>
+
                 </div>
             </div>
         </div>
