@@ -26,6 +26,7 @@ const HangrySchema = new Schema({
         establishment_id: Number
     }],
     restaurant: [{
+        res_id: Number,
         name: String,
         address: String,
         locality: String,

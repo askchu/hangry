@@ -21,8 +21,12 @@
     <div class="mx-1 row">
 
 
+
+
+
         <%  for (let i = 0; i < hangryz.length; i++) { %>
-        <div class="col-md-12 col-lg-4 my-2">
+        <% if(hangryz.length <= 2) { %>
+        <div class="col-md-6 mx-auto my-2">
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title"><%=hangryz[i].restaurant.name%></h4>
@@ -37,7 +41,23 @@
                 </div>
             </div>
         </div>
-        <% } %>
+        <% } else {%>
+        <div class="col-md-6 col-lg-4 my-2">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title"><%=hangryz[i].restaurant.name%></h4>
+                    <% if(!hangryz[i].restaurant.thumbnail) {%>
+                    <img class="container"
+                        src="  https://images.unsplash.com/photo-1575833947349-69324d765146?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTB8fHRha2VvdXR8ZW58MHwwfDB8&auto=format&fit=crop&w=500&q=60"
+                        alt="">
+                    <% } %>
+                    <img class="mb-3 container" src="<%=hangryz[i].restaurant.thumbnail%>" alt="">
+                    <p>Location: <%=hangryz[i].restaurant.locality%></p>
+                    <p>Rating: <%=hangryz[i].restaurant.averageRating%> </p>
+                </div>
+            </div>
+        </div>
+        <% }} %>
     </div>
 </div>
 

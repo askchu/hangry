@@ -148,7 +148,6 @@ module.exports.search = async (req, res) => {
 module.exports.showLocation = async (req, res) => {
     const { id } = req.params;
     const hangry = await Hangry.findById(id);
-    console.log(hangry.restaurant.length);
 
 
     res.render('hangry/show', { hangry });
@@ -231,9 +230,14 @@ module.exports.cuisineSearch = async (req, res) => {
                 const add = await Hangry.findByIdAndUpdate(id, {
                     $addToSet: {
                         restaurant: [{
+                            res_id: res[i].restaurant.R.res_id,
                             name: res[i].restaurant.name,
-                            locality: res[i].restaurant.location.locality, averageRating: res[i].restaurant.user_rating.aggregate_rating,
-                            thumbnail: res[i].restaurant.thumb
+                            locality: res[i].restaurant.location.locality,
+                            averageRating: res[i].restaurant.user_rating.aggregate_rating,
+                            thumbnail: res[i].restaurant.thumb,
+                            cuisineType: res[i].restaurant.cuisines,
+                            averageCostForTwo: res[i].restaurant.average_cost_for_two,
+                            timings: res[i].restaurant.timings
                         }]
                     }
                 }, { new: true });
@@ -257,6 +261,7 @@ module.exports.cuisineSearch = async (req, res) => {
     // } else {
     //     res.render('hangry/show', { hangry });
     // }
+
     res.redirect(`/hangry/${hangry._id}/search`)
 
 };
@@ -273,6 +278,7 @@ module.exports.searchResults = async (req, res) => {
         { $sort: { "restaurant.name": 1 } }
     ])
 
+
     // Resets search count back to 0, incase user adds a new filter.
     await Hangry.findByIdAndUpdate(id, { search: [{ count: 0 }] }, { new: true });
 
@@ -281,7 +287,10 @@ module.exports.searchResults = async (req, res) => {
     if (hangry.restaurant.length > 0) {
         console.log("Results....");
         for (let i = 0; i < hangryz.length; i++) {
-            console.log(hangryz[i].restaurant.name);
+            console.log(i + " - " + hangryz[i].restaurant.name);
+            // console.log(hangryz[i].restaurant.res_id);
+            // console.log(hangryz[i].restaurant.averageCostForTwo);
+            // console.log(hangryz[i].restaurant.cuisineType);
         }
     }
 
