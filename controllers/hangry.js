@@ -16,10 +16,32 @@ module.exports.index = async (req, res) => {
 
     //   Lists every location alphabetically
     const hangryz = await Hangry.find().collation({ locale: 'en', strength: 2 }).sort({ title: 1 });
-    // for (let i = 0; i < hangryz.length; i++) {
+
     // prints out every location alphabetically
+
+    // for (let i = 0; i < hangryz.length; i++) {
     //     console.log(hangryz[i].title);
     // }
+
+    // If back to home page, and there is data saved in restaurant in any of the locations, delete it.
+    for (let hangry of hangryz) {
+        const id = hangry._id;
+        if (hangry.restaurant.length) {
+            await Hangry.updateOne({ _id: id }, { $pull: { restaurant: { name: { $exists: true } } } }, { new: true }
+                // ,
+                // function (err, res) {
+                //     if (err) {
+                //         console.log(err);
+                //     } else {
+                //         console.log(res);
+                //     }
+                // }
+            );
+        }
+    }
+
+
+
     res.render('hangry/index', { hangryz });
 
 };
@@ -126,6 +148,9 @@ module.exports.search = async (req, res) => {
 module.exports.showLocation = async (req, res) => {
     const { id } = req.params;
     const hangry = await Hangry.findById(id);
+    console.log(hangry.restaurant.length);
+
+
     res.render('hangry/show', { hangry });
 }
 
@@ -176,6 +201,7 @@ module.exports.cuisineSearch = async (req, res) => {
             // }
         );
     }
+
     // Searches for restaurant
     const url = `https://developers.zomato.com/api/v2.1/search?entity_id=${hangry.entity_id}&entity_type=${hangry.entity_type}&count=${add.search[0].count}&cuisines=${add.search[0].cuisine_id}&establishment_type=${add.search[0].establishment_id}`;
 
@@ -195,25 +221,42 @@ module.exports.cuisineSearch = async (req, res) => {
             //     console.log(res[i].restaurant.name);
             // }
 
+            const saved = res.length;
 
+            // console.log(res[0]);
 
             // Adds search results onto restaurant array
 
             for (let i = 0; i < res.length; i++) {
-                const add = await Hangry.findByIdAndUpdate(id, { $addToSet: { restaurant: [{ name: res[i].restaurant.name }] } }, { new: true });
+                const add = await Hangry.findByIdAndUpdate(id, {
+                    $addToSet: {
+                        restaurant: [{
+                            name: res[i].restaurant.name,
+                            locality: res[i].restaurant.location.locality, averageRating: res[i].restaurant.user_rating.aggregate_rating,
+                            thumbnail: res[i].restaurant.thumb
+                        }]
+                    }
+                }, { new: true });
             }
             // console.log(res.length);
             // console.log(hangry.search[0].count);
             if (hangry.search[0].count < res.length) {
                 console.log(`Found ${res.length} restaurants`)
             }
+            return saved
         } catch (e) {
             console.log(e);
         }
     };
-    await search();
-    // console.log(save);
+    const length = await search();
 
+    // If no results, redirect back to the same page, else go show list of restaurants
+
+    // if (length > 0) {
+    //     res.redirect(`/hangry/${hangry._id}/search`)
+    // } else {
+    //     res.render('hangry/show', { hangry });
+    // }
     res.redirect(`/hangry/${hangry._id}/search`)
 
 };
@@ -224,13 +267,14 @@ module.exports.searchResults = async (req, res) => {
     const id = hangry._id;
     // console.log(id);
 
+
     const hangryz = await Hangry.aggregate([
         { $unwind: "$restaurant" },
         { $sort: { "restaurant.name": 1 } }
     ])
 
     // Resets search count back to 0, incase user adds a new filter.
-    const add = await Hangry.findByIdAndUpdate(id, { search: [{ count: 0 }] }, { new: true });
+    await Hangry.findByIdAndUpdate(id, { search: [{ count: 0 }] }, { new: true });
 
     // Prints out restaurants name alphabetically
 

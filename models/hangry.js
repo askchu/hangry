@@ -37,7 +37,8 @@ const HangrySchema = new Schema({
         averageRating: String,
         ratingVotes: Number,
         menu: String,
-        phoneNumber: String
+        phoneNumber: String,
+        thumbnail: String
     }]
 });
 

@@ -11,9 +11,9 @@
     <button id="btn" class="text-center mx-auto btn btn-secondary mb-3" type="button">
         <a class="text-light" href="/hangry/<%=hangry._id%>">Back to filter your search</a>
     </button>
-
     <% } else { %>
-    <h2 id="title2" class="pb-3 mt-2 text-center">Search Results in <%=hangry.title%> </h2>
+    <h2 id="title2" class="pb-3 mt-2 text-center">Your results in
+        <%=hangry.title%> </h2>
     <button id="btn" class="text-center mx-auto btn btn-secondary mb-3" type="button">
         <a class="text-light" href="/hangry/<%=hangry._id%>">Back to filter your search</a>
     </button>
@@ -25,10 +25,15 @@
         <div class="col-md-12 col-lg-4 my-2">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Restaurant Name: <%=hangryz[i].restaurant.name%></h4>
-                    <p>Restaurant Picture</p>
-                    <p>Locality</p>
-                    <p>Rating: </p>
+                    <h4 class="card-title"><%=hangryz[i].restaurant.name%></h4>
+                    <% if(!hangryz[i].restaurant.thumbnail) {%>
+                    <img class="container"
+                        src="  https://images.unsplash.com/photo-1575833947349-69324d765146?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTB8fHRha2VvdXR8ZW58MHwwfDB8&auto=format&fit=crop&w=500&q=60"
+                        alt="">
+                    <% } %>
+                    <img class="mb-3 container" src="<%=hangryz[i].restaurant.thumbnail%>" alt="">
+                    <p>Location: <%=hangryz[i].restaurant.locality%></p>
+                    <p>Rating: <%=hangryz[i].restaurant.averageRating%> </p>
                 </div>
             </div>
         </div>
