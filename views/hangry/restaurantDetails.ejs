@@ -1,0 +1,25 @@
+<% layout('layouts/boilerplate') %>
+<link rel="stylesheet" href="/stylesheets/details.css">
+
+<div id="main" class="">
+    <div class="row">
+        <button id="btn" class="text-center py-auto btn btn-secondary mb-3" type="button">
+            <a class="text-light" href="/hangry/<%=hangry._id%>/search">Back to search results</a>
+        </button>
+        <div class="card">
+            <div class="card-body text-center">
+                <h2 class="card-title">Welcome to <%=results.name%></h2>
+
+                <!-- If no picture, use default picture -->
+                <% if(results.featured_image) { %>
+                <img class="w-75" src="<%=results.featured_image%>" alt="">
+                <% } else {%>
+                <img id="img" class="w-75"
+                    src="https://images.unsplash.com/photo-1508170754725-6e9a5cfbcabf?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8Nnx8dGFrZW91dHxlbnwwfDB8MHw%3D&auto=format&fit=crop&w=900&q=60"
+                    alt="">
+                <% } %>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -222,6 +222,7 @@ module.exports.cuisineSearch = async (req, res) => {
 
             const saved = res.length;
 
+            // Prints 1 result out
             // console.log(res[0]);
 
             // Adds search results onto restaurant array
@@ -232,13 +233,21 @@ module.exports.cuisineSearch = async (req, res) => {
                         restaurant: [{
                             res_id: res[i].restaurant.R.res_id,
                             name: res[i].restaurant.name,
+                            address: res[i].restaurant.location.address,
                             locality: res[i].restaurant.location.locality,
-                            averageRating: res[i].restaurant.user_rating.aggregate_rating,
-                            thumbnail: res[i].restaurant.thumb,
                             cuisineType: res[i].restaurant.cuisines,
                             averageCostForTwo: res[i].restaurant.average_cost_for_two,
                             timings: res[i].restaurant.timings,
-                            phoneNumber: res[i].restaurant.phone_numbers
+                            currency: res[i].restaurant.currency,
+                            highlights: res[i].restaurant.highlights,
+                            averageRating: res[i].restaurant.user_rating.aggregate_rating,
+                            ratingVotes: res[i].restaurant.user_rating.votes,
+                            menu: res[i].restaurant.menu_url,
+                            phoneNumber: res[i].restaurant.phone_numbers,
+                            thumbnail: res[i].restaurant.thumb,
+                            featured_image: res[i].restaurant.featured_image,
+                            longitude: res[i].restaurant.location.longitude,
+                            latitude: res[i].restaurant.location.latitude
                         }]
                     }
                 }, { new: true });
@@ -274,6 +283,8 @@ module.exports.searchResults = async (req, res) => {
     // console.log(id);
 
 
+
+    // Prints out restaurants name alphabetically
     const hangryz = await Hangry.aggregate([
         { $unwind: "$restaurant" },
         { $sort: { "restaurant.name": 1 } }
@@ -283,17 +294,96 @@ module.exports.searchResults = async (req, res) => {
     // Resets search count back to 0, incase user adds a new filter.
     await Hangry.findByIdAndUpdate(id, { search: [{ count: 0 }] }, { new: true });
 
-    // Prints out restaurants name alphabetically
+    // // Prints out restaurants name alphabetically
 
-    if (hangry.restaurant.length > 0) {
-        console.log("Results....");
-        for (let i = 0; i < hangryz.length; i++) {
-            console.log(i + " - " + hangryz[i].restaurant.name);
-            // console.log(hangryz[i].restaurant.res_id);
-            // console.log(hangryz[i].restaurant.averageCostForTwo);
-            // console.log(hangryz[i].restaurant.cuisineType);
-        }
-    }
+    // if (hangry.restaurant.length > 0) {
+    //     console.log("Results....");
+    //     for (let i = 0; i < hangryz.length; i++) {
+    //         console.log(i + " - " + hangryz[i].restaurant.name);
+    //         // console.log(hangryz[i].restaurant.res_id);
+    //         // console.log(hangryz[i].restaurant.averageCostForTwo);
+    //         // console.log(hangryz[i].restaurant.cuisineType);
+    //     }
+    // }
 
     res.render(`hangry/search`, { hangry, hangryz })
+};
+
+// FIX ! - add a more detail model in hangry model to save the restaurant in. 
+// So that you can use the data and spit it out in your res.render page
+
+module.exports.moreDetailsButton = async (req, res) => {
+    const hangry = await Hangry.findById(req.params.id);
+    const hungry = req.body;
+    const res_id = hungry.btn;
+    // console.log(res_id);
+
+    res.redirect(`/hangry/${hangry._id}/search/${res_id}/details`)
+}
+
+module.exports.restaurantDetails = async (req, res) => {
+    const hangry = await Hangry.findById(req.params.id);
+
+    const detailsId = req.params.res_id;
+
+    // Template to find the information of all the data in hangry restaurants
+    const hungry = await Hangry.find(hangry, {
+        restaurant: {
+            res_id: 1,
+            name: 1,
+            address: 1,
+            locality: 1,
+            cuisineType: 1,
+            averageCostForTwo: 1,
+            timings: 1,
+            currency: 1,
+            highlights: 1,
+            averageRating: 1,
+            ratingVotes: 1,
+            menu: 1,
+            phoneNumber: 1,
+            thumbnail: 1,
+            featured_image: 1,
+            longitude: 1,
+            latitude: 1,
+        }
+    })
+    // console.log(hungry[0].restaurant);
+    // console.log(hungry[0].restaurant.length)
+    // console.log(detailsId);
+
+    // If specific restaurant "more details" clicked matches the same restaurant id stored in database, save that information into a variable under const saved. 
+    const saved = () => {
+        for (let i = 0; i < hungry[0].restaurant.length; i++) {
+            if (detailsId == hungry[0].restaurant[i].res_id) {
+                const saved = {
+                    name: hungry[0].restaurant[i].name,
+                    address: hungry[0].restaurant[i].address,
+                    locality: hungry[0].restaurant[i].locality,
+                    cuisineType: hungry[0].restaurant[i].cuisineType,
+                    averageCostForTwo: hungry[0].restaurant[i].averageCostForTwo,
+                    timings: hungry[0].restaurant[i].timings,
+                    currency: hungry[0].restaurant[i].currency,
+                    highlights: hungry[0].restaurant[i].highlights,
+                    averageRating: hungry[0].restaurant[i].averageRating,
+                    ratingVotes: hungry[0].restaurant[i].ratingVotes,
+                    menu: hungry[0].restaurant[i].menu,
+                    phoneNumber: hungry[0].restaurant[i].phoneNumber,
+                    thumbnail: hungry[0].restaurant[i].thumbnail,
+                    featured_image: hungry[0].restaurant[i].featured_image,
+                    longitude: hungry[0].restaurant[i].longitude,
+                    latitude: hungry[0].restaurant[i].latitude,
+                }
+                return saved
+            }
+        }
+    }
+    const results = saved();
+    // console.log(results);
+    // console.log(results.name);
+
+    // const hangryz = await Hangry.find({ moreDetails: detailsId });
+
+
+    res.render(`hangry/restaurantDetails`, { hangry, results })
 };

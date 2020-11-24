@@ -7,6 +7,8 @@ body {
   box-shadow: nset 0 0 5rem rgba(0, 0, 0, 0.5);
 }
 
+
+
 #title {
   background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)),
     url(https://images.unsplash.com/photo-1428908728789-d2de25dbd4e2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60);  

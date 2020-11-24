@@ -14,5 +14,9 @@ router.route('/:id')
 
 router.route("/:id/search")
     .get(catchAsync(hangry.searchResults))
+    .post(catchAsync(hangry.moreDetailsButton))
+
+router.route("/:id/search/:res_id/details")
+    .get(catchAsync(hangry.restaurantDetails))
 
 module.exports = router;

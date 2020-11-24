@@ -1,28 +1,28 @@
 <% layout('layouts/boilerplate') %>
 <link rel="stylesheet" href="/stylesheets/index.css">
 
+<div id="main">
+    <div id="title" class="py-4">
+        <h1 class="mb-4">Begin your search</h1>
+        <h3 class="title mb-0">Don't see your location? Add one right here!</h3>
 
-<div id="title" class="py-4">
-    <h1 class="mb-4">Begin your search</h1>
-    <h3 class="title mb-0">Don't see your location? Add one right here!</h3>
-
-    <div class="mb-3">
-        <div class="">
-            <form action="/hangry" class="needs-validation " id="searchForm" method="POST" novalidate>
-                <div class="mb-2 ">
-                    <label class="form-label" for="location"></label>
-                    <input id="btn" class="form-control mx-auto" type="text" id="location" name="location"
-                        placeholder="For example: Mississauga, Toronto" required>
-                    <div class="valid-feedback">
-                        Looks good!
+        <div class="mb-3">
+            <div class="">
+                <form action="/hangry" class="needs-validation " id="searchForm" method="POST" novalidate>
+                    <div class="mb-2 ">
+                        <label class="form-label" for="location"></label>
+                        <input id="btn" class="form-control mx-auto" type="text" id="location" name="location"
+                            placeholder="For example: Mississauga, Toronto" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
                     </div>
-                </div>
-                <button id="btn" class="btn btn-success">Add</button>
-            </form>
+                    <button id="btn" class="btn btn-success">Add</button>
+                </form>
+            </div>
         </div>
     </div>
-</div>
-<!-- <button id="button1" class="ml-2 btn btn-dark d-inline">
+    <!-- <button id="button1" class="ml-2 btn btn-dark d-inline">
     <a href="/hangry/searchLocation">Add a new location</a>
 </button> -->
 </div>
@@ -32,7 +32,7 @@
     <h2 id="title2" class="pb-3 mt-2 text-center">All Locations</h2>
     <div class="mx-1 text-center row">
         <% for(let hangry of hangryz) { %>
-        <div class="col-md-12 col-lg-4">
+        <div class="col-md-12 col-lg-4 mx-auto">
             <div class="card rounded-1 my-2">
                 <div class="card-body bg-light">
                     <h3 class="card-title mb-3"><%=hangry.title%></h5>
@@ -100,6 +100,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <script src="/javascripts/index.js"></script>

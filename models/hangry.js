@@ -39,7 +39,10 @@ const HangrySchema = new Schema({
         ratingVotes: Number,
         menu: String,
         phoneNumber: String,
-        thumbnail: String
+        thumbnail: String,
+        featured_image: String,
+        longitude: String,
+        latitude: String,
     }]
 });
 
