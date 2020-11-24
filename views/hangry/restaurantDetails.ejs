@@ -50,7 +50,7 @@
 
 
                     <!-- MAP BOX -->
-                    <div class="">
+                    <div class="card">
                         <div id='map' class="mb-3" style='width: 100%; height: 300px;'></div>
                     </div>
 
@@ -72,18 +72,8 @@
 </div>
 
 <!-- MAPBOX -->
-<!-- <script>
+<script>
     const mapToken = '<%-process.env.MAPBOX_TOKEN%>';
     const results = <%-JSON.stringify(results) %>
 </script>
-<script src="/javascripts/showPageMap.js"></script> -->
-
-<script>
-    mapboxgl.accessToken = 'pk.eyJ1IjoiY2h1YWxleDQiLCJhIjoiY2toYjNzOWtwMDA2YjJ3bnJkbzhoMTZsNyJ9.a8YOOsQBQUBL05LAiLw0ag';
-    var map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
-        center: [-74.5, 40], // starting position [lng, lat]
-        zoom: 9 // starting zoom
-    });
-</script>
+<script src="/javascripts/showPageMap.js"></script>

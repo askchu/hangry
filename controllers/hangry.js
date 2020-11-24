@@ -223,7 +223,7 @@ module.exports.cuisineSearch = async (req, res) => {
             const saved = res.length;
 
             // Prints 1 result out
-            // console.log(res[0]);
+            console.log(res[0]);
 
             // Adds search results onto restaurant array
 
@@ -348,7 +348,7 @@ module.exports.restaurantDetails = async (req, res) => {
             latitude: 1,
         }
     })
-    // console.log(hungry[0].restaurant);
+    console.log(hungry[0].restaurant);
     // console.log(hungry[0].restaurant.length)
     // console.log(detailsId);
 

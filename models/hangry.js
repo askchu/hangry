@@ -48,7 +48,12 @@ const HangrySchema = new Schema({
     // MapBox
     geometry: {
         type: String,
-        enum: ['Point'],
+        enum: ["Point"],
+        coordinates: {
+            longitude: String,
+            latitude: String
+        },
+
     },
     coordinates: {
         type: Number,
