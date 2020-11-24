@@ -7,12 +7,16 @@
   box-shadow: nset 0 0 5rem rgba(0, 0, 0, 0.5);
 } */
 
-#main {
-    height: 86.5vh;
+#body {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0)),
+    url(https://images.unsplash.com/photo-1501630834273-4b5604d2ee31?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8Y2xvdWRzfGVufDB8MHwwfA%3D%3D&auto=format&fit=crop&w=900&q=60);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
-#img {
-  height: 69%;
+#main {
+    height: 86.5vh;
 }
 
 
