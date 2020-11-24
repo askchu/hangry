@@ -1,5 +1,5 @@
 <% layout('layouts/boilerplate') %>
-<!-- <link rel="stylesheet" href="/stylesheets/show.css"> -->
+<link rel="stylesheet" href="/stylesheets/show.css">
 
 
 
@@ -31,10 +31,10 @@
                     <h4 class="card-title"><%=hangryz[i].restaurant.name%></h4>
                     <% if(!hangryz[i].restaurant.thumbnail) {%>
                     <img class="container"
-                        src="  https://images.unsplash.com/photo-1575833947349-69324d765146?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTB8fHRha2VvdXR8ZW58MHwwfDB8&auto=format&fit=crop&w=500&q=60"
+                        src="https://images.unsplash.com/photo-1515669097368-22e68427d265?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8cmVzdGF1cmFudHN8ZW58MHwwfDB8&auto=format&fit=crop&w=900&q=60"
                         alt="">
                     <% } %>
-                    <img class="mb-3 container" src="<%=hangryz[i].restaurant.thumbnail%>" alt="">
+                    <img class=" mb-3 container" src="<%=hangryz[i].restaurant.featured_image%>" alt="">
                     <p>Location: <%=hangryz[i].restaurant.locality%></p>
                     <p>Rating: <%=hangryz[i].restaurant.averageRating%> </p>
                     <form action="/hangry/<%=hangry._id%>/search" method="POST">
@@ -54,12 +54,12 @@
 
                     <!-- If no thumbnail, use default picture -->
                     <% if(!hangryz[i].restaurant.thumbnail) {%>
-                    <img class="container"
-                        src="  https://images.unsplash.com/photo-1575833947349-69324d765146?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTB8fHRha2VvdXR8ZW58MHwwfDB8&auto=format&fit=crop&w=500&q=60"
+                    <img id="img" class="container blah"
+                        src="https://images.unsplash.com/photo-1515669097368-22e68427d265?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8cmVzdGF1cmFudHN8ZW58MHwwfDB8&auto=format&fit=crop&w=900&q=60"
                         alt="">
                     <% } %>
                     <!-- else use the thumbnail provided -->
-                    <img class="mb-3 container" src="<%=hangryz[i].restaurant.thumbnail%>" alt="">
+                    <img class="mb-3 container" src="<%=hangryz[i].restaurant.featured_image%>" alt="">
 
                     <% if(hangryz[i].restaurant.averageRating >= 1) { %>
                     <p class="text-center">Rating: <%=hangryz[i].restaurant.averageRating%> </p>

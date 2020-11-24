@@ -12,6 +12,7 @@ const HangrySchema = new Schema({
     entity_type: String,
     city_id: Number,
     city_name: String,
+    featured_image: String,
     cuisine: [{
         cuisine_name: String,
         cuisine_id: Number
@@ -43,7 +44,15 @@ const HangrySchema = new Schema({
         featured_image: String,
         longitude: String,
         latitude: String,
-    }]
+    }],
+    // MapBox
+    geometry: {
+        type: String,
+        enum: ['Point'],
+    },
+    coordinates: {
+        type: Number,
+    }
 });
 
 module.exports = mongoose.model('Hangry', HangrySchema);

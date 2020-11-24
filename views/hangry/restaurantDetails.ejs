@@ -1,30 +1,89 @@
 <% layout('layouts/boilerplate') %>
 <link rel="stylesheet" href="/stylesheets/details.css">
 
+
 <div id="main" class="">
     <!-- If no picture, use default picture -->
+
     <% if(results.featured_image) { %>
-    <img class="img-fluid img-thumbnail w-100" src="<%=results.featured_image%>" alt="">
+    <div class="text-center">
+        <img id="blah" class="img-fluid img-thumbnail" src="<%=results.featured_image%>" alt="">
+    </div>
     <% } else {%>
     <div id="body" class="text-center">
-        <img id="" class="img-fluid img-thumbnail w-75"
+        <img id="blah" class="img-fluid img-thumbnail"
             src="https://images.unsplash.com/photo-1556763947-80fd07e395ad?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8MzV8fHJlc3RhdXJhbnRzfGVufDB8MHwwfA%3D%3D&auto=format&fit=crop&w=900&q=60"
             alt="">
     </div>
     <% } %>
 
-    <div class="row">
-        <button id="btn" class="text-center py-auto btn btn-secondary mb-3" type="button">
-            <a class="text-light" href="/hangry/<%=hangry._id%>/search">Back to search results</a>
-        </button>
-        <div class="card">
-            <div class="card-body text-center">
-                <h2 class="card-title">Welcome to <%=results.name%></h2>
 
 
+    <button id="btn" class="text-center py-auto btn btn-block btn-secondary mb-3" type="button">
+        <a class="text-light" href="/hangry/<%=hangry._id%>/search">Back to search results</a>
+    </button>
+    <div class="card">
+        <div class="card-header text-center">
+            Add to Favorites
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <h2 class="card-title"><%=results.name%></h2>
+
+                <div class="col-md-7 mt-3">
+                    <div class="text-left">
+                        <p class="card-text">Location: <%=results.locality%></p>
+                        <p class="card-text">Address: <%=results.address%></p>
+                        <p class="card-text">Phone Number: <%=results.phoneNumber%></p>
+                        <div class="d-sm-none d-md-block">
+                            <p class="card-text">Hours of Operation: <%=results.timings%></p>
+                            <p>Cuisine Type: <%=results.cuisineType%></p>
+                            <p>Average Rating: <strong><%=results.averageRating%></strong>
+                            </p>
+                            <p>Average Cost for Two: $<%=results.averageCostForTwo%></p>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="col-md-5">
+
+
+                    <!-- MAP BOX -->
+                    <div class="">
+                        <div id='map' class="mb-3" style='width: 100%; height: 300px;'></div>
+                    </div>
+
+                    <div class="d-sm-block d-md-none">
+                        <p class="card-text">Hours of Operation: <%=results.timings%></p>
+                        <p>Cuisine Type: <%=results.cuisineType%></p>
+                        <p>Average Rating: <strong><%=results.averageRating%></strong>
+                        </p>
+                        <p>Average Cost for Two: $<%=results.averageCostForTwo%></p>
+
+                    </div>
+
+                </div>
 
 
             </div>
         </div>
     </div>
 </div>
+
+<!-- MAPBOX -->
+<!-- <script>
+    const mapToken = '<%-process.env.MAPBOX_TOKEN%>';
+    const results = <%-JSON.stringify(results) %>
+</script>
+<script src="/javascripts/showPageMap.js"></script> -->
+
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiY2h1YWxleDQiLCJhIjoiY2toYjNzOWtwMDA2YjJ3bnJkbzhoMTZsNyJ9.a8YOOsQBQUBL05LAiLw0ag';
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
+        center: [-74.5, 40], // starting position [lng, lat]
+        zoom: 9 // starting zoom
+    });
+</script>
