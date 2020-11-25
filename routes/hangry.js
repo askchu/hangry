@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const Hangry = require('../models/hangry')
 const catchAsync = require('../utils/catchAsync')
 const hangry = require('../controllers/hangry');
 

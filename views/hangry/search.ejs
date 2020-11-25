@@ -1,20 +1,20 @@
 <% layout('layouts/boilerplate') %>
-<link rel="stylesheet" href="/stylesheets/show.css">
+<link rel="stylesheet" href="/stylesheets/search.css">
 
 
 
 
-<div id="main" class="my-4 mh-75 text-center">
+<div id="main" class="pt-2 text-center border-bottom border-1 border-dark border-top">
 
     <% if(hangryz.length == 0) { %>
     <h2>Sorry, no results found! Filter your search again!</h2>
-    <button id="btn" class="text-center mx-auto btn btn-secondary mb-3" type="button">
+    <button id="btn" class="text-center mx-auto btn btn-secondary my-3" type="button">
         <a class="text-light" href="/hangry/<%=hangry._id%>">Back to filter your search</a>
     </button>
     <% } else { %>
-    <h2 id="title2" class="mt-2 text-center">Your results in
+    <h2 id="title2" class="m-2 text-center">Your results in
         <%=hangry.title%> </h2>
-    <button id="btn" class="text-center mx-auto btn btn-secondary mb-3" type="button">
+    <button id="btn" class="text-center mx-auto btn btn-secondary my-3" type="button">
         <a class="text-light" href="/hangry/<%=hangry._id%>">Back to filter your search</a>
     </button>
     <% } %>
@@ -22,7 +22,7 @@
 
 
 
-    <div class="container text-center">
+    <div class="container text-center my-3">
 
     <div class="mx-1 row">
         <!-- Show restaurants -->
@@ -32,19 +32,35 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title"><%=hangryz[i].restaurant.name%></h4>
+            
+                    <!-- If no thumbnail, use default picture -->
                     <% if(!hangryz[i].restaurant.thumbnail) {%>
-                    <img class="container"
+                    <img id="img" class="container blah"
                         src="https://images.unsplash.com/photo-1515669097368-22e68427d265?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8cmVzdGF1cmFudHN8ZW58MHwwfDB8&auto=format&fit=crop&w=900&q=60"
                         alt="">
                     <% } %>
-                    <img class=" mb-3 container" src="<%=hangryz[i].restaurant.featured_image%>" alt="">
-                    <p>Location: <%=hangryz[i].restaurant.locality%></p>
-                    <p>Rating: <%=hangryz[i].restaurant.averageRating%> </p>
+                    <!-- else use the thumbnail provided -->
+                    <img class="mb-3 container" src="<%=hangryz[i].restaurant.featured_image%>" alt="">
+            
+                    <% if(hangryz[i].restaurant.averageRating >= 1) { %>
+                    <h5 class="mb-3" class="text-center">Rating: <%=hangryz[i].restaurant.averageRating%> </h5>
+            
+                    <% } else { %>
+                    <h5 class="mb-3">Not rated</h5>
+                    <% } %>
+            
+                    <div class="text-left border-top pt-3">
+                        <p>Location: <%=hangryz[i].restaurant.locality%></p>
+                        <p class="">Phone number: <%=hangryz[i].restaurant.phoneNumber%></p>
+                    </div>
+            
+                    <!-- WORKING ON FORM -->
                     <form action="/hangry/<%=hangry._id%>/search" method="POST">
-                        <button id="btn" class=" text-center mx-auto btn-primary mb-3" type="submit"
+                        <button id="btn" class="text-center mx-auto btn btn-primary btn-block" type="submit"
                             value="<%=hangryz[i].restaurant.res_id%>" name="btn">More details
                         </button>
                     </form>
+            
                 </div>
             </div>
         </div>
@@ -65,10 +81,10 @@
                     <img class="mb-3 container" src="<%=hangryz[i].restaurant.featured_image%>" alt="">
 
                     <% if(hangryz[i].restaurant.averageRating >= 1) { %>
-                    <p class="mb-3" class="text-center">Rating: <%=hangryz[i].restaurant.averageRating%> </p>
+                    <h5 class="mb-3" class="text-center">Rating: <%=hangryz[i].restaurant.averageRating%> </h5>
 
                     <% } else { %>
-                    <p class="mb-3">Not rated</p>
+                    <h5 class="mb-3">Not rated</h5>
                     <% } %>
 
                     <div class="text-left border-top pt-3">

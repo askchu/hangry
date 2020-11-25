@@ -30,18 +30,19 @@
         <div class="card-body">
             <div class="row">
                 <h2 class="card-title"><%=results.name%></h2>
+                <h5><strong>Rating:</strong> <%=results.averageRating%>
+                </h5>
 
                 <div class="col-sm-6 col-md-7 col-lg-4 mt-3">
                     <div class="text-left">
-                        <p class="card-text">Location: <%=results.locality%></p>
-                        <p class="card-text">Address: <%=results.address%></p>
-                        <p class="card-text">Phone Number: <%=results.phoneNumber%></p>
+                        <p class="card-text"><strong>Location:</strong> <%=results.locality%></p>
+                        <p class="card-text"><strong>Address:</strong> <%=results.address%></p>
+                        <p class="card-text"><strong>Phone Number:</strong> <%=results.phoneNumber%></p>
                            
                         <div class="d-none d-lg-block">
-                            <p>Cuisine Type: <%=results.cuisineType%></p>
-                            <p>Average Rating: <strong><%=results.averageRating%></strong>
-                            </p>
-                            <p>Average Cost for Two: $<%=results.averageCostForTwo%></p>
+                            <p><strong>Cuisine Type:</strong> <%=results.cuisineType%></p>
+                            
+                            <p><strong>Average Cost for Two:</strong> $<%=results.averageCostForTwo%></p>
                         </div>
                     </div>
                 </div>
