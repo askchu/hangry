@@ -4,7 +4,7 @@
 
 
 
-<div id="main" class="container my-4 mh-75 text-center">
+<div id="main" class="my-4 mh-75 text-center">
 
     <% if(hangryz.length == 0) { %>
     <h2>Sorry, no results found! Filter your search again!</h2>
@@ -12,14 +12,17 @@
         <a class="text-light" href="/hangry/<%=hangry._id%>">Back to filter your search</a>
     </button>
     <% } else { %>
-    <h2 id="title2" class="pb-3 mt-2 text-center">Your results in
+    <h2 id="title2" class="mt-2 text-center">Your results in
         <%=hangry.title%> </h2>
     <button id="btn" class="text-center mx-auto btn btn-secondary mb-3" type="button">
         <a class="text-light" href="/hangry/<%=hangry._id%>">Back to filter your search</a>
     </button>
     <% } %>
+</div>
 
 
+
+    <div class="container text-center">
 
     <div class="mx-1 row">
         <!-- Show restaurants -->
@@ -38,7 +41,7 @@
                     <p>Location: <%=hangryz[i].restaurant.locality%></p>
                     <p>Rating: <%=hangryz[i].restaurant.averageRating%> </p>
                     <form action="/hangry/<%=hangry._id%>/search" method="POST">
-                        <button id="btn" class="text-center mx-auto btn btn-primary mb-3" type="submit"
+                        <button id="btn" class=" text-center mx-auto btn-primary mb-3" type="submit"
                             value="<%=hangryz[i].restaurant.res_id%>" name="btn">More details
                         </button>
                     </form>
@@ -62,20 +65,20 @@
                     <img class="mb-3 container" src="<%=hangryz[i].restaurant.featured_image%>" alt="">
 
                     <% if(hangryz[i].restaurant.averageRating >= 1) { %>
-                    <p class="text-center">Rating: <%=hangryz[i].restaurant.averageRating%> </p>
+                    <p class="mb-3" class="text-center">Rating: <%=hangryz[i].restaurant.averageRating%> </p>
 
                     <% } else { %>
-                    <p>Not rated</p>
+                    <p class="mb-3">Not rated</p>
                     <% } %>
 
-                    <div class="text-left">
+                    <div class="text-left border-top pt-3">
                         <p>Location: <%=hangryz[i].restaurant.locality%></p>
                         <p class="">Phone number: <%=hangryz[i].restaurant.phoneNumber%></p>
                     </div>
 
                     <!-- WORKING ON FORM -->
                     <form action="/hangry/<%=hangry._id%>/search" method="POST">
-                        <button id="btn" class="text-center mx-auto btn btn-primary mb-3" type="submit"
+                        <button id="btn" class="text-center mx-auto btn btn-primary btn-block" type="submit"
                             value="<%=hangryz[i].restaurant.res_id%>" name="btn">More details
                         </button>
                     </form>
@@ -86,7 +89,6 @@
         <% }} %>
     </div>
 </div>
-
 
 <!-- <button class="mt-3 btn btn-secondary">
             <a class="text-light" href="/hangry">Back to all locations</a>

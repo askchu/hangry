@@ -4,6 +4,7 @@ const axios = require('axios');
 
 
 
+
 const options = {
     headers: {
         "user-key": config
@@ -223,7 +224,7 @@ module.exports.cuisineSearch = async (req, res) => {
             const saved = res.length;
 
             // Prints 1 result out
-            console.log(res[0]);
+            // console.log(res[0]);
 
             // Adds search results onto restaurant array
 
@@ -348,7 +349,7 @@ module.exports.restaurantDetails = async (req, res) => {
             latitude: 1,
         }
     })
-    console.log(hungry[0].restaurant);
+    // console.log(hungry[0].restaurant);
     // console.log(hungry[0].restaurant.length)
     // console.log(detailsId);
 
@@ -381,9 +382,5 @@ module.exports.restaurantDetails = async (req, res) => {
     const results = saved();
     // console.log(results);
     // console.log(results.name);
-
-    // const hangryz = await Hangry.find({ moreDetails: detailsId });
-
-
-    res.render(`hangry/restaurantDetails`, { hangry, results })
+    res.render(`hangry/restaurantDetails`, { hangry, results})
 };

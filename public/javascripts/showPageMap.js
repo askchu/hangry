@@ -1,10 +1,11 @@
 
 mapboxgl.accessToken = mapToken;
+
 const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/outdoors-v11', // stylesheet location
     center: [results.longitude, results.latitude], // starting position [lng, lat]
-    zoom: 9 // starting zoom
+    zoom: 12 // starting zoom
 });
 
 map.addControl(new mapboxgl.NavigationControl());

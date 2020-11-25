@@ -18,5 +18,6 @@ router.route("/:id/search")
 
 router.route("/:id/search/:res_id/details")
     .get(catchAsync(hangry.restaurantDetails))
+    // Add a post route for saving favorite restaurant in users...
 
 module.exports = router;
