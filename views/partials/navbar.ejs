@@ -11,16 +11,11 @@
                     <li class="nav-item">
                         <a class="nav-link text-light" href="/hangry">Locations</a>
                     </li>
-                    <% if(currentUser) {%>
-                   <li>
-                       <a class="nav-link text-light" href="/logout">Favorites</a>
-                    </li>
-                    <% }%>
-
                     <% if(!currentUser) {%>
                     <a class="nav-link text-light" href="/login">Login</a>
                     <a class="nav-link text-light" href="/register">Register</a>
                     <% } else { %>
+                        <a class="nav-link text-light" href="/favorites">Favorites</a>
                     <a class="nav-link text-light" href="/logout">Logout</a>
                     <% } %>
 

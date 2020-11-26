@@ -1,6 +1,6 @@
-const { hangry } = require('./schemas.js');
-const ExpressError = require('./utils/ExpressError');
-const Hangry = require('./models/hangry');
+// const { hangry } = require('./schemas.js');
+// const ExpressError = require('./utils/ExpressError');
+// const Hangry = require('./models/hangry');
 
 module.exports.isLoggedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {

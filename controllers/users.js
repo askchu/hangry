@@ -34,6 +34,11 @@ module.exports.login = (req, res) => {
     res.redirect(redirectUrl);
 };
 
+module.exports.favoritePage = (req, res) => {
+    
+    res.render('users/favorites');
+}
+
 module.exports.logout = (req, res) => {
     req.logout();
     req.flash('success', "See you next time!");

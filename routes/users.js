@@ -15,6 +15,11 @@ router.route('/login')
     .get(users.renderLogin)
     .post(passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }), users.login)
 
+router.route('/favorites')
+    .get(users.favoritePage)
+
 router.get('/logout', users.logout);
+
+
 
 module.exports = router;
