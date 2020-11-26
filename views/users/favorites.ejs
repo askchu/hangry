@@ -4,7 +4,9 @@
 <div id="title" class="mb-3 py-3 text-center">
     <h1 class="text-center mb-3">Favorites</strong>
     </h1>
-    <button id="btn" class="btn"><a class="btn btn-block text-light" href="/editFavorites">Edit List</a></button>
+
+    <h3 class="">Don't want to keep certain restaurants?</h3>
+    <button id="btn" class="btn mt-1"><a class="btn btn-block text-light" href="/deleteFavorites">Remove</a></button>
 </div>
 
 <div class="container text-center">
@@ -35,7 +37,7 @@
                 <img class="card-img-top"
                     src="https://images.unsplash.com/photo-1515669097368-22e68427d265?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8cmVzdGF1cmFudHN8ZW58MHwwfDB8&auto=format&fit=crop&w=900&q=60"
                     alt="">
-                <% }%>
+                <% } %>
                 <img src="<%=user.favorites[i].featured_image%>" alt="" class="card-img-top">
                 <div class="card-body">
                     <h3 class="card-title text-center"><%=user.favorites[i].name%></h3>

@@ -1,8 +1,8 @@
 <% layout('layouts/boilerplate') %>
-<link rel="stylesheet" href="/stylesheets/editfavorites.css">
+<link rel="stylesheet" href="/stylesheets/deletefavorites.css">
 
 <div id="title" class="mb-3 py-3 text-center">
-    <h1 class="text-center mb-3">Edit Favorites Page</strong>
+    <h1 class="text-center mb-3">Remove restaurants</strong>
     </h1>
 
     <button id="btn" class="btn"><a class="btn btn-block text-light" href="/favorites">Back to Favorites</a></button>
@@ -29,7 +29,12 @@
                     <img src="<%=user.favorites[i].featured_image%>" alt="" class="card-img-top">
                     <div class="card-body">
                         <h3 class="card-title"><%=user.favorites[i].name%></h3>
+                        <%  if(user.favorites[i].averageRating == 0){ %>
+                        <p class="card-text"><strong>Rating:</strong> Not enough information</p>
+                        <% } else {%>
                         <p class="card-text"><strong>Rating:</strong> <%=user.favorites[i].averageRating%></p>
+                        <% } %>
+                        <p class="card-text"><strong>Locality:</strong> <%=user.favorites[i].locality%></p>
                     </div>
                     <button class="btn btn-danger" value="<%=user.favorites[i]._id%>" name="id">Remove from
                         favorites</button>
@@ -50,7 +55,12 @@
                     <img src="<%=user.favorites[i].featured_image%>" alt="" class="card-img-top">
                     <div class="card-body">
                         <h3 class="card-title"><%=user.favorites[i].name%></h3>
+                        <%  if(user.favorites[i].averageRating == 0){ %>
+                        <p class="card-text"><strong>Rating:</strong> Not enough information</p>
+                        <% } else {%>
                         <p class="card-text"><strong>Rating:</strong> <%=user.favorites[i].averageRating%></p>
+                        <% } %>
+                        <p class="card-text"><strong>Locality:</strong> <%=user.favorites[i].locality%></p>
                     </div>
                     <button class="btn btn-danger" value="<%=user.favorites[i]._id%>" name="id">Remove from
                         favorites</button>

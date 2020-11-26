@@ -18,10 +18,13 @@ router.route('/login')
 router.route('/favorites')
     .get(users.favoritePage)
     .post(users.generateFavorite)
-    .put(users.deleteFavorite)
+    .put(users.deleteFavoritePost)
 
-router.route('/editFavorites')
-    .get(users.editFavorite)
+router.route('/favorites/results')
+    .get(users.results)
+
+router.route('/deleteFavorites')
+    .get(users.deleteFavorite)
 
 router.get('/logout', users.logout);
 

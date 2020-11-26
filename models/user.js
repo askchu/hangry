@@ -7,7 +7,7 @@ const UserSchema = new Schema({
         type: String,
         required: true,
     },
-     email: {
+    email: {
         type: String,
         required: true,
         unique: true
@@ -33,8 +33,26 @@ const UserSchema = new Schema({
         featured_image: String,
         longitude: String,
         latitude: String,
-    }]
-     
+    }],
+    chosenRestaurant: {
+        res_id: Number,
+        name: String,
+        address: String,
+        locality: String,
+        cuisineType: String,
+        averageCostForTwo: Number,
+        timings: String,
+        currency: String,
+        highlights: [String],
+        averageRating: String,
+        ratingVotes: Number,
+        menu: String,
+        phoneNumber: String,
+        thumbnail: String,
+        featured_image: String,
+        longitude: String,
+        latitude: String,
+    }
 });
 
 UserSchema.plugin(passportLocalMongoose);

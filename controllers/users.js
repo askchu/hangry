@@ -43,23 +43,51 @@ module.exports.favoritePage = async (req, res) => {
 module.exports.generateFavorite = async (req, res) => {
     const user = await User.findById(req.user.id);
     // console.log(user);
-    console.log(req.body);
 
-    const length = user.favorites.length + 1;
+    const length = user.favorites.length;
+
+    // Generate random number between all the restaurants
     const randRestNum = Math.floor(Math.random() * length);
-    console.log(randRestNum);
+    // console.log(randRestNum);
 
-    res.redirect('/favorites');
-}
+    const restaurant = user.favorites;
+    console.log(restaurant[randRestNum].name);
 
-module.exports.editFavorite = async (req, res) => {
-    const user = await User.findById(req.user.id);
-    // console.log(user);
-    // console.log(req.body);
-    res.render('users/editFavorites', { user })
+    const finalResult = await User.findByIdAndUpdate(user, {
+        chosenRestaurant:
+        {
+            res_id: restaurant[randRestNum].res_id,
+            name: restaurant[randRestNum].name,
+            address: restaurant[randRestNum].address,
+            locality: restaurant[randRestNum].locality,
+            cuisineType: restaurant[randRestNum].cuisineType,
+            averageCostForTwo: restaurant[randRestNum].averageCostForTwo,
+            timings: restaurant[randRestNum].timings,
+            currency: restaurant[randRestNum].currency,
+            highlights: restaurant[randRestNum].highlights,
+            averageRating: restaurant[randRestNum].averageRating,
+            ratingVotes: restaurant[randRestNum].ratingVotes,
+            menu: restaurant[randRestNum].menu,
+            phoneNumber: restaurant[randRestNum].phoneNumber,
+            thumbnail: restaurant[randRestNum].thumbnail,
+            featured_image: restaurant[randRestNum].featured_image,
+            longitude: restaurant[randRestNum].longitude,
+            latitude: restaurant[randRestNum].latitude,
+        }
+    }, { new: true });
+    // console.log(finalResult)
+
+    res.redirect('/favorites/results');
 }
 
 module.exports.deleteFavorite = async (req, res) => {
+    const user = await User.findById(req.user.id);
+    // console.log(user);
+    // console.log(req.body);
+    res.render('users/deleteFavorites', { user })
+}
+
+module.exports.deleteFavoritePost = async (req, res) => {
     const user = await User.findById(req.user.id);
     const result = req.body
     const id = result.id;
@@ -70,6 +98,12 @@ module.exports.deleteFavorite = async (req, res) => {
     console.log(x);
 
     res.redirect('/editFavorites');
+}
+
+module.exports.results = async (req, res) => {
+    const user = await User.findById(req.user.id);
+
+    res.render('users/results', { user })
 }
 
 module.exports.logout = (req, res) => {
