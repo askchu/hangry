@@ -28,6 +28,31 @@
 
     <div class="row">
         <% for(let i = 0; i < user.favorites.length; i++) { %>
+        <% if(user.favorites.length <= 2) {%>
+        <div class="col-md-6">
+            <div class="card shadow">
+                <% if(!user.favorites[i].featured_image) { %>
+                <img class="card-img-top"
+                    src="https://images.unsplash.com/photo-1515669097368-22e68427d265?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8cmVzdGF1cmFudHN8ZW58MHwwfDB8&auto=format&fit=crop&w=900&q=60"
+                    alt="">
+                <% }%>
+                <img src="<%=user.favorites[i].featured_image%>" alt="" class="card-img-top">
+                <div class="card-body">
+                    <h3 class="card-title text-center"><%=user.favorites[i].name%></h3>
+                    <p class="card-text text-center"><strong>Rating:</strong> <%=user.favorites[i].averageRating%></p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+
+                        <p class="card-text"><strong>Phone Number:</strong> <%=user.favorites[i].phoneNumber%></p>
+                    </li>
+                    <li class="list-group-item"><strong>Hours of Operation:</strong> <%=user.favorites[i].timings%>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <% } else {%>
 
         <div class="col-md-4">
             <div class="card shadow">
@@ -53,6 +78,7 @@
             </div>
 
         </div>
+        <% } %>
         <% } %>
     </div>
 

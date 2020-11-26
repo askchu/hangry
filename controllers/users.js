@@ -65,7 +65,6 @@ module.exports.deleteFavorite = async (req, res) => {
     const id = result.id;
     console.log(id);
 
-
     // Removes the restaurant selected
     const x = await User.updateOne({ _id: user }, { $pull: { favorites: { _id: id } } }, { new: true });
     console.log(x);

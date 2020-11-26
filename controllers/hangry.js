@@ -359,7 +359,7 @@ module.exports.restaurantDetails = async (req, res) => {
         for (let i = 0; i < hungry[0].restaurant.length; i++) {
             if (detailsId == hungry[0].restaurant[i].res_id) {
                 const saved = {
-                    res_id: hungry[0].restaurant[i].res_id, 
+                    res_id: hungry[0].restaurant[i].res_id,
                     name: hungry[0].restaurant[i].name,
                     address: hungry[0].restaurant[i].address,
                     locality: hungry[0].restaurant[i].locality,
@@ -384,7 +384,7 @@ module.exports.restaurantDetails = async (req, res) => {
     const results = saved();
     // console.log(results);
     // console.log(results.name);
-    res.render(`hangry/restaurantDetails`, { hangry, results})
+    res.render(`hangry/restaurantDetails`, { hangry, results })
 };
 
 module.exports.saveFavorites = async (req, res) => {
@@ -414,11 +414,11 @@ module.exports.saveFavorites = async (req, res) => {
         }
     });
 
-     const saved = () => {
+    const saved = () => {
         for (let i = 0; i < hungry[0].restaurant.length; i++) {
             if (res_id == hungry[0].restaurant[i].res_id) {
                 const saved = {
-                    res_id: hungry[0].restaurant[i].res_id, 
+                    res_id: hungry[0].restaurant[i].res_id,
                     name: hungry[0].restaurant[i].name,
                     address: hungry[0].restaurant[i].address,
                     locality: hungry[0].restaurant[i].locality,
@@ -473,7 +473,7 @@ module.exports.saveFavorites = async (req, res) => {
         }
     }, { new: true });
 
-
+    req.flash('success', 'Saved to favorites!');
 
     res.redirect(`/hangry/${hangry._id}/search/${res_id}/details`)
 }
