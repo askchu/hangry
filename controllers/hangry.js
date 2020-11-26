@@ -1,4 +1,5 @@
 const Hangry = require('../models/hangry');
+const User = require('../models/user');
 const config = process.env.ZOMATO
 const axios = require('axios');
 
@@ -358,6 +359,7 @@ module.exports.restaurantDetails = async (req, res) => {
         for (let i = 0; i < hungry[0].restaurant.length; i++) {
             if (detailsId == hungry[0].restaurant[i].res_id) {
                 const saved = {
+                    res_id: hungry[0].restaurant[i].res_id, 
                     name: hungry[0].restaurant[i].name,
                     address: hungry[0].restaurant[i].address,
                     locality: hungry[0].restaurant[i].locality,
@@ -384,3 +386,94 @@ module.exports.restaurantDetails = async (req, res) => {
     // console.log(results.name);
     res.render(`hangry/restaurantDetails`, { hangry, results})
 };
+
+module.exports.saveFavorites = async (req, res) => {
+    const hangry = await Hangry.findById(req.params.id);
+    const hungrys = req.body;
+    const res_id = hungrys.favorite;
+
+    const hungry = await Hangry.find(hangry, {
+        restaurant: {
+            res_id: 1,
+            name: 1,
+            address: 1,
+            locality: 1,
+            cuisineType: 1,
+            averageCostForTwo: 1,
+            timings: 1,
+            currency: 1,
+            highlights: 1,
+            averageRating: 1,
+            ratingVotes: 1,
+            menu: 1,
+            phoneNumber: 1,
+            thumbnail: 1,
+            featured_image: 1,
+            longitude: 1,
+            latitude: 1,
+        }
+    });
+
+     const saved = () => {
+        for (let i = 0; i < hungry[0].restaurant.length; i++) {
+            if (res_id == hungry[0].restaurant[i].res_id) {
+                const saved = {
+                    res_id: hungry[0].restaurant[i].res_id, 
+                    name: hungry[0].restaurant[i].name,
+                    address: hungry[0].restaurant[i].address,
+                    locality: hungry[0].restaurant[i].locality,
+                    cuisineType: hungry[0].restaurant[i].cuisineType,
+                    averageCostForTwo: hungry[0].restaurant[i].averageCostForTwo,
+                    timings: hungry[0].restaurant[i].timings,
+                    currency: hungry[0].restaurant[i].currency,
+                    highlights: hungry[0].restaurant[i].highlights,
+                    averageRating: hungry[0].restaurant[i].averageRating,
+                    ratingVotes: hungry[0].restaurant[i].ratingVotes,
+                    menu: hungry[0].restaurant[i].menu,
+                    phoneNumber: hungry[0].restaurant[i].phoneNumber,
+                    thumbnail: hungry[0].restaurant[i].thumbnail,
+                    featured_image: hungry[0].restaurant[i].featured_image,
+                    longitude: hungry[0].restaurant[i].longitude,
+                    latitude: hungry[0].restaurant[i].latitude,
+                }
+                return saved
+            }
+        }
+    }
+    const results = saved();
+    // console.log(results);
+
+    // Finds the user logged in
+    const user = await User.findById(req.user.id);
+    console.log(user);
+
+    // Save restaurant data into user - favorites
+    await User.findByIdAndUpdate(user, {
+        $addToSet: {
+            favorites:
+                [{
+                    res_id: results.res_id,
+                    name: results.name,
+                    address: results.address,
+                    locality: results.locality,
+                    cuisineType: results.cuisineType,
+                    averageCostForTwo: results.averageCostForTwo,
+                    timings: results.timings,
+                    currency: results.currency,
+                    highlights: results.highlights,
+                    averageRating: results.averageRating,
+                    ratingVotes: results.ratingVotes,
+                    menu: results.menu,
+                    phoneNumber: results.phoneNumber,
+                    thumbnail: results.thumbnail,
+                    featured_image: results.featured_image,
+                    longitude: results.longitude,
+                    latitude: results.latitude,
+                }]
+        }
+    }, { new: true });
+
+
+
+    res.redirect(`/hangry/${hangry._id}/search/${res_id}/details`)
+}

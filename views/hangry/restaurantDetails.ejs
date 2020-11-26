@@ -17,15 +17,17 @@
     </div>
     <% } %>
 
-
-
-    <button id="btn" class="text-center py-auto btn btn-block btn-secondary mb-3" type="button">
+    <button id="btn" class="text-center btn btn-secondary mb-5" type="button">
         <a class="text-light" href="/hangry/<%=hangry._id%>/search">Back to search results</a>
     </button>
+
     <div class="card">
         <div class="card-header text-center">
-
-            <button>Add to Favorites</button>
+        <form action="/hangry/<%=hangry._id%>/search/<%=results.res_id%>/details" method="POST">
+    <button class="text-center mx-auto btn btn-block" type="submit"
+        value="<%=results.res_id%>" name="favorite">Add to favorites
+    </button>
+        </form>
         </div>
         <div class="card-body">
             <div class="row">

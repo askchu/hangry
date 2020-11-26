@@ -1,5 +1,5 @@
 .navbar {
-  background: linear-gradient(rgba(26,183,234, 80%), rgba(85,172,238 , 1));
+  background: linear-gradient(rgba(26, 183, 234, 80%), rgba(85, 172, 238, 1));
 }
 
 .navbar-brand {
@@ -9,7 +9,6 @@
 .cover-container {
   max-width: 60vw;
 }
-
 
 .nav-link {
   color: white;
@@ -32,6 +31,5 @@
 }
 
 footer {
-  background: linear-gradient(rgba(26,183,234, 80%), rgba(85,172,238 , 1));
-  color: white;
+  background: linear-gradient(rgba(26, 183, 234, 80%), rgba(85, 172, 238, 1));
 }

@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const catchAsync = require('../utils/catchAsync')
 const hangry = require('../controllers/hangry');
+const {isLoggedIn} = require('../middleware')
+
 
 router.route('/')
     .get(catchAsync(hangry.index))
@@ -17,6 +19,6 @@ router.route("/:id/search")
 
 router.route("/:id/search/:res_id/details")
     .get(catchAsync(hangry.restaurantDetails))
-    // Add a post route for saving favorite restaurant in users...
+    .post(isLoggedIn, catchAsync(hangry.saveFavorites))
 
 module.exports = router;

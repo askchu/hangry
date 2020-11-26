@@ -6,10 +6,9 @@
   background-position: center;
 }
 
-/* button {
-  border: none;
-  background: none;
-} */
+#btn {
+  width: 100%;
+}
 
 @media (min-width: 1100px) {
   #blah {

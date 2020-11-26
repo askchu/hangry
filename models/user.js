@@ -6,7 +6,6 @@ const UserSchema = new Schema({
     username: {
         type: String,
         required: true,
-        unique: true
     },
      email: {
         type: String,
@@ -15,8 +14,26 @@ const UserSchema = new Schema({
     },
     password: {
         type: String,
-        required: true
-     }
+    },
+    favorites: [{
+        res_id: Number,
+        name: String,
+        address: String,
+        locality: String,
+        cuisineType: String,
+        averageCostForTwo: Number,
+        timings: String,
+        currency: String,
+        highlights: [String],
+        averageRating: String,
+        ratingVotes: Number,
+        menu: String,
+        phoneNumber: String,
+        thumbnail: String,
+        featured_image: String,
+        longitude: String,
+        latitude: String,
+    }]
      
 });
 

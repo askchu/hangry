@@ -2,21 +2,28 @@
 <link rel="stylesheet" href="/stylesheets/search.css">
 
 
+<!-- border-bottom border-1 border-dark border-top -->
 
-
-<div id="main" class="pt-2 text-center border-bottom border-1 border-dark border-top">
+<div id="main" class="pt-2  text-center border-dark border-top">
 
     <% if(hangryz.length == 0) { %>
-    <h2>Sorry, no results found! Filter your search again!</h2>
-    <button id="btn" class="text-center mx-auto btn btn-secondary my-3" type="button">
-        <a class="text-light" href="/hangry/<%=hangry._id%>">Back to filter your search</a>
+        <div id="fail" class=""> 
+<div id="fail1">
+
+    <h2>Sorry, no results found! Try again!</h2>
+    <button id="btn" class="text-center mx-auto mt-3 btn btn-secondary" type="button">
+        <a class="text-light" href="/hangry/<%=hangry._id%>">Search again</a>
     </button>
+</div>
+        </div>
     <% } else { %>
+        <div class="border-bottom border-1 border-dark ">
     <h2 id="title2" class="m-2 text-center">Your results in
         <%=hangry.title%> </h2>
     <button id="btn" class="text-center mx-auto btn btn-secondary my-3" type="button">
         <a class="text-light" href="/hangry/<%=hangry._id%>">Back to filter your search</a>
     </button>
+    </div>
     <% } %>
 </div>
 
@@ -54,7 +61,6 @@
                         <p class="">Phone number: <%=hangryz[i].restaurant.phoneNumber%></p>
                     </div>
             
-                    <!-- WORKING ON FORM -->
                     <form action="/hangry/<%=hangry._id%>/search" method="POST">
                         <button id="btn" class="text-center mx-auto btn btn-primary btn-block" type="submit"
                             value="<%=hangryz[i].restaurant.res_id%>" name="btn">More details

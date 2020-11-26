@@ -45,18 +45,9 @@ const HangrySchema = new Schema({
         longitude: String,
         latitude: String,
     }],
-    // MapBox
-    geometry: {
-        type: String,
-        enum: ["Point"],
-        coordinates: {
-            longitude: String,
-            latitude: String
-        },
-
-    },
-    coordinates: {
-        type: Number,
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
     }
 });
 
