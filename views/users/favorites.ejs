@@ -1,4 +1,60 @@
 <% layout('layouts/boilerplate') %>
-<!-- <link rel="stylesheet" href="/stylesheets/index.css"> -->
+<link rel="stylesheet" href="/stylesheets/favorites.css">
 
-<h1>Made it to your favorites page!</h1>
+<div id="title" class="mb-3 py-3 text-center">
+    <h1 class="text-center mb-3">Favorites</strong>
+    </h1>
+    <button id="btn" class="btn"><a class="btn btn-block text-light" href="/editFavorites">Edit List</a></button>
+</div>
+
+<div class="container text-center">
+    <h3 class="mx-2">Still cant decide? Click the button below and we'll choose
+        one for you!
+    </h3>
+
+    <form action="/favorites" method="POST">
+        <button type="submit" class="btn btn-block mb-5 text-light">Pick for me</button>
+    </form>
+</div>
+
+<!-- 
+<form action="/favorites?_method=PUT" method="POST">
+</form> -->
+
+
+
+<div class="container mb-4">
+
+
+    <div class="row">
+        <% for(let i = 0; i < user.favorites.length; i++) { %>
+
+        <div class="col-md-4">
+            <div class="card shadow">
+                <% if(!user.favorites[i].featured_image) { %>
+                <img id=" blah" class="card-img-top"
+                    src="https://images.unsplash.com/photo-1515669097368-22e68427d265?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8cmVzdGF1cmFudHN8ZW58MHwwfDB8&auto=format&fit=crop&w=900&q=60"
+                    alt="">
+                <% } %>
+                <img src="<%=user.favorites[i].featured_image%>" alt="" class="card-img-top">
+                <div class="card-body">
+                    <h3 class="card-title"><%=user.favorites[i].name%></h3>
+                    <p class="card-text"><strong>Rating:</strong> <%=user.favorites[i].averageRating%></p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+
+                        <p class="card-text"><strong>Phone Number:</strong> <%=user.favorites[i].phoneNumber%></p>
+                    </li>
+                    <li class="list-group-item"><strong>Hours of Operation:</strong> <%=user.favorites[i].timings%>
+                    </li>
+                </ul>
+                <!-- <button class="btn-block btn-danger">Remove from favorites</button> -->
+            </div>
+
+        </div>
+        <% } %>
+    </div>
+
+
+</div>

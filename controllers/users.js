@@ -14,8 +14,8 @@ module.exports.registerPost = async (req, res) => {
             if (err) return next(err);
             req.flash('success', 'Welcome to Hangry!');
             res.redirect('/hangry');
-        }) 
-       } catch (e) {
+        })
+    } catch (e) {
         req.flash('error', e.message);
         res.redirect('register');
     }
@@ -34,9 +34,43 @@ module.exports.login = (req, res) => {
     res.redirect(redirectUrl);
 };
 
-module.exports.favoritePage = (req, res) => {
-    
-    res.render('users/favorites');
+module.exports.favoritePage = async (req, res) => {
+    const user = await User.findById(req.user.id);
+    // console.log(user);
+    res.render('users/favorites', { user });
+}
+
+module.exports.generateFavorite = async (req, res) => {
+    const user = await User.findById(req.user.id);
+    // console.log(user);
+    console.log(req.body);
+
+    const length = user.favorites.length + 1;
+    const randRestNum = Math.floor(Math.random() * length);
+    console.log(randRestNum);
+
+    res.redirect('/favorites');
+}
+
+module.exports.editFavorite = async (req, res) => {
+    const user = await User.findById(req.user.id);
+    // console.log(user);
+    // console.log(req.body);
+    res.render('users/editFavorites', { user })
+}
+
+module.exports.deleteFavorite = async (req, res) => {
+    const user = await User.findById(req.user.id);
+    const result = req.body
+    const id = result.id;
+    console.log(id);
+
+
+    // Removes the restaurant selected
+    const x = await User.updateOne({ _id: user }, { $pull: { favorites: { _id: id } } }, { new: true });
+    console.log(x);
+
+    res.redirect('/editFavorites');
 }
 
 module.exports.logout = (req, res) => {

@@ -17,6 +17,11 @@ router.route('/login')
 
 router.route('/favorites')
     .get(users.favoritePage)
+    .post(users.generateFavorite)
+    .put(users.deleteFavorite)
+
+router.route('/editFavorites')
+    .get(users.editFavorite)
 
 router.get('/logout', users.logout);
 
