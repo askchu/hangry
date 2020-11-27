@@ -152,7 +152,17 @@ module.exports.showLocation = async (req, res) => {
     const hangry = await Hangry.findById(id);
 
 
-    res.render('hangry/show', { hangry });
+  const hangryz = await Hangry.aggregate([
+        { $unwind: "$establishment" },
+        { $sort: { "establishment.name": 1 } }
+  ])
+    
+    
+    for (let i = 0; i < hangryz.length; i++){
+    console.log(hangryz[i].establishment.establishment_name);
+    }
+
+    res.render('hangry/show', { hangry, hangryz });
 }
 
 module.exports.cuisineSearch = async (req, res) => {
