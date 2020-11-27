@@ -15,7 +15,7 @@
     </h3>
 
     <form action="/favorites" method="POST">
-        <button type="submit" class="btn btn-block mb-5 text-light">Pick for me</button>
+        <button type="submit" class="btn btn-block mb-2 text-light">Pick for me</button>
     </form>
 </div>
 
@@ -25,13 +25,13 @@
 
 
 
-<div class="container mb-4">
 
 
+<div class="container">
     <div class="row">
         <% for(let i = 0; i < user.favorites.length; i++) { %>
         <% if(user.favorites.length <= 2) {%>
-        <div class="col-md-6">
+        <div class="col-md-6 my-3">
             <div class="card shadow">
                 <% if(!user.favorites[i].featured_image) { %>
                 <img class="card-img-top"
@@ -44,6 +44,7 @@
                     <p class="card-text text-center"><strong>Rating:</strong> <%=user.favorites[i].averageRating%></p>
                 </div>
                 <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>Address: </strong><%=user.favorites[i].address%></li>
                     <li class="list-group-item">
 
                         <p class="card-text"><strong>Phone Number:</strong> <%=user.favorites[i].phoneNumber%></p>
@@ -56,7 +57,7 @@
         </div>
         <% } else {%>
 
-        <div class="col-md-4">
+        <div class="col-md-4 my-3">
             <div class="card shadow">
                 <% if(!user.favorites[i].featured_image) { %>
                 <img id=" blah" class="card-img-top"
@@ -83,6 +84,7 @@
         <% } %>
         <% } %>
     </div>
+</div>
 
 
 </div>

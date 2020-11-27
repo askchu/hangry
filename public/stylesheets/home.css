@@ -8,19 +8,21 @@ body {
 }
 
 .navbar {
-  background: linear-gradient(rgba(26,183,234, 80%), rgba(85,172,238 , 1));
+  background: linear-gradient(rgba(26, 183, 234, 80%), rgba(85, 172, 238, 1));
 }
 
 .navbar-brand {
-  font-size: 1.5rem;
+  font-size: 2rem;
+  font-weight: 700;
+  text-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.8);
 }
-
 .cover-container {
   max-width: 60vw;
 }
 
 .nav-link {
-  color: rgba(255, 255, 255, 0.5);
+  color: white;
+  text-shadow: 0 0.1rem 0.1rem rgba(0, 0, 0, 0.5);
   font-size: 1.25rem;
   padding: 0.25rem 0;
   font-weight: 700;
@@ -55,6 +57,5 @@ h2 {
 }
 
 footer {
-  font-size: 1.5rem;
-  text-shadow: 0 0.5rem 0.7rem rgba(0, 0, 0, 0.5);
+  background: linear-gradient(rgba(26, 183, 234, 80%), rgba(85, 172, 238, 1));
 }

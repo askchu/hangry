@@ -22,18 +22,17 @@
             </div>
         </div>
     </div>
-    <!-- <button id="button1" class="ml-2 btn btn-dark d-inline">
-    <a href="/hangry/searchLocation">Add a new location</a>
-</button> -->
 </div>
 
 <!-- Discover the best food & drinks in New York City, NY -->
+
+    
 <div id="" class="container my-4 mh-75">
-    <h2 id="title2" class="pb-3 mt-2 text-center">All Locations</h2>
+<h2 id="title2" class="pb-3 mt-2 text-center border-bottom border-2">All Locations</h2>
     <div class="mx-1 text-center row">
         <% for(let hangry of hangryz) { %>
         <div class="col-md-12 col-lg-4 mx-auto">
-            <div class="card rounded-1 my-2">
+            <div class="card rounded-1 my-4">
                 <div class="card-body bg-light">
                     <h3 class="card-title mb-3"><%=hangry.title%></h5>
                         <!-- <p class="card-text">Category: <%=hangry.entity_type%></p>
@@ -49,7 +48,7 @@
     </div>
 </div>
 
-<div id="reviews" class="p-2">
+<!-- <div id="reviews" class="p-2">
     <h2 class="text-center">Reviews: </h2>
     <div class="row">
         <div class="col-md-4 mx-auto">
@@ -100,6 +99,6 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 <script src="/javascripts/index.js"></script>

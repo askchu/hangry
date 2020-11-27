@@ -97,7 +97,7 @@ module.exports.deleteFavoritePost = async (req, res) => {
     const x = await User.updateOne({ _id: user }, { $pull: { favorites: { _id: id } } }, { new: true });
     console.log(x);
 
-    res.redirect('/editFavorites');
+    res.redirect('/deleteFavorites');
 }
 
 module.exports.results = async (req, res) => {
