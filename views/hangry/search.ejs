@@ -27,19 +27,60 @@
     <% } %>
 </div>
 
+<!-- TEST -->
+<div class="row gx-0">
+    <!-- TEST -->
+    <div class="col-sm-12 col-md-2 bg-light pr-0 ">
 
+        <!-- FORM -->
+<div class="text-dark sticky-md-top">
+    <form action="">
+    <div class="">
+        <div class="">
+            <h5 class="text-center mt-3 pb-2 border-bottom border-2">Filter Options</h5>
+        </div>
+        <div class="text-left">
+            <div class="text-center">
+                <label class="form-check-label" for="autoSizingCheck1">
+                    Rating<br>(Highest to Lowest)
+                </label>
+                <input class="btn-block" type="checkbox" id="autoSizingCheck2">
+            </div>
+        </div>
+        <div class="text-left pt-2">
+            <div class="text-center">
+                <label class="form-check-label" for="autoSizingCheck1">
+                    Average Cost <br>(Lowest to Highest)
+                </label>
+                <input class="btn-block" type="checkbox" id="autoSizingCheck2">
+              
+            </div>
+        </div>
+        <div class="">
+            <div class="mt-2">
+                <button id="btn1" type="submit" class="btn btn-block">Search</button>
+            </div>
+        </div>
+    </div>
+    </form>
+</div>
 
-    <div class="container text-center my-3">
+    </div>
 
-    <div class="mx-1 row">
+    <!-- TEST -->
+    <div class="col-sm-12 col-md-10">
+
+        <!-- WHOLE BODY -->
+<div class="text-center my-3">
+    <div class="mx-1 row ">
         <!-- Show restaurants -->
         <%  for (let i = 0; i < hangryz.length; i++) { %>
         <% if(hangryz.length <= 2) { %>
-        <div class="col-md-6 mx-auto my-2">
+        <div class="col-md-6 mx-auto my-2 pr-0">
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title"><%=hangryz[i].restaurant.name%></h4>
-            
+
                     <!-- If no thumbnail, use default picture -->
                     <% if(!hangryz[i].restaurant.thumbnail) {%>
                     <img id="img" class="container blah"
@@ -48,32 +89,33 @@
                     <% } %>
                     <!-- else use the thumbnail provided -->
                     <img class="mb-3 container" src="<%=hangryz[i].restaurant.featured_image%>" alt="">
-            
+
                     <% if(hangryz[i].restaurant.averageRating >= 1) { %>
                     <h5 class="mb-3" class="text-center">Rating: <%=hangryz[i].restaurant.averageRating%> </h5>
-            
+
                     <% } else { %>
                     <h5 class="mb-3">Not rated</h5>
                     <% } %>
-            <p><strong>Average Cost for Two: </strong>$<%=hangryz[i].restaurant.averageCostForTwo%></p>
-                    
+                    <p><strong>Average Cost for Two: </strong>$<%=hangryz[i].restaurant.averageCostForTwo%></p>
+
                     <div class="text-left border-top pt-3">
                         <p>Location: <%=hangryz[i].restaurant.locality%></p>
                         <p class="">Phone number: <%=hangryz[i].restaurant.phoneNumber%></p>
                     </div>
-            
+
                     <form action="/hangry/<%=hangry._id%>/search" method="POST">
                         <button id="btn" class="text-center mx-auto btn btn-primary btn-block" type="submit"
                             value="<%=hangryz[i].restaurant.res_id%>" name="btn">More details
                         </button>
                     </form>
-            
+
                 </div>
             </div>
         </div>
 
         <% } else {%>
-        <div class="col-md-6 col-lg-4 my-2">
+
+        <div class="col-md-6 col-lg-4 col-xl-3 my-2">
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title"><%=hangryz[i].restaurant.name%></h4>
@@ -93,7 +135,7 @@
                     <% } else { %>
                     <h5 class="mb-3">Not rated</h5>
                     <% } %>
-                        <p><strong>Price: </strong><%=hangryz[i].restaurant.currency%></p>
+                    <p><strong>Average Cost for Two: </strong><%=hangryz[i].restaurant.averageCostForTwo%></p>
                     <div class="text-left border-top pt-3">
                         <p>Location: <%=hangryz[i].restaurant.locality%></p>
                         <p class="">Phone number: <%=hangryz[i].restaurant.phoneNumber%></p>
@@ -112,6 +154,18 @@
         <% }} %>
     </div>
 </div>
+
+
+    </div>
+
+    <!-- TEST -->
+</div>
+
+
+
+
+
+  
 
 <!-- <button class="mt-3 btn btn-secondary">
             <a class="text-light" href="/hangry">Back to all locations</a>

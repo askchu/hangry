@@ -30,3 +30,15 @@
   color: rgba(255, 255, 255, 0.97);
   text-shadow: 0 0.2rem 0.3rem rgba(7, 7, 7, 0.7);
 }
+
+#btn1 {
+  background-color: rgba(85, 172, 238, 0.6);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+@media (max-width: 992px) {
+  #btn1 {
+    width: 100%;
+  }
+}

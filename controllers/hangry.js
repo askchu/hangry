@@ -152,17 +152,8 @@ module.exports.showLocation = async (req, res) => {
     const hangry = await Hangry.findById(id);
 
 
-  const hangryz = await Hangry.aggregate([
-        { $unwind: "$establishment" },
-        { $sort: { "establishment.name": 1 } }
-  ])
-    
-    
-    for (let i = 0; i < hangryz.length; i++){
-    console.log(hangryz[i].establishment.establishment_name);
-    }
 
-    res.render('hangry/show', { hangry, hangryz });
+    res.render('hangry/show', { hangry});
 }
 
 module.exports.cuisineSearch = async (req, res) => {
@@ -276,13 +267,10 @@ module.exports.cuisineSearch = async (req, res) => {
     };
     const length = await search();
 
-    // If no results, redirect back to the same page, else go show list of restaurants
 
-    // if (length > 0) {
-    //     res.redirect(`/hangry/${hangry._id}/search`)
-    // } else {
-    //     res.render('hangry/show', { hangry });
-    // }
+    
+
+
 
     res.redirect(`/hangry/${hangry._id}/search`)
 
@@ -296,33 +284,42 @@ module.exports.searchResults = async (req, res) => {
 
 
 
-    // Prints out restaurants name alphabetically
+    // Saves restaurants name alphabetically
     const hangryz = await Hangry.aggregate([
         { $unwind: "$restaurant" },
         { $sort: { "restaurant.name": 1 } }
     ])
 
+    const hangrys = await Hangry.aggregate([
+        { $unwind: "$restaurant" },
+        {
+            $sort:
+            {
+                // Saves averageCostForTwo from lowest to highest
+                "restaurant.averageCostForTwo": 1,
+                // Saves rating from highest to lowest
+                "restaurant.averageRating": -1
+            }
+        }
+    ])
 
+    // console.log(hangrys.length)
+    // console.log(hangrys[0].restaurant.averageCostForTwo);
+    
+    //   for (let i = 0; i < hangrys.length; i++){
+    //       console.log(hangrys[i].restaurant.averageCostForTwo);
+    //       console.log(hangrys[i].restaurant.averageRating);
+    // }
+
+
+  
     // Resets search count back to 0, incase user adds a new filter.
     await Hangry.findByIdAndUpdate(id, { search: [{ count: 0 }] }, { new: true });
-
-    // // Prints out restaurants name alphabetically
-
-    // if (hangry.restaurant.length > 0) {
-    //     console.log("Results....");
-    //     for (let i = 0; i < hangryz.length; i++) {
-    //         console.log(i + " - " + hangryz[i].restaurant.name);
-    //         // console.log(hangryz[i].restaurant.res_id);
-    //         // console.log(hangryz[i].restaurant.averageCostForTwo);
-    //         // console.log(hangryz[i].restaurant.cuisineType);
-    //     }
-    // }
 
     res.render(`hangry/search`, { hangry, hangryz })
 };
 
-// FIX ! - add a more detail model in hangry model to save the restaurant in. 
-// So that you can use the data and spit it out in your res.render page
+
 
 module.exports.moreDetailsButton = async (req, res) => {
     const hangry = await Hangry.findById(req.params.id);
