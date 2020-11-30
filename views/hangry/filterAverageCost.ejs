@@ -91,13 +91,19 @@
                             <!-- else use the thumbnail provided -->
                             <img class="mb-3 container" src="<%=hangryz[i].restaurant.featured_image%>" alt="">
 
+                            <% if(hangryz[i].restaurant.averageCostForTwo < 1) {%>
+                            <h5><strong>Average Cost for Two: </strong> Not rated
+                            </h5>
+                            <% } %>
+                            <h5><strong>Average Cost for Two: </strong>$<%=hangryz[i].restaurant.averageCostForTwo%>
+                            </h5>
                             <% if(hangryz[i].restaurant.averageRating >= 1) { %>
-                            <h5 class="mb-3" class="text-center">Rating: <%=hangryz[i].restaurant.averageRating%> </h5>
+                            <p class="mb-3" class="text-center">Rating: <%=hangryz[i].restaurant.averageRating%> </p>
 
                             <% } else { %>
-                            <h5 class="mb-3">Not rated</h5>
+                            <p class="mb-3">Not rated</p>
                             <% } %>
-                            <p><strong>Average Cost for Two: </strong>$<%=hangryz[i].restaurant.averageCostForTwo%></p>
+
 
                             <div class="text-left border-top pt-3">
                                 <p>Location: <%=hangryz[i].restaurant.locality%></p>
@@ -130,13 +136,15 @@
                             <!-- else use the thumbnail provided -->
                             <img class="mb-3 container" src="<%=hangryz[i].restaurant.featured_image%>" alt="">
 
+                            <h5>Average Cost for Two: $<%=hangryz[i].restaurant.averageCostForTwo%>
+                            </h5>
                             <% if(hangryz[i].restaurant.averageRating >= 1) { %>
-                            <h5 class="mb-3" class="text-center">Rating: <%=hangryz[i].restaurant.averageRating%> </h5>
+                            <p class="mb-3" class="text-center"><strong>Rating:</strong>
+                                <%=hangryz[i].restaurant.averageRating%> </p>
 
                             <% } else { %>
-                            <h5 class="mb-3">Not rated</h5>
+                            <p class="mb-3"><strong>Not rated</strong></p>
                             <% } %>
-                            <p><strong>Average Cost for Two: </strong><%=hangryz[i].restaurant.averageCostForTwo%></p>
                             <div class="text-left border-top pt-3">
                                 <p>Location: <%=hangryz[i].restaurant.locality%></p>
                                 <p class="">Phone number: <%=hangryz[i].restaurant.phoneNumber%></p>

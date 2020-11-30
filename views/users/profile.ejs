@@ -1,0 +1,30 @@
+<% layout('layouts/boilerplate') %>
+<link rel="stylesheet" href="/stylesheets/profile.css">
+
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div class="card shadow">
+                <h1 class="text-center border-bottom py-3">Profile</h1>
+                <div class="card-body">
+                    <div class="card-text">
+                        <h5>Username: <%=user.username%></h5>
+                        <p>Email: <%=user.email%></p>
+                    </div>
+                    <h5 class="pt-3 border-top">Address:</h5>
+                    <div class="card-text">
+                        <p>Street: <%=user.address.street%></p>
+                        <p>Postal Code: <%=user.address.postalCode%></p>
+                        <p>City: <%=user.address.city%></p>
+                        <p>State: <%=user.address.state%></p>
+                        <p>Country: <%=user.address.country%></p>
+                    </div>
+
+                </div>
+                <button class="btn btn-block bg-success"><a class="btn btn-block text-light"
+                        href="/profile/edit">Edit</a></button>
+            </div>
+        </div>
+    </div>
+</div>

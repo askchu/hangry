@@ -97,7 +97,7 @@
                             <% } else { %>
                             <h5 class="mb-3">Not rated</h5>
                             <% } %>
-                            <p><strong>Average Cost for Two: </strong>$<%=hangryz[i].restaurant.averageCostForTwo%></p>
+                            <p><strong>Average Cost for Two: $</strong>$<%=hangryz[i].restaurant.averageCostForTwo%></p>
 
                             <div class="text-left border-top pt-3">
                                 <p>Location: <%=hangryz[i].restaurant.locality%></p>
@@ -131,12 +131,12 @@
                             <img class="mb-3 container" src="<%=hangryz[i].restaurant.featured_image%>" alt="">
 
                             <% if(hangryz[i].restaurant.averageRating >= 1) { %>
-                            <h5 class="mb-3" class="text-center">Rating: <%=hangryz[i].restaurant.averageRating%> </h5>
+                            <h5 class="" class="text-center">Rating: <%=hangryz[i].restaurant.averageRating%> </h5>
 
                             <% } else { %>
                             <h5 class="mb-3">Not rated</h5>
                             <% } %>
-                            <p><strong>Average Cost for Two: </strong><%=hangryz[i].restaurant.averageCostForTwo%></p>
+                            <p><strong>Average Cost for Two: </strong> $<%=hangryz[i].restaurant.averageCostForTwo%></p>
                             <div class="text-left border-top pt-3">
                                 <p>Location: <%=hangryz[i].restaurant.locality%></p>
                                 <p class="">Phone number: <%=hangryz[i].restaurant.phoneNumber%></p>

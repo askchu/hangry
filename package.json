@@ -26,6 +26,7 @@
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^6.0.1",
     "request": "^2.88.2",
+    "yelp-fusion": "^3.0.0",
     "zomato-api": "^0.1.2"
   }
 }

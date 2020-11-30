@@ -15,7 +15,6 @@ const options = {
 
 module.exports.index = async (req, res) => {
 
-
     //   Lists every location alphabetically
     const hangryz = await Hangry.find().collation({ locale: 'en', strength: 2 }).sort({ title: 1 });
 
@@ -153,7 +152,7 @@ module.exports.showLocation = async (req, res) => {
 
 
 
-    res.render('hangry/show', { hangry});
+    res.render('hangry/show', { hangry });
 }
 
 module.exports.cuisineSearch = async (req, res) => {
@@ -268,7 +267,7 @@ module.exports.cuisineSearch = async (req, res) => {
     const length = await search();
 
 
-    
+
 
 
 
@@ -305,20 +304,91 @@ module.exports.searchResults = async (req, res) => {
 
     // console.log(hangrys.length)
     // console.log(hangrys[0].restaurant.averageCostForTwo);
-    
-    //   for (let i = 0; i < hangrys.length; i++){
-    //       console.log(hangrys[i].restaurant.averageCostForTwo);
-    //       console.log(hangrys[i].restaurant.averageRating);
+
+    // NOTE: Prints out both avgCost and avgRating
+    // for (let i = 0; i < hangrys.length; i++) {
+    //     console.log(hangrys[i].restaurant.averageCostForTwo);
+    //     console.log(hangrys[i].restaurant.averageRating);
     // }
 
 
-  
+
     // Resets search count back to 0, incase user adds a new filter.
     await Hangry.findByIdAndUpdate(id, { search: [{ count: 0 }] }, { new: true });
 
     res.render(`hangry/search`, { hangry, hangryz })
 };
 
+
+module.exports.filterOptionResult = async (req, res) => {
+    const hangry = await Hangry.findById(req.params.id);
+    const result = req.body;
+    const form = result.form;
+
+    // NOTE: Checks if form is an array: will print false or true
+    const x = Array.isArray(form);
+
+    // Redirects to different filter results depending on what options were selected
+    if (form == 'rating') {
+        res.redirect(`/hangry/${hangry._id}/search/filter/ratings`)
+    } else if (form == 'averageCost') {
+        res.redirect(`/hangry/${hangry._id}/search/filter/averageCost`);
+    } else if (x == true) {
+        res.redirect(`/hangry/${hangry._id}/search/filter/ratings&cost`);
+    } else {
+
+        req.flash('error', 'No filter was chosen, try again.');
+        res.redirect(`/hangry/${hangry._id}/search`);
+    }
+}
+
+module.exports.filterByRatings = async (req, res) => {
+    const hangry = await Hangry.findById(req.params.id);
+    const hangryz = await Hangry.aggregate([
+        { $unwind: "$restaurant" },
+        {
+            $sort:
+            {
+                // Saves rating from highest to lowest
+                "restaurant.averageRating": -1
+            }
+        }
+    ])
+
+    res.render('hangry/filterRatings', { hangry, hangryz });
+}
+
+module.exports.filterByAverageCost = async (req, res) => {
+    const hangry = await Hangry.findById(req.params.id);
+    const hangryz = await Hangry.aggregate([
+        { $unwind: "$restaurant" },
+        {
+            $sort:
+            {
+                // Saves rating from highest to lowest
+                "restaurant.averageCostForTwo": 1
+            }
+        }
+    ])
+    res.render('hangry/filterAverageCost', { hangry, hangryz });
+}
+
+module.exports.filterByRatingsAndCost = async (req, res) => {
+    const hangry = await Hangry.findById(req.params.id);
+    const hangryz = await Hangry.aggregate([
+        { $unwind: "$restaurant" },
+        {
+            $sort:
+            {
+                // Saves averageCostForTwo from lowest to highest
+                "restaurant.averageCostForTwo": 1,
+                // Saves rating from highest to lowest
+                "restaurant.averageRating": -1
+            }
+        }
+    ])
+    res.render('hangry/filterRatingsAndCost', { hangry, hangryz });
+}
 
 
 module.exports.moreDetailsButton = async (req, res) => {

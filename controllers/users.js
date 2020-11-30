@@ -1,19 +1,81 @@
 const User = require('../models/user');
 
+module.exports.profile = async (req, res) => {
+    const user = await User.findById(req.user.id);
+    // console.log(user);
+    res.render('users/profile', { user });
+}
+
+module.exports.editResults = async (req, res) => {
+    const user = await User.findById(req.user.id);
+
+    console.log(req.body);
+    const result = req.body;
+
+    const update = await User.findByIdAndUpdate(user, {
+        address: {
+            street: result.street,
+            city: result.city,
+            state: result.state,
+            postalCode: result.postalCode,
+            country: result.country,
+            maxResults: 1
+        }
+    }, { new: true });
+
+    console.log(update);
+
+
+    req.flash('success', "Changes updated.")
+    res.redirect('/profile');
+}
+
+module.exports.editProfile = async (req, res) => {
+    const user = await User.findById(req.user.id);
+
+    res.render('users/editProfile', { user });
+}
+
 module.exports.register = (req, res) => {
     res.render('users/register');
 };
 
-module.exports.registerPost = async (req, res) => {
+module.exports.registerPost = async (req, res, next) => {
+    // TODO: Save address and all of the other information
+
     try {
         const { email, username, password } = req.body;
         const user = new User({ email, username });
         const registeredUser = await User.register(user, password);
+        const id = user._id;
+        const result = req.body;
+
+
+        await User.findByIdAndUpdate(id, {
+            $addToSet: {
+                address: {
+                    street: result.address,
+                    city: result.city,
+                    state: result.state,
+                    country: result.country,
+                    postalCode: result.postalCode,
+                    maxResults: 1,
+                }
+            }
+        }, { new: true })
+
+
+
+
+
         req.login(registeredUser, err => {
             // After registering, you are immediately logged in. 
-            if (err) return next(err);
-            req.flash('success', 'Welcome to Hangry!');
-            res.redirect('/hangry');
+            if (err) {
+                console.log(err);
+            } else {
+                req.flash('success', 'Welcome to Hangry');
+                res.redirect('/hangry');
+            }
         })
     } catch (e) {
         req.flash('error', e.message);

@@ -7,6 +7,14 @@ const catchAsync = require('../utils/catchAsync');
 const users = require('../controllers/users');
 
 // ROUTES
+
+router.route('/profile')
+    .get(users.profile)
+    .put(users.editResults)
+
+router.route('/profile/edit')
+    .get(users.editProfile)
+
 router.route('/register')
     .get(users.register)
     .post(catchAsync(users.registerPost))

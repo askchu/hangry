@@ -15,6 +15,18 @@ const UserSchema = new Schema({
     password: {
         type: String,
     },
+    address: {
+        street: String,
+        city: String,
+        state: String,
+        country: String,
+        postalCode: String,
+        maxResults: Number,
+        coordinates: {
+            lat: Number,
+            long: Number
+        }
+    },
     favorites: [{
         res_id: Number,
         name: String,

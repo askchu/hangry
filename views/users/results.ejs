@@ -11,70 +11,78 @@
 
 
 <div id="main" class="">
-   <div class="row">
-       <div class="col-md-10 offset-md-1">
-<div class="card my-4">
-    
-<!-- MAP BOX -->
-    <div id='map' class="card-img-top" style='width: 100%; height: 300px;'>
-    </div>
-    <div class="container">
-<div class="card-body p-0">
     <div class="row">
-        <div id="restName" class="border-bottom">
-            <h2 class="card-title text-center pt-3"><%=user.chosenRestaurant.name%></h2>
-            <h5 class="text-center pb-3"><strong>Rating:</strong> <%=user.chosenRestaurant.averageRating%>
-            </h5>
-        </div>
+        <div class="col-md-10 offset-md-1">
+            <div class="card my-4">
 
-        <div class="col-sm-6 col-md-7 col-lg-4 mt-3">
-         
-            <div class="text-left">
-                <p class="card-text"><strong>Location:</strong> <%=user.chosenRestaurant.locality%></p>
-                <p class="card-text"><strong>Address:</strong> <%=user.chosenRestaurant.address%></p>
-                <p class="card-text"><strong>Phone Number:</strong> <%=user.chosenRestaurant.phoneNumber%></p>
-
-                <div class="d-none d-md-block d-lg-none">
-                    <p><strong>Cuisine Type:</strong> <%=user.chosenRestaurant.cuisineType%></p>
-                    <p><strong>Average Cost for Two:</strong> $<%=user.chosenRestaurant.averageCostForTwo%></p>
+                <!-- MAP BOX -->
+                <div id='map' class="card-img-top" style='width: 100%; height: 300px;'>
                 </div>
-            </div>
-        </div>
-
-
-
-        <div class="col-sm-6 col-md-4 col-lg-4 mt-3">
-            <div class="d-block mb-2">
-                <h5 class="">Hours of Operation</h5>
-                <div class="commaSeparated">
-                    <%=user.chosenRestaurant.timings%>
+                <div id="restName" class="border-bottom">
+                    <h2 class="card-title text-center pt-3"><%=user.chosenRestaurant.name%></h2>
+                    <h5 class="text-center pb-3"><strong>Rating:</strong>
+                        <%=user.chosenRestaurant.averageRating%>
+                    </h5>
                 </div>
+                <div class="container">
+                    <div class="card-body p-0">
+                        <div class="row">
+                           
+
+                            <div class="col-sm-6 col-md-7 col-lg-4 mt-3">
+
+                                <div class="text-left">
+                                    <p class="card-text"><strong>Location:</strong> <%=user.chosenRestaurant.locality%>
+                                    </p>
+                                    <p class="card-text"><strong>Address:</strong> <%=user.chosenRestaurant.address%>
+                                    </p>
+                                    <p class="card-text"><strong>Phone Number:</strong>
+                                        <%=user.chosenRestaurant.phoneNumber%></p>
+
+                                    <div class="d-none d-md-block d-lg-none">
+                                        <p><strong>Cuisine Type:</strong> <%=user.chosenRestaurant.cuisineType%></p>
+                                        <p><strong>Average Cost for Two:</strong>
+                                            $<%=user.chosenRestaurant.averageCostForTwo%></p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-sm-6 col-md-4 col-lg-4 mt-3">
+                                <div class="d-block mb-2">
+                                    <h5 class="">Hours of Operation</h5>
+                                    <div class="commaSeparated">
+                                        <%=user.chosenRestaurant.timings%>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 col-md-12 col-lg-4">
+                                <div class="d-block d-md-none d-lg-block mt-3">
+                                    <p><strong>Cuisine Type:</strong> <%=user.chosenRestaurant.cuisineType%></p>
+                                    <p><strong>Average Cost for Two:</strong>
+                                        $<%=user.chosenRestaurant.averageCostForTwo%></p>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <button id="btn2" class="btn btn-block btn-light">
+                    <a class="btn-block btn text-light" href=" <%=user.chosenRestaurant.menu%>"
+                        target="_blank"><strong>Website</strong></a>
+
+                </button>
+
             </div>
         </div>
-
-        <div class="col-sm-12 col-md-12 col-lg-4">
-            <div class="d-block d-md-none d-lg-block mt-3">
-                <p><strong>Cuisine Type:</strong> <%=user.chosenRestaurant.cuisineType%></p>
-                <p><strong>Average Cost for Two:</strong> $<%=user.chosenRestaurant.averageCostForTwo%></p>
-            </div>
-        </div>
-
-
     </div>
 </div>
-    </div>
 
-        <button id="btn2" class="btn btn-block btn-light">
-            <a class="btn-block btn text-light" href=" <%=user.chosenRestaurant.menu%>" target="_blank"><strong>Website</strong></a>
 
-        </button>
-  
-</div>
-</div>
-       </div>
-   </div>
-
-   
 
 <!-- MAPBOX -->
 <script>

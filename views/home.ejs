@@ -27,11 +27,12 @@
                                     <a class="nav-link text-light" href="/hangry">Locations</a>
                                 </li>
                                 <% if(currentUser) {%>
+                                <a class="nav-link text-light" href="/profile">Profile</a>
                                 <li>
                                     <a class="nav-link text-light" href="/logout">Favorites</a>
                                 </li>
                                 <% }%>
-                                
+
                                 <% if(!currentUser) {%>
                                 <a class="nav-link text-light" href="/login">Login</a>
                                 <a class="nav-link text-light" href="/register">Register</a>
@@ -55,13 +56,13 @@
             </main>
 
 
-        <footer id="foot" class="footer py-2  mt-auto">
-            <div class="container text-center">
-                <strong>
-                    <span class="text-light">&copy; Made by Alex C</span>
-                </strong>
-            </div>
-        </footer>
+            <footer id="foot" class="footer py-2  mt-auto">
+                <div class="container text-center">
+                    <strong>
+                        <span class="text-light">&copy; Made by Alex C</span>
+                    </strong>
+                </div>
+            </footer>
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
