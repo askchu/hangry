@@ -1,4 +1,15 @@
 const User = require('../models/user');
+const config = process.env.ZOMATO
+const axios = require('axios');
+
+
+
+// ZOMATO API
+const options = {
+    headers: {
+        "user-key": config
+    }
+};
 
 module.exports.profile = async (req, res) => {
     const user = await User.findById(req.user.id);
@@ -51,6 +62,7 @@ module.exports.registerPost = async (req, res, next) => {
         const result = req.body;
 
 
+        // Adds address onto the account
         await User.findByIdAndUpdate(id, {
             $addToSet: {
                 address: {
@@ -64,6 +76,35 @@ module.exports.registerPost = async (req, res, next) => {
             }
         }, { new: true })
 
+
+        // Collect the trend for default City: Toronto
+        const url = "https://developers.zomato.com/api/v2.1/collections?city_id=89&count=5";
+
+        const trend = await axios.get(url, options);
+        // console.log(trend)
+        // console.log(trend.data.collections[0].collection.title)
+        const length = trend.data.collections.length;
+        for (let i = 0; i < length; i++) {
+            await User.findByIdAndUpdate(id, {
+                $addToSet:
+                {
+                    trending:
+                        [{
+                            collection_id: trend.data.collections[i].collection.collection_id,
+                            res_count: trend.data.collections[i].collection.res_count,
+                            image_url: trend.data.collections[i].collection.image_url,
+                            title: trend.data.collections[i].collection.title,
+                            description: trend.data.collections[i].collection.description,
+                            share_url: trend.data.collections[i].collection.share_url
+                        }]
+                }
+            }, { new: true })
+        }
+        // console.log(res.data.location_suggestions[0]);
+
+
+        // console.log(results);
+        // await results.save();
 
 
 
@@ -99,7 +140,14 @@ module.exports.login = (req, res) => {
 module.exports.favoritePage = async (req, res) => {
     const user = await User.findById(req.user.id);
     // console.log(user);
-    res.render('users/favorites', { user });
+
+    const form = user.favorites;
+    const length = form.length;
+
+    // const x = Array.isArray(form);
+
+
+    res.render('users/favorites', { user, length });
 }
 
 module.exports.generateFavorite = async (req, res) => {
@@ -113,7 +161,7 @@ module.exports.generateFavorite = async (req, res) => {
     // console.log(randRestNum);
 
     const restaurant = user.favorites;
-    console.log(restaurant[randRestNum].name);
+    // console.log(restaurant[randRestNum].name);
 
     const finalResult = await User.findByIdAndUpdate(user, {
         chosenRestaurant:

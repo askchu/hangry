@@ -5,11 +5,18 @@
     <h1 class="text-center mb-3">Favorites</strong>
     </h1>
 
+    <% if(length < 1) { %>
+    <h3 class="">Add a restaurant:</h3>
+    <button id="btn" class="btn mt-1"><a class="btn btn-block text-light" href="/hangry">Locations</a></button>
+    <% } else {%>
     <h3 class="">Don't want to keep certain restaurants?</h3>
     <button id="btn" class="btn mt-1"><a class="btn btn-block text-light" href="/deleteFavorites">Remove</a></button>
+    <% } %>
 </div>
 
 <div class="container text-center">
+
+    <% if(length > 1) { %>
     <h3 class="mx-2">Still can't decide? <br> Click the button below and we'll choose
         one for you!
     </h3>
@@ -17,6 +24,7 @@
     <form action="/favorites" method="POST">
         <button type="submit" class="btn btn-block mb-2 text-light">Pick for me</button>
     </form>
+    <% } %>
 </div>
 
 <!-- 

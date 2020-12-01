@@ -1,34 +1,110 @@
 <% layout('layouts/boilerplate') %>
 <link rel="stylesheet" href="/stylesheets/index.css">
 
-<div id="main">
-    <div id="title" class="py-4">
-        <h1 class="mb-4">Begin your search</h1>
-        <h3 class="title mb-0">Don't see your location? Add one right here!</h3>
+
+
+<div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+        <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+        <li data-target="#carouselExampleCaptions" data-slide-to="3"></li>
+        <li data-target="#carouselExampleCaptions" data-slide-to="4"></li>
+        <li data-target="#carouselExampleCaptions" data-slide-to="5"></li>
+    </ol>
+
+    <!-- TODO: Fix the carousel -->
+    <div class="carousel-inner">
+        <div class="carousel-item active container">
+            <img src="<%=user.trending[0].image_url%>" class="d-block" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <h5><%=user.trending[0].title%></h5>
+                <p><%=user.trending[0].description%></p>
+            </div>
+        </div>
+        <%    for (trend of user.trending) { %>
+
+        <div class="carousel-item container">
+            <img src="<%=trend.image_url%>" class="d-block" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <h5><%=trend.title%></h5>
+                <p><%=trend.description%></p>
+            </div>
+        </div>
+        <% } %>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </a>
+</div>
+
+
+<div id="main1" class="py-4 my-4">
+    <h2 class="mb-4">Search for Restaurants</h1>
+        <h3 class="title border-bottom border-secondary pb-3">Already know a restaurant? Search below!</h3>
 
         <div class="mb-3">
-            <div class="">
-                <form action="/hangry" class="needs-validation " id="searchForm" method="POST" novalidate>
-                    <div class="mb-2 ">
-                        <label class="form-label" for="location"></label>
-                        <input id="btn" class="form-control mx-auto" type="text" id="location" name="location"
-                            placeholder="For example: Mississauga, Toronto" required>
+            <div class="container">
+                <form action="/hangry/restaurants" class="needs-validation " id="searchForm" method="POST" novalidate>
+                    <div class="my-2 ">
+                        <label class="form-label mt-2" for="restaurant">Restaurant:</label>
+                        <input id="btn" class="form-control mx-auto" type="text" id="restaurant" name="search"
+                            placeholder="For example: McDonalds" required>
                         <div class="valid-feedback">
                             Looks good!
                         </div>
+
+                        <label class="form-label mt-2" for="location">Location:</label>
+                        <input id="btn" class="form-control mx-auto text-center" type="text" id="location"
+                            name="location" placeholder="For example: Mississauga, Ontario" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+
+                        <label class="form-label mt-2" for="maxResults">Max Number of Results Displayed</label>
+                        <input id="btn" class="form-control mx-auto text-center" type="number" id="maxResults"
+                            name="maxResults" min="1" max="40" placeholder="Choose from 1-40" required>
                     </div>
-                    <button id="btn" class="btn text-light">Add</button>
+                    <button id="btn" class="btn text-light">Search</button>
                 </form>
             </div>
         </div>
+</div>
+
+
+<div id="main">
+    <div id="title" class="py-4">
+        <h2 class="mb-4">Search for Locations</h1>
+            <h3 class="title mb-0">Don't see your location? Add one right here!</h3>
+
+            <div class="mb-3">
+                <div class="">
+                    <form action="/hangry" class="needs-validation " id="searchForm" method="POST" novalidate>
+                        <div class="mb-2 ">
+                            <label class="form-label" for="location"></label>
+                            <input id="btn" class="form-control mx-auto" type="text" id="location" name="location"
+                                placeholder="For example: Mississauga, Toronto" required>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                        </div>
+                        <button id="btn" class="btn text-light">Add</button>
+                    </form>
+                </div>
+            </div>
     </div>
 </div>
 
 <!-- Discover the best food & drinks in New York City, NY -->
 
-    
+
 <div id="" class="container my-4 mh-75">
-<h2 id="title2" class="pb-3 mt-2 text-center border-bottom border-2">All Locations</h2>
+    <h2 id="title2" class="pb-3 mt-2 text-center border-bottom border-2">All Locations</h2>
     <div class="mx-1 text-center row">
         <% for(let hangry of hangryz) { %>
         <div class="col-md-12 col-lg-4 mx-auto">

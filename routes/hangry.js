@@ -9,6 +9,10 @@ router.route('/')
     .get(catchAsync(hangry.index))
     .post(catchAsync(hangry.search))
 
+router.route('/restaurants')
+    .get(catchAsync(hangry.restaurantSearches))
+    .post(catchAsync(hangry.searchRestaurant))
+
 router.route('/:id')
     .get(catchAsync(hangry.showLocation))
     .post(catchAsync(hangry.cuisineSearch))

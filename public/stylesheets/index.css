@@ -7,27 +7,53 @@ body {
   box-shadow: nset 0 0 5rem rgba(0, 0, 0, 0.5);
 }
 
-
-
-#title {
+#main1 {
   background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)),
-    url(https://images.unsplash.com/photo-1428908728789-d2de25dbd4e2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60);  
+    url(https://images.unsplash.com/photo-1428908728789-d2de25dbd4e2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60);
   background-size: cover;
   background-position: center;
   text-align: center;
   border-bottom: 0.1rem solid black;
   border-top: 0.1rem solid black;
 }
- 
-#title h1 {
+
+#main1 h2 {
   font-size: 3.5rem;
-  color:rgba(255, 255, 255, 0.97);
+  color: rgba(255, 255, 255, 0.97);
+  text-shadow: 0 0.2rem 0.3rem rgba(7, 7, 7, 0.7);
+}
+
+#main1 h3 {
+  font-size: 1.5rem;
+  color: rgba(255, 255, 255, 0.97);
+  text-shadow: 0 0.2rem 0.3rem rgba(7, 7, 7, 0.8);
+}
+
+#main1 label {
+  font-size: 1.5rem;
+  color: rgba(255, 255, 255, 0.97);
+  text-shadow: 0 0.2rem 0.3rem rgba(7, 7, 7, 0.8);
+}
+
+#title {
+  background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)),
+    url(https://images.unsplash.com/photo-1428908728789-d2de25dbd4e2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60);
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+  border-bottom: 0.1rem solid black;
+  border-top: 0.1rem solid black;
+}
+
+#title h2 {
+  font-size: 3.5rem;
+  color: rgba(255, 255, 255, 0.97);
   text-shadow: 0 0.2rem 0.3rem rgba(7, 7, 7, 0.7);
 }
 
 #title h3 {
   font-size: 1.5rem;
-  color:rgba(255, 255, 255, 0.97);
+  color: rgba(255, 255, 255, 0.97);
   text-shadow: 0 0.2rem 0.3rem rgba(7, 7, 7, 0.8);
 }
 
@@ -36,14 +62,13 @@ body {
 }
 
 button a {
-  color:white;
+  color: white;
   text-decoration: none;
 }
 
 button {
-  background: linear-gradient(rgba(26,183,234, 0.5), rgba(85,172,238 , 1))
+  background: linear-gradient(rgba(26, 183, 234, 0.5), rgba(85, 172, 238, 1));
 }
-
 
 #btn {
   text-align: center;
@@ -56,8 +81,8 @@ input {
 
 #reviews {
   background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)),
-    url(https://images.unsplash.com/photo-1495195134817-aeb325a55b65?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60);  
-     background-size: cover;
+    url(https://images.unsplash.com/photo-1495195134817-aeb325a55b65?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60);
+  background-size: cover;
   background-position: center;
   border-top: 0.1rem solid black;
   border-bottom: 0.1rem solid black;
@@ -65,23 +90,20 @@ input {
 
 #reviews h2 {
   font-size: 2.5rem;
-  color:rgba(255, 255, 255, 0.97);
+  color: rgba(255, 255, 255, 0.97);
   text-shadow: 0 0.2rem 0.3rem rgba(7, 7, 7, 0.7);
 }
 
 #title2 {
-font-size: 3rem;
-  color:rgba(255, 255, 255, 0.97);
+  font-size: 3rem;
+  color: rgba(255, 255, 255, 0.97);
   text-shadow: 0 0.2rem 0.3rem rgba(7, 7, 7, 0.8);
 }
 
-@media (max-width: 992px) {
-#btn {
-  width: 100%;
-}
 
-input {
-  height: 2.5rem;
-  width: 80%;
-}
+
+@media (max-width: 992px) {
+  #btn {
+    width: 100%;
+  }
 }

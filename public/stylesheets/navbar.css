@@ -35,3 +35,10 @@
 footer {
   background: linear-gradient(rgba(26, 183, 234, 80%), rgba(85, 172, 238, 1));
 }
+
+footer a {
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+

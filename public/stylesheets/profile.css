@@ -1,18 +1,22 @@
-
 body {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.0)),
-    url(https://images.unsplash.com/photo-1551554781-c46200ea959d?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGJhY2tncm91bmR8ZW58MHwwfDB8&auto=format&fit=crop&w=700&q=60
-);
+  background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)),
+    url(https://images.unsplash.com/photo-1551554781-c46200ea959d?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTF8fGJhY2tncm91bmR8ZW58MHwwfDB8&auto=format&fit=crop&w=700&q=60);
   background-size: cover;
   background-repeat: repeat;
   background-position: center;
   box-shadow: nset 0 0 5rem rgba(0, 0, 0, 0.5);
 }
-
-h1 {
+.background {
   background: linear-gradient(rgba(26, 183, 234, 0.5), rgba(85, 172, 238, 1));
-
   font-size: 3.5rem;
   color: rgba(255, 255, 255, 0.97);
   text-shadow: 0 0.2rem 0.25rem rgba(7, 7, 7, 0.7);
+}
+
+button {
+  background: linear-gradient(rgba(26, 183, 234, 1), rgba(85, 172, 238, 0.5));
+}
+
+#submit {
+  background: linear-gradient(rgba(29, 221, 195, 1), rgba(78, 218, 159, 1));
 }

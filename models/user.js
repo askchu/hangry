@@ -64,7 +64,16 @@ const UserSchema = new Schema({
         featured_image: String,
         longitude: String,
         latitude: String,
-    }
+    },
+    trending: [{
+        collection_id: Number,
+        res_count: Number,
+        image_url: String,
+        url: String,
+        title: String,
+        description: String,
+        share_url: String
+    }]
 });
 
 UserSchema.plugin(passportLocalMongoose);

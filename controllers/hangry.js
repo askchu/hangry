@@ -5,17 +5,30 @@ const axios = require('axios');
 
 
 
-
+// ZOMATO API
 const options = {
     headers: {
         "user-key": config
     }
 };
 
+// YELP API
+const config2 = process.env.YELP;
+const yelp = require('yelp-fusion');
+const client = yelp.client(config2);
 
 module.exports.index = async (req, res) => {
-
+    const user = await User.findById(req.user.id);
+    console.log(user);
+    const length = user.trending.length;
     //   Lists every location alphabetically
+
+    for (trend of user.trending) {
+        console.log(trend.title)
+    }
+
+
+
     const hangryz = await Hangry.find().collation({ locale: 'en', strength: 2 }).sort({ title: 1 });
 
     // prints out every location alphabetically
@@ -43,9 +56,51 @@ module.exports.index = async (req, res) => {
 
 
 
-    res.render('hangry/index', { hangryz });
+
+
+    res.render('hangry/index', { hangryz, user, length });
 
 };
+
+module.exports.restaurantSearches = async (req, res) => {
+
+
+    res.render('hangry/restaurants')
+}
+
+// TODO: Fix business search YELP API
+
+module.exports.searchRestaurant = async (req, res) => {
+    const results = req.body;
+    const search = results.search;
+    const location = results.location;
+    const maxResults = results.maxResults;
+
+    console.log(results);
+
+    const businessSearch = async () => {
+        try {
+            const res = await client.search({
+                term: search,
+                limit: maxResults,
+                location: location,
+            });
+            console.log(res.jsonBody.businesses);
+            console.log(res.jsonBody.businesses.length);
+
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    businessSearch();
+
+
+    res.redirect('/hangry');
+}
+
+
+
 
 module.exports.search = async (req, res) => {
     const hangries = req.body;
