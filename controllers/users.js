@@ -13,7 +13,9 @@ const options = {
 
 module.exports.profile = async (req, res) => {
     const user = await User.findById(req.user.id);
-    // console.log(user);
+    const location = `${user.address.street}, ${user.address.city}, ${user.address.state}, ${user.address.postalCode}`;
+    // console.log(location);
+    console.log(user);
     res.render('users/profile', { user });
 }
 
@@ -61,20 +63,38 @@ module.exports.registerPost = async (req, res, next) => {
         const id = user._id;
         const result = req.body;
 
+        const config2 = process.env.MAPQUEST;
+        const location = `${result.address}, ${result.city}, ${result.state}, ${result.postalCode}`;
 
-        // Adds address onto the account
-        await User.findByIdAndUpdate(id, {
-            $addToSet: {
-                address: {
-                    street: result.address,
-                    city: result.city,
-                    state: result.state,
-                    country: result.country,
-                    postalCode: result.postalCode,
-                    maxResults: 1,
-                }
+
+        const url3 = `https://www.mapquestapi.com/geocoding/v1/address?key=${config2}&inFormat=kvp&outFormat=json&location=${location}&maxResults=1`;
+        const getAddress = async () => {
+            try {
+                const res = await axios.get(url3);
+                // console.log(res.data.results[0].locations);
+
+                await User.findByIdAndUpdate(id, {
+                    address:
+                    {
+                        street: result.address,
+                        city: result.city,
+                        state: result.state,
+                        country: result.country,
+                        postalCode: result.postalCode,
+                        maxResults: 1,
+                        coordinates: {
+                            lat: res.data.results[0].locations[0].latLng.lat,
+                            long: res.data.results[0].locations[0].latLng.lng
+                        }
+                    }
+                }, { new: true })
             }
-        }, { new: true })
+            catch (e) {
+                console.log(e);
+            }
+        };
+        getAddress();
+
 
 
         // Collect the trend for default City: Toronto

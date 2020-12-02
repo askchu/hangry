@@ -19,14 +19,20 @@ const client = yelp.client(config2);
 
 module.exports.index = async (req, res) => {
     const user = await User.findById(req.user.id);
-    console.log(user);
+    const id2 = user._id;
     const length = user.trending.length;
+
+    console.log(user.address);
+
+
     //   Lists every location alphabetically
 
-    for (trend of user.trending) {
-        console.log(trend.title)
-    }
-
+    // for (trend of user.trending) {
+    //     console.log(trend.title)
+    // }
+    // for (let i = 1; i < length; i++) {
+    //     console.log(user.trending[i].title);
+    // }
 
 
     const hangryz = await Hangry.find().collation({ locale: 'en', strength: 2 }).sort({ title: 1 });
@@ -54,7 +60,19 @@ module.exports.index = async (req, res) => {
         }
     }
 
-
+    // If there is data saved in restaurant, delete it.
+    if (user.restaurantSearch.length) {
+        await User.updateOne({ _id: id2 }, { $pull: { restaurantSearch: { name: { $exists: true } } } }, { new: true }
+            // ,
+            // function (err, res) {
+            //     if (err) {
+            //         console.log(err);
+            //     } else {
+            //         console.log(res);
+            //     }
+            // }
+        );
+    }
 
 
 
@@ -63,20 +81,54 @@ module.exports.index = async (req, res) => {
 };
 
 module.exports.restaurantSearches = async (req, res) => {
+    const user = await User.findById(req.user.id);
+    const length = user.restaurantSearch.length;
+    // console.log(user);
+    console.log(length);
 
+    const featured = [];
 
-    res.render('hangry/restaurants')
+    const data = {
+        type: `FeatureCollection`,
+        features: featured
+    };
+
+    const restaurants = () => {
+        for (let i = 0; i < length; i++) {
+            featured.push({
+                'type': 'Feature',
+                'properties': {
+                    'description':
+                        `${user.restaurantSearch[i].name}`
+                },
+                'geometry': {
+                    'type': 'Point',
+                    'coordinates': [user.restaurantSearch[i].coordinates.longitude, user.restaurantSearch[i].coordinates.latitude]
+                }
+            })
+        }
+        return featured
+    }
+    restaurants();
+    console.log(data.features[0]);
+    const results = JSON.stringify(data.features[0].properties.description)
+    console.log(results);
+
+    res.render('hangry/restaurants', { user, data })
 }
 
 // TODO: Fix business search YELP API
 
 module.exports.searchRestaurant = async (req, res) => {
+    const user = await User.findById(req.user.id);
+    console.log(user);
+    const id = user._id;
     const results = req.body;
     const search = results.search;
     const location = results.location;
-    const maxResults = results.maxResults;
+    const maxResults = 5;
 
-    console.log(results);
+    // console.log(results);
 
     const businessSearch = async () => {
         try {
@@ -86,17 +138,65 @@ module.exports.searchRestaurant = async (req, res) => {
                 location: location,
             });
             console.log(res.jsonBody.businesses);
+            const business = res.jsonBody.businesses;
             console.log(res.jsonBody.businesses.length);
+            const length = res.jsonBody.businesses.length;
 
+            // for (let i = 0; i < length; i++) {
+            //     console.log(business[i].name);
+            //     console.log(business[i].image_url)
+            //     console.log(business[i].url)
+            //     console.log(business[i].rating)
+            //     console.log(business[i].coordinates)
+            //     console.log(business[i].price)
+            //     console.log(business[i].location.address1)
+            //     console.log(business[i].location.city)
+            //     console.log(business[i].location.zip_code)
+            //     console.log(business[i].location.country)
+            //     console.log(business[i].location.state)
+            //     console.log(business[i].location.display_address)
+            //     console.log(business[i].display_phone)
+            // }
+
+            for (let i = 0; i < length; i++) {
+                await User.findByIdAndUpdate(id, {
+                    $addToSet:
+                    {
+                        restaurantSearch: [{
+                            name: business[i].name,
+                            image_url: business[i].image_url,
+                            url: business[i].url,
+                            rating: business[i].rating,
+                            coordinates: {
+                                latitude: business[i].coordinates.latitude,
+                                longitude: business[i].coordinates.longitude
+                            },
+                            price: business[i].price,
+                            address: business[i].location.address1,
+                            city: business[i].location.city,
+                            zip_code: business[i].location.zip_code,
+                            country: business[i].location.country,
+                            state: business[i].location.state,
+                            // display_address: business[i].location.display_address,
+                            display_phone: business[i].display_phone,
+                            geometry: {
+                                type: "Point",
+                                coordinates: [business[i].coordinates.latitude, business[i].coordinates.longitude]
+                            }
+                        }]
+                    }
+                }, { new: true })
+            }
         } catch (e) {
             console.log(e);
         }
     }
+    const saved = await businessSearch();
+    console.log(saved);
 
-    businessSearch();
 
 
-    res.redirect('/hangry');
+    res.redirect('/hangry/restaurants');
 }
 
 

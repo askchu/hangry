@@ -3,178 +3,254 @@
 
 
 
-<div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
-    <ol class="carousel-indicators">
-        <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-        <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-        <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
-        <li data-target="#carouselExampleCaptions" data-slide-to="3"></li>
-        <li data-target="#carouselExampleCaptions" data-slide-to="4"></li>
-        <li data-target="#carouselExampleCaptions" data-slide-to="5"></li>
-    </ol>
 
-    <!-- TODO: Fix the carousel -->
-    <div class="carousel-inner">
-        <div class="carousel-item active container">
-            <img src="<%=user.trending[0].image_url%>" class="d-block" alt="...">
-            <div class="carousel-caption d-none d-md-block">
-                <h5><%=user.trending[0].title%></h5>
-                <p><%=user.trending[0].description%></p>
-            </div>
-        </div>
-        <%    for (trend of user.trending) { %>
-
-        <div class="carousel-item container">
-            <img src="<%=trend.image_url%>" class="d-block" alt="...">
-            <div class="carousel-caption d-none d-md-block">
-                <h5><%=trend.title%></h5>
-                <p><%=trend.description%></p>
-            </div>
-        </div>
-        <% } %>
-    </div>
-    <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </a>
-</div>
+<!-- 
+<div id="carouselTitle" class="mb-0 gx-0">
+    <h2 class="text-center pt-4 mb-1 mx-3">Trending in Toronto</h2>
 
 
-<div id="main1" class="py-4 my-4">
-    <h2 class="mb-4">Search for Restaurants</h1>
-        <h3 class="title border-bottom border-secondary pb-3">Already know a restaurant? Search below!</h3>
+    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+            <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+            <li data-target="#carouselExampleCaptions" data-slide-to="3"></li>
+            <li data-target="#carouselExampleCaptions" data-slide-to="4"></li>
+        </ol>
+        <div class="carousel-inner pt-3">
+            <div class="row">
+                <div class="container">
 
-        <div class="mb-3">
-            <div class="container">
-                <form action="/hangry/restaurants" class="needs-validation " id="searchForm" method="POST" novalidate>
-                    <div class="my-2 ">
-                        <label class="form-label mt-2" for="restaurant">Restaurant:</label>
-                        <input id="btn" class="form-control mx-auto" type="text" id="restaurant" name="search"
-                            placeholder="For example: McDonalds" required>
-                        <div class="valid-feedback">
-                            Looks good!
+                    <div class="carousel-item active">
+                        <a href="<%=user.trending[0].share_url%>" target="_blank">
+                            <img src="<%=user.trending[0].image_url%>" class="d-block img-thumbnail mb-2" alt="...">
+                        </a>
+                        <div class="blah d-block text-center pt-2 pb-5 text-light">
+
+                            <h5><%=user.trending[0].title%></h5>
+                            <p><%=user.trending[0].description%></p>
                         </div>
-
-                        <label class="form-label mt-2" for="location">Location:</label>
-                        <input id="btn" class="form-control mx-auto text-center" type="text" id="location"
-                            name="location" placeholder="For example: Mississauga, Ontario" required>
-                        <div class="valid-feedback">
-                            Looks good!
-                        </div>
-
-                        <label class="form-label mt-2" for="maxResults">Max Number of Results Displayed</label>
-                        <input id="btn" class="form-control mx-auto text-center" type="number" id="maxResults"
-                            name="maxResults" min="1" max="40" placeholder="Choose from 1-40" required>
                     </div>
-                    <button id="btn" class="btn text-light">Search</button>
-                </form>
-            </div>
-        </div>
-</div>
 
-
-<div id="main">
-    <div id="title" class="py-4">
-        <h2 class="mb-4">Search for Locations</h1>
-            <h3 class="title mb-0">Don't see your location? Add one right here!</h3>
-
-            <div class="mb-3">
-                <div class="">
-                    <form action="/hangry" class="needs-validation " id="searchForm" method="POST" novalidate>
-                        <div class="mb-2 ">
-                            <label class="form-label" for="location"></label>
-                            <input id="btn" class="form-control mx-auto" type="text" id="location" name="location"
-                                placeholder="For example: Mississauga, Toronto" required>
-                            <div class="valid-feedback">
-                                Looks good!
-                            </div>
+                    <%        for (let i = 1; i < length; i++) { %>
+                    <div class="carousel-item">
+                        <a href="<%=user.trending[i].share_url%>" target="_blank">
+                            <img src="<%=user.trending[i].image_url%>" class="d-block img-thumbnail mb-2" alt="...">
+                        </a>
+                        <div class="blah d-block text-center pt-2 pb-5 text-light">
+                            <h5><%=user.trending[i].title%></h5>
+                            <p><%=user.trending[0].description%></p>
                         </div>
-                        <button id="btn" class="btn text-light">Add</button>
-                    </form>
+                    </div>
+                    <% } %>
                 </div>
             </div>
+
+</div>
+<a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+</a>
+<a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+</a>
+</div>
+</div> -->
+
+
+
+
+<div id="main1" class="mb-3 pt-3">
+    <div class="row gx-0">
+        <div class="col-md-12">
+            <h2 class='text-center mb-4'>Search:</h2>
+        </div>
+        <div id="search1" class="col-md-6">
+            <div class="container">
+                <h3 class="title  border-secondary pb-1">Already know a restaurant? Search below!</h3>
+
+                <div class="mb-3">
+                    <div class="container">
+                        <form action="/hangry/restaurants" class="needs-validation " id="searchForm" method="POST"
+                            novalidate>
+                            <div class="mb-2 ">
+                                <label class="form-label mt-2" for="restaurant">Restaurant Name:</label>
+                                <input id="btn" class="text-center form-control mx-auto" type="text" id="restaurant"
+                                    name="search" placeholder="For example: McDonalds" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+
+                                <label class="form-label mt-2" for="location">Location:</label>
+                                <input id="btn" class="form-control mx-auto text-center" type="text" id="location"
+                                    name="location" placeholder="For example: Mississauga, Ontario" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+
+                                <!-- <label class="form-label mt-2" for="maxResults">Max Number of Results
+                                    Displayed</label>
+                                <input id="btn" class="form-control mx-auto text-center" type="number" id="maxResults"
+                                    name="maxResults" min="1" max="40" placeholder="Choose from 1-40" required> -->
+                            </div>
+                            <button id="btn1" class="btn text-light">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mr-0">
+            <div id="title" class="">
+                <h3 class="title mb-0">Don't see your location? Add one right here!</h3>
+                <div id="container">
+
+                    <div class="mb-3">
+                        <div class="container">
+                            <form action="/hangry" class="needs-validation " id="searchForm" method="POST" novalidate>
+                                <div class="mb-2 ">
+                                    <label class="form-label" for="location"></label>
+                                    <input id="btn" class="form-control mx-auto" type="text" id="location"
+                                        name="location" placeholder="For example: Mississauga, Toronto" required>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                </div>
+                                <button id="btn1" class="btn text-light">Add</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
+
+<!-- TODO: Fix up -->
+<div id="featured" class="container">
+    <div class="row mt-3 gr-0">
+        <div class="col-md-12 text-center">
+            <h3>Featured Restaurants</h3>
+        </div>
+        <div class="col-md-6 align-self-center">
+            <div>
+                <a href="<%=user.trending[0].share_url%>" target="_blank">
+                </a>
+                <div class="blah text-center">
+                    <h5><%=user.trending[0].title%></h5>
+                    <p><%=user.trending[0].description%></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="d-none d-md-block">
+                <img class="img-thumbnail img-fluid" src="<%=user.trending[0].image_url%>" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="" class="container  mh-75">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 id="title2" class="pb-1 mt-2 text-center">Locations:</h2>
+        </div>
+        <div class="col-md-12">
+            <div class="mx-1 text-center row">
+                <% for(let hangry of hangryz) { %>
+                <div class="col-md-12 col-lg-4 mx-auto">
+                    <div class="card rounded-1 my-4">
+                        <div class="card-body bg-light">
+                            <h3 class="card-title mb-3"><%=hangry.title%></h5>
+                                <!-- <p class="card-text">Category: <%=hangry.entity_type%></p>
+                        <p class="card-text text-muted">Entity Number: <%=hangry.entity_id%></p>
+                        <p class="card-text">City Id: <%=hangry.city_id%></p> -->
+                                <button class="btn btn-primary">
+                                    <a class="text-light" href="/hangry/<%=hangry._id%>">View <%=hangry.title%></a>
+                                </button>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- <div id="main1" class="mb-3">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class='text-center mb-4'>Search:</h2>
+        </div>
+        <div id="search1" class="col-md-6">
+            <div class="container">
+                <h3 class="title  border-secondary pb-1">Already know a restaurant? Search below!</h3>
+
+                <div class="mb-3">
+                    <div class="container">
+                        <form action="/hangry/restaurants" class="needs-validation " id="searchForm" method="POST"
+                            novalidate>
+                            <div class="mb-2 ">
+                                <label class="form-label mt-2" for="restaurant">Restaurant Name:</label>
+                                <input id="btn" class="form-control mx-auto" type="text" id="restaurant" name="search"
+                                    placeholder="For example: McDonalds" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+
+                                <label class="form-label mt-2" for="location">Location:</label>
+                                <input id="btn" class="form-control mx-auto text-center" type="text" id="location"
+                                    name="location" placeholder="For example: Mississauga, Ontario" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+
+                                <label class="form-label mt-2" for="maxResults">Max Number of Results
+                                    Displayed</label>
+                                <input id="btn" class="form-control mx-auto text-center" type="number" id="maxResults"
+                                    name="maxResults" min="1" max="40" placeholder="Choose from 1-40" required>
+                            </div>
+                            <button id="btn" class="btn text-light">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div id="title" class="">
+                <h3 class="title mb-0">Don't see your location? Add one right here!</h3>
+                <div id="container">
+
+                    <div class="mb-3">
+                        <div class="container">
+                            <form action="/hangry" class="needs-validation " id="searchForm" method="POST" novalidate>
+                                <div class="mb-2 ">
+                                    <label class="form-label" for="location"></label>
+                                    <input id="btn" class="form-control mx-auto" type="text" id="location"
+                                        name="location" placeholder="For example: Mississauga, Toronto" required>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                </div>
+                                <button id="btn" class="btn text-light">Add</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div> -->
+
+
+
 
 <!-- Discover the best food & drinks in New York City, NY -->
 
 
-<div id="" class="container my-4 mh-75">
-    <h2 id="title2" class="pb-3 mt-2 text-center border-bottom border-2">All Locations</h2>
-    <div class="mx-1 text-center row">
-        <% for(let hangry of hangryz) { %>
-        <div class="col-md-12 col-lg-4 mx-auto">
-            <div class="card rounded-1 my-4">
-                <div class="card-body bg-light">
-                    <h3 class="card-title mb-3"><%=hangry.title%></h5>
-                        <!-- <p class="card-text">Category: <%=hangry.entity_type%></p>
-                        <p class="card-text text-muted">Entity Number: <%=hangry.entity_id%></p>
-                        <p class="card-text">City Id: <%=hangry.city_id%></p> -->
-                        <button class="btn btn-primary">
-                            <a class="text-light" href="/hangry/<%=hangry._id%>">View <%=hangry.title%></a>
-                        </button>
-                </div>
-            </div>
-        </div>
-        <% } %>
-    </div>
-</div>
 
-<!-- <div id="reviews" class="p-2">
-    <h2 class="text-center">Reviews: </h2>
-    <div class="row">
-        <div class="col-md-4 mx-auto">
-            <div class="card mx-3 my-2">
-                <div class="card-body">
-                    <h3 class="card-title mb-3">Author: Alex C</h3>
-                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, saepe sint
-                        consequatur
-                        nihil reiciendis
-                        optio
-                        fugiat ex totam at veniam corporis deserunt similique sunt minima laborum! Unde magnam modi
-                        ipsam
-                        perspiciatis
-                        est similique corporis laudantium velit voluptates vel reprehenderit sequi non impedit, eos
-                        maxime
-                        necessitatibus dignissimos quo labore eum quos!</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4 mx-auto">
-            <div class="card mx-3 my-2">
-                <div class="card-body">
-                    <h3 class="card-title mb-3">Author: Alex C</h3>
-                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, saepe sint
-                        consequatur
-                        nihil reiciendis
-                        optio
-                        !</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4 mx-auto">
-            <div class="card mx-3 my-2">
-                <div class="card-body">
-                    <h3 class="card-title mb-3">Author: Alex C</h3>
-                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, saepe sint
-                        consequatur
-                        nihil reiciendis
-                        optio
-
-                        perspiciatis
-                        est similique corporis laudantium velit voluptates vel reprehenderit sequi non impedit, eos
-                        maxime
-                        necessitatibus dignissimos quo labore eum quos!</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
 
 <script src="/javascripts/index.js"></script>

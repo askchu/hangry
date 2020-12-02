@@ -16,6 +16,10 @@
   box-shadow: nset 0 0 5rem rgba(0, 0, 0, 0.5);
 }
 
+#a {
+  text-decoration: none;
+}
+
 #postalCode {
   width: 45%;
 }

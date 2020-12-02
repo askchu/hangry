@@ -1,0 +1,24 @@
+#btn {
+  font-weight: 700;
+}
+
+.card img {
+  height: 200px;
+}
+
+@media (max-width: 768px) {
+  /* .card {
+    width: 75%;
+  }
+
+  .card-body {
+    padding-left: 10%;
+    padding-right: 10%;
+  } */
+
+  .card img {
+    height: 50%;
+    width: 30%;
+    padding: 0;
+  }
+}

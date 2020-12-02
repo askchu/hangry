@@ -6,7 +6,7 @@ const { isLoggedIn } = require('../middleware')
 
 
 router.route('/')
-    .get(catchAsync(hangry.index))
+    .get(isLoggedIn, catchAsync(hangry.index))
     .post(catchAsync(hangry.search))
 
 router.route('/restaurants')

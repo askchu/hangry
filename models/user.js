@@ -73,7 +73,37 @@ const UserSchema = new Schema({
         title: String,
         description: String,
         share_url: String
-    }]
+    }],
+    restaurantSearch: [{
+        name: String,
+        image_url: String,
+        url: String,
+        rating: Number,
+        coordinates: {
+            latitude: Number,
+            longitude: Number
+        },
+        price: String,
+        address1: String,
+        city: String,
+        zip_code: String,
+        country: String,
+        state: String,
+        display_address: String,
+        display_phone: String,
+        geometry: {
+            type: {
+                type: String,
+                enum: ['Point'],
+                required: true
+            },
+            coordinates: {
+                type: [Number],
+                required: true
+            }
+        },
+    }],
+
 });
 
 UserSchema.plugin(passportLocalMongoose);

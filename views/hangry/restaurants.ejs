@@ -1,2 +1,98 @@
 <% layout('layouts/boilerplate') %>
-<h1>Restaurant Search Page</h1>
+<link rel="stylesheet" href="/stylesheets/restaurant.css">
+
+
+<div class="text-center my-3">
+    <h1 class="">Restaurant Search Page</h1>
+    <button class="btn">
+        <a class="btn btn-block bg-light" href="/hangry">Search another restaurant</a>
+    </button>
+</div>
+
+
+
+<div id="map" style='width: 100%; height: 300px;'></div>
+
+<!-- TEST -->
+<div class="row gx-0">
+        <div class="col-12 text-center bg-light sticky-top py-2 border-bottom border-2">
+            <form action="">
+            <label for="">Amount of results to display</label>
+            <select name="" id="">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+            </select>
+            <button id="btn" type="submit" class="border-0 bg-light text-success">Search</button>
+            </form>
+        </div>
+    <!-- TEST -->
+    <div class="col-sm-12 col-md-2 bg-light pr-0 ">
+
+        <!-- FORM -->
+        <div class="text-dark sticky-md-top">
+            <form action="" method="POST">
+                    <div class="">
+                        <h5 class="text-center mt-3 pb-2 border-bottom border-2">Sort By </h5>
+                    </div>
+                    <div class="text-left">
+                        <div class="text-center">
+                            <label class="form-check-label" for="autoSizingCheck1">
+                                Rating<br>(Highest to Lowest)
+                            </label>
+                            <input class="btn-block" type="checkbox" id="autoSizingCheck1" value="rating" name="form">
+                        </div>
+                    </div>
+                    <div class="text-left pt-2">
+                        <div class="text-center">
+                            <label class="form-check-label" for="autoSizingCheck1">
+                                Price <br>(Lowest to Highest)
+                            </label>
+                            <input class="btn-block" type="checkbox" id="autoSizingCheck2" value="averageCost"
+                                name="form">
+
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="mt-2">
+                            <button  type="submit" class="btn btn-block btn-secondary">Search</button>
+                        </div>
+                    </div>
+            </form>
+        </div>
+
+    </div>
+
+    <div class="col-sm-12 col-md-10">
+    
+    <div class="text-center my-3">
+        <div class="mx-1 row ">
+            <!-- Show restaurants -->
+            <%  for (let i = 0; i < user.restaurantSearch.length; i++) { %>
+            <div class="col-md-6 col-lg-4 col-xl-3 my-2">
+                <div class="card">
+                    <div class="card-body">
+                        <img class="card-img-top" src="<%=user.restaurantSearch[i].image_url%>" alt="">
+                        <h4 class="card-title"><%=user.restaurantSearch[i].name%></h4>
+    
+    
+    
+                    </div>
+                </div>
+            </div>
+            <% } %>
+    
+        </div>
+    </div>
+    </div>
+    </div>
+
+
+<script>
+    const mapToken = '<%-process.env.MAPBOX_TOKEN%>';
+    const user = <%-JSON.stringify(user) %>
+    const data = <%-JSON.stringify(data) %>
+
+</script>
+<script src="/javascripts/clusterMap.js"></script>
