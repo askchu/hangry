@@ -22,7 +22,7 @@ module.exports.index = async (req, res) => {
     const id2 = user._id;
     const length = user.trending.length;
 
-    console.log(user.address);
+    console.log(length);
 
 
     //   Lists every location alphabetically
@@ -80,11 +80,55 @@ module.exports.index = async (req, res) => {
 
 };
 
+
+
 module.exports.restaurantSearches = async (req, res) => {
     const user = await User.findById(req.user.id);
+ 
+
+
+
+
+    // NOTE: Every searched individual restaurant in alphabetical order
+    const hangryz = await User.aggregate([
+        { $unwind: "$restaurantSearch" },
+        { $sort: { "restaurantSearch.name": 1 } }
+    ])
+    // console.log(hangryz[0].restaurantSearch);
+
+
+    // Prints every restaurant alphabetically
+    // for (let i = 0; i < hangryz.length; i++) {
+    //    console.log(hangryz[i].restaurantSearch.name);
+    // }
+  
+
+    const rating = await User.aggregate([
+        { $unwind: "$restaurantSearch" },
+        { $sort: { "restaurantSearch.rating": -1 } }
+    ])
+     // Prints every restaurant rating from top to bottom
+    // for (let i = 0; i < hangryz.length; i++) {
+    //    console.log(rating[i].restaurantSearch.rating);
+    // }
+    
+
+
+    const price = await User.aggregate([
+        { $unwind: "$restaurantSearch" },
+        { $sort: { "restaurantSearch.price": -1 } }
+    ])
+     // Prints every restaurant price from top to bottom
+    // for (let i = 0; i < hangryz.length; i++) {
+    //    console.log(price[i].restaurantSearch.price);
+    // }
+
+
+
     const length = user.restaurantSearch.length;
-    // console.log(user);
-    console.log(length);
+    // console.log(user.term);
+    // console.log(user.location);
+    // console.log(length);
 
     const featured = [];
 
@@ -110,18 +154,17 @@ module.exports.restaurantSearches = async (req, res) => {
         return featured
     }
     restaurants();
-    console.log(data.features[0]);
-    const results = JSON.stringify(data.features[0].properties.description)
-    console.log(results);
+    // const results = JSON.stringify(data.features[0].properties.description)
+    // console.log(results);
 
-    res.render('hangry/restaurants', { user, data })
+    res.render('hangry/restaurants', { user, data, hangryz })
 }
 
-// TODO: Fix business search YELP API
+
 
 module.exports.searchRestaurant = async (req, res) => {
     const user = await User.findById(req.user.id);
-    console.log(user);
+    // console.log(user);
     const id = user._id;
     const results = req.body;
     const search = results.search;
@@ -129,6 +172,10 @@ module.exports.searchRestaurant = async (req, res) => {
     const maxResults = 5;
 
     // console.log(results);
+    await User.findByIdAndUpdate(id, {
+        term: results.search,
+        location: results.location
+    }, { new: true })
 
     const businessSearch = async () => {
         try {
@@ -137,11 +184,13 @@ module.exports.searchRestaurant = async (req, res) => {
                 limit: maxResults,
                 location: location,
             });
+            // console.log(res);
             console.log(res.jsonBody.businesses);
             const business = res.jsonBody.businesses;
-            console.log(res.jsonBody.businesses.length);
+            // console.log(res.jsonBody.businesses.length);
             const length = res.jsonBody.businesses.length;
 
+           
             // for (let i = 0; i < length; i++) {
             //     console.log(business[i].name);
             //     console.log(business[i].image_url)
@@ -172,7 +221,87 @@ module.exports.searchRestaurant = async (req, res) => {
                                 longitude: business[i].coordinates.longitude
                             },
                             price: business[i].price,
-                            address: business[i].location.address1,
+                            address1: business[i].location.address1,
+                            address2: business[i].location.address2,
+                            city: business[i].location.city,
+                            zip_code: business[i].location.zip_code,
+                            country: business[i].location.country,
+                            state: business[i].location.state,
+                            // display_address: business[i].location.display_address,
+                            display_phone: business[i].display_phone,
+                            geometry: {
+                                type: "Point",
+                                coordinates: [business[i].coordinates.latitude, business[i].coordinates.longitude]
+                            }
+                        }]
+                    }
+                }, { new: true })
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
+    const saved = await businessSearch();
+    // console.log(saved);
+
+
+
+    res.redirect('/hangry/restaurants');
+}
+
+module.exports.displayResults = async (req, res) => {
+      const user = await User.findById(req.user.id);
+    // console.log(user);
+    const id = user._id;
+    const results = req.body;
+    console.log(results);
+    const maxResults = results.displayResults;
+    console.log(maxResults)
+    // console.log(results);
+
+ // If there is data saved in restaurant, delete it.
+    if (user.restaurantSearch.length) {
+        await User.updateOne({ _id: id }, { $pull: { restaurantSearch: { name: { $exists: true } } } }, { new: true }
+            // ,
+            // function (err, res) {
+            //     if (err) {
+            //         console.log(err);
+            //     } else {
+            //         console.log(res);
+            //     }
+            // }
+        );
+    }
+
+    const businessSearch = async () => {
+        try {
+            const res = await client.search({
+                term: user.term,
+                limit: maxResults,
+                location: user.location,
+            });
+            console.log(res.jsonBody.businesses);
+            const business = res.jsonBody.businesses;
+            console.log(res.jsonBody.businesses.length);
+            const length = res.jsonBody.businesses.length;
+
+
+            for (let i = 0; i < length; i++) {
+                await User.findByIdAndUpdate(id, {
+                    $addToSet:
+                    {
+                        restaurantSearch: [{
+                            name: business[i].name,
+                            image_url: business[i].image_url,
+                            url: business[i].url,
+                            rating: business[i].rating,
+                            coordinates: {
+                                latitude: business[i].coordinates.latitude,
+                                longitude: business[i].coordinates.longitude
+                            },
+                            price: business[i].price,
+                            address1: business[i].location.address1,
+                            address2: business[i].location.address2,
                             city: business[i].location.city,
                             zip_code: business[i].location.zip_code,
                             country: business[i].location.country,
@@ -194,13 +323,77 @@ module.exports.searchRestaurant = async (req, res) => {
     const saved = await businessSearch();
     console.log(saved);
 
-
-
     res.redirect('/hangry/restaurants');
 }
 
+module.exports.filter = async (req, res) => {
+    const results = req.body;
+    // console.log(results);
 
+    const form = results.form;
 
+    // NOTE: Checks if form is an array: will print false or true
+    const x = Array.isArray(form);
+    console.log(x);
+
+    // Redirects to different filter results depending on what options were selected
+    if (form == 'rating') {
+        console.log("You hit rating");
+        res.redirect(`/hangry/restaurants/filter/rating`)
+    }
+    else if (form == 'price') {
+        res.redirect(`/hangry/restaurants/filter/price`);
+    }
+    else if (x == true) {
+        res.redirect(`/hangry/restaurants/filter/priceAndRating`);
+    } 
+    else {
+
+        req.flash('error', 'No filter was chosen, try again.');
+        res.redirect('/hangry/restaurants');
+    }
+
+}
+
+module.exports.rating = async (req, res) => {
+    const user = await User.findById(req.user.id);
+
+    const hangryz = await User.aggregate([
+        { $unwind: "$restaurantSearch" },
+        { $sort: { "restaurantSearch.rating": -1 } }
+    ])
+
+  res.render('hangry/restaurantFilters/rating', { user, hangryz });
+}
+
+module.exports.price = async (req, res) => {
+    const user = await User.findById(req.user.id);
+
+    const hangryz = await User.aggregate([
+        { $unwind: "$restaurantSearch" },
+        { $sort: { "restaurantSearch.price": -1 } }
+    ])
+
+  res.render('hangry/restaurantFilters/price', { user, hangryz });
+}
+
+module.exports.priceAndRating = async (req, res) => {
+    const user = await User.findById(req.user.id);
+
+    const hangryz = await User.aggregate([
+        { $unwind: "$restaurantSearch" },
+        {
+            $sort: {
+                "restaurantSearch.price": -1,
+                "restaurantSearch.rating": -1
+            }
+        }
+    ])
+
+  res.render('hangry/restaurantFilters/priceAndRating', { user, hangryz });
+}
+
+// TODO: Add module.exports of filter for rating and price.
 
 module.exports.search = async (req, res) => {
     const hangries = req.body;
@@ -708,4 +901,91 @@ module.exports.saveFavorites = async (req, res) => {
     req.flash('success', 'Saved to favorites!');
 
     res.redirect(`/hangry/${hangry._id}/search/${res_id}/details`)
+}
+
+module.exports.saveToFavorites = async (req, res) => {
+    const user = await User.findById(req.user.id);
+    const body = req.body;
+    const res_id = body.favorite;
+    // console.log(user);
+
+    const template = await User.findById(user, {
+        restaurantSearch: {
+            res_id: 1,
+            name: 1,
+        image_url: 1,
+        url: 1,
+        rating: 1,
+        coordinates: {
+            latitude: 1,
+            longitude: 1
+        },
+        price: 1,
+        address1: 1,
+        address2: 1,
+        city: 1,
+        zip_code: 1,
+        country: 1,
+        state: 1,
+        display_address: 1,
+        display_phone: 1,
+        }
+    })
+    // console.log(res_id)
+    // const length = user.restaurantSearch.length;
+    // console.log(length);
+
+
+    const saved = () => {
+    for (let fav of user.restaurantSearch) {
+        if (res_id == fav._id) {
+            const results = {
+                    res_id: res_id,
+                name: fav.name,
+                    image_url: fav.image_url,
+                    url: fav.url,
+                    rating: fav.rating,
+                    coordinates: fav.coordinates,
+                    price: fav.price,
+                address1: fav.address1,
+                address2: fav.address2,
+                city: fav.city,
+                zip_code: fav.zip_code,
+                country: fav.country,
+                state: fav.state,
+                    display_phone: fav.display_phone,
+                }
+                return results
+            }
+        }
+    }
+
+    const results = saved();
+    console.log(results);
+
+  // Save restaurant data into user - favorites
+    await User.findByIdAndUpdate(user, {
+        $addToSet: {
+            favorites:
+                [{
+                    res_id: results.res_id,
+                    name: results.name,
+                    image_url: results.image_url,
+                    url: results.url,
+                    averageRating: results.rating,
+                    coordinates: results.coordinates,
+                    price: results.price,
+                    address: `${results.address1}, ${results.city}, ${results.state}`,
+                    city: results.city,
+                    zip_code: results.zip_code,
+                    country: results.country,
+                    state: results.state,
+                    phoneNumber: results.display_phone,
+                    longitude: results.coordinates.longitude,
+                    latitude: results.coordinates.latitude
+                }]
+        }
+    }, { new: true });
+
+    res.redirect('/hangry/restaurants')
 }

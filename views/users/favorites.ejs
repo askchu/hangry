@@ -57,8 +57,14 @@
 
                         <p class="card-text"><strong>Phone Number:</strong> <%=user.favorites[i].phoneNumber%></p>
                     </li>
-                    <li class="list-group-item"><strong>Hours of Operation:</strong> <%=user.favorites[i].timings%>
+                    <% if(!user.favorites[i].url) {%>
+                    <li class="list-group-item"><strong>Hours of Operation: </strong> <%=user.favorites[i].timings%>
                     </li>
+                    <% } else {%>
+                    <li class="list-group-item"><strong>Hours of Operation:</strong> <a href="<%=user.favorites[i].url%>">Find hours
+                            here</a>
+                    </li>
+                    <% } %>
                 </ul>
             </div>
 
@@ -82,8 +88,14 @@
 
                         <p class="card-text"><strong>Phone Number:</strong> <%=user.favorites[i].phoneNumber%></p>
                     </li>
-                    <li class="list-group-item"><strong>Hours of Operation:</strong> <%=user.favorites[i].timings%>
+                    <% if(!user.favorites[i].url) {%>
+                    <li class="list-group-item"><strong>Hours of Operation: </strong> <%=user.favorites[i].timings%>
                     </li>
+                    <% } else {%> 
+                    <li class="list-group-item"><strong>Hours of Operation:</strong> <a href="<%=user.favorites[i].url%>">Find hours
+                            here</a>
+                    </li>
+                <% } %> 
                 </ul>
                 <!-- <button class="btn-block btn-danger">Remove from favorites</button> -->
             </div>

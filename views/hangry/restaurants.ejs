@@ -15,10 +15,10 @@
 
 <!-- TEST -->
 <div class="row gx-0">
-        <div class="col-12 text-center bg-light sticky-top py-2 border-bottom border-2">
-            <form action="">
-            <label for="">Amount of results to display</label>
-            <select name="" id="">
+        <div class="col-12 text-center bg-light pt-2 ">
+            <form action="/hangry/restaurants/displayResults" method="POST">
+            <label for="displayResults">Amount of results to display</label>
+            <select name="displayResults" id="displayResults">
                 <option value="5">5</option>
                 <option value="10">10</option>
                 <option value="25">25</option>
@@ -26,13 +26,17 @@
             </select>
             <button id="btn" type="submit" class="border-0 bg-light text-success">Search</button>
             </form>
+            <strong>
+<p class="mt-2">Found <%=user.restaurantSearch.length%> restaurants</p>
+            </strong>
         </div>
+
     <!-- TEST -->
     <div class="col-sm-12 col-md-2 bg-light pr-0 ">
 
         <!-- FORM -->
         <div class="text-dark sticky-md-top">
-            <form action="" method="POST">
+            <form action="/hangry/restaurants/filter" method="POST">
                     <div class="">
                         <h5 class="text-center mt-3 pb-2 border-bottom border-2">Sort By </h5>
                     </div>
@@ -49,9 +53,8 @@
                             <label class="form-check-label" for="autoSizingCheck1">
                                 Price <br>(Lowest to Highest)
                             </label>
-                            <input class="btn-block" type="checkbox" id="autoSizingCheck2" value="averageCost"
+                            <input class="btn-block" type="checkbox" id="autoSizingCheck2" value="price"
                                 name="form">
-
                         </div>
                     </div>
                     <div class="">
@@ -61,7 +64,6 @@
                     </div>
             </form>
         </div>
-
     </div>
 
     <div class="col-sm-12 col-md-10">
@@ -69,16 +71,33 @@
     <div class="text-center my-3">
         <div class="mx-1 row ">
             <!-- Show restaurants -->
-            <%  for (let i = 0; i < user.restaurantSearch.length; i++) { %>
+            <%  for (let i = 0; i < hangryz.length; i++) { %>
             <div class="col-md-6 col-lg-4 col-xl-3 my-2">
                 <div class="card">
+                    <div class="card-header text-center">
+                        <form action="/hangry/restaurants/filter/rating" method="POST">
+                            <button class="text-center mx-auto btn btn-block" type="submit" value="<%=hangryz[i].restaurantSearch._id%>" name="favorite">Add
+                                to favorites
+                            </button>
+                        </form>
+                    </div>
                     <div class="card-body">
-                        <img class="card-img-top" src="<%=user.restaurantSearch[i].image_url%>" alt="">
-                        <h4 class="card-title"><%=user.restaurantSearch[i].name%></h4>
-    
-    
+                        <img class="card-img-top" src="<%=hangryz[i].restaurantSearch.image_url%>" alt="">
+                        <h4 class="card-title"><%=hangryz[i].restaurantSearch.name%></h4>
+    <p class="card-text">Price: <%=hangryz[i].restaurantSearch.price%> | Rating: <%=hangryz[i].restaurantSearch.rating%></p>
     
                     </div>
+    <ul class="list-group list-group-flush border-top border-1 text-left">
+        <li class="list-group-item"><strong>Location:</strong> <%=hangryz[i].restaurantSearch.address1%>, <%=hangryz[i].restaurantSearch.city%>, <%=hangryz[i].restaurantSearch.zip_code%></li>
+        <li class="list-group-item">Phone Number: </li>
+        <li class="list-group-item"><a href="<%=hangryz[i].restaurantSearch.url%>" target="_blank">More info on Yelp</a></li>
+    </ul>
+
+<!-- <form action="" method="POST">
+    <button id="btn" class="text-center mx-auto btn btn-primary btn-block" type="submit"
+        value="" name="btn">More details
+    </button>
+</form> -->
                 </div>
             </div>
             <% } %>

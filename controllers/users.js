@@ -15,7 +15,7 @@ module.exports.profile = async (req, res) => {
     const user = await User.findById(req.user.id);
     const location = `${user.address.street}, ${user.address.city}, ${user.address.state}, ${user.address.postalCode}`;
     // console.log(location);
-    console.log(user);
+    // console.log(user);
     res.render('users/profile', { user });
 }
 
@@ -54,7 +54,7 @@ module.exports.register = (req, res) => {
 };
 
 module.exports.registerPost = async (req, res, next) => {
-    // TODO: Save address and all of the other information
+    
 
     try {
         const { email, username, password } = req.body;
@@ -186,9 +186,10 @@ module.exports.generateFavorite = async (req, res) => {
     const finalResult = await User.findByIdAndUpdate(user, {
         chosenRestaurant:
         {
-            res_id: restaurant[randRestNum].res_id,
+            // res_id: restaurant[randRestNum].res_id,
             name: restaurant[randRestNum].name,
             address: restaurant[randRestNum].address,
+            url: restaurant[randRestNum].url,
             locality: restaurant[randRestNum].locality,
             cuisineType: restaurant[randRestNum].cuisineType,
             averageCostForTwo: restaurant[randRestNum].averageCostForTwo,

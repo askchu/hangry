@@ -13,6 +13,22 @@ router.route('/restaurants')
     .get(catchAsync(hangry.restaurantSearches))
     .post(catchAsync(hangry.searchRestaurant))
 
+router.route('/restaurants/filter')   
+    .post(catchAsync(hangry.filter))
+
+router.route("/restaurants/filter/rating")
+    .get(catchAsync(hangry.rating))
+    .post(catchAsync(hangry.saveToFavorites))
+
+router.route("/restaurants/filter/price")
+    .get(catchAsync(hangry.price))
+
+router.route("/restaurants/filter/priceAndRating")
+    .get(catchAsync(hangry.priceAndRating))
+
+router.route('/restaurants/displayResults')
+    .post(catchAsync(hangry.displayResults))    
+
 router.route('/:id')
     .get(catchAsync(hangry.showLocation))
     .post(catchAsync(hangry.cuisineSearch))

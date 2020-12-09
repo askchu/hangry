@@ -6,6 +6,11 @@
   height: 200px;
 }
 
+ul li a {
+  text-decoration: none;
+}
+
+/* TODO: Needs work */
 @media (max-width: 768px) {
   /* .card {
     width: 75%;

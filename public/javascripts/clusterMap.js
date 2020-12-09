@@ -91,7 +91,8 @@ for (let i = 0; i < user.restaurantSearch.length; i++) {
         .setPopup(
             new mapboxgl.Popup({ offset: 25 })
                 .setHTML(
-                    `<strong>${ user.restaurantSearch[i].name }</strong >`
+                    `<strong>${user.restaurantSearch[i].name}</strong >
+                        <p>${user.restaurantSearch[i].address1}</p>`
                 )
         )
         .addTo(map)

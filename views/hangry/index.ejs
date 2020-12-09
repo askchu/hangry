@@ -127,27 +127,28 @@
     </div>
 </div>
 
-<!-- TODO: Fix up -->
 <div id="featured" class="container">
     <div class="row mt-3 gr-0">
         <div class="col-md-12 text-center">
             <h3>Featured Restaurants</h3>
         </div>
+        <% for(let i = 0; i < length; i++) {%> 
         <div class="col-md-6 align-self-center">
             <div>
-                <a href="<%=user.trending[0].share_url%>" target="_blank">
+                <a href="<%=user.trending[i].share_url%>" target="_blank">
                 </a>
-                <div class="blah text-center">
-                    <h5><%=user.trending[0].title%></h5>
-                    <p><%=user.trending[0].description%></p>
+                <div class=" text-center">
+                    <h5><%=user.trending[i].title%></h5>
+                    <p><%=user.trending[i].description%></p>
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 mt-3">
             <div class="d-none d-md-block">
-                <img class="img-thumbnail img-fluid" src="<%=user.trending[0].image_url%>" alt="">
+                <img class="img-thumbnail img-fluid" src="<%=user.trending[i].image_url%>" alt="">
             </div>
         </div>
+    <% } %> 
     </div>
 </div>
 

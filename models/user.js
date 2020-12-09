@@ -28,9 +28,23 @@ const UserSchema = new Schema({
         }
     },
     favorites: [{
-        res_id: Number,
+        res_id: String,
         name: String,
+        url: String,
+        rating: Number,
+        coordinates: {
+            latitude: Number,
+            longitude: Number
+        },
+        image_url: String,
+        price: String,
+        city: String,
+        zip_code: String,
+        country: String,
+        state: String,
         address: String,
+        address1: String,
+        address2: String,
         locality: String,
         cuisineType: String,
         averageCostForTwo: Number,
@@ -49,7 +63,21 @@ const UserSchema = new Schema({
     chosenRestaurant: {
         res_id: Number,
         name: String,
+         url: String,
+        rating: Number,
+        coordinates: {
+            latitude: Number,
+            longitude: Number
+        },
+        image_url: String,
+        price: String,
+        city: String,
+        zip_code: String,
+        country: String,
+        state: String,
         address: String,
+        address1: String,
+        address2: String,
         locality: String,
         cuisineType: String,
         averageCostForTwo: Number,
@@ -74,6 +102,8 @@ const UserSchema = new Schema({
         description: String,
         share_url: String
     }],
+    term: String,
+    location: String,
     restaurantSearch: [{
         name: String,
         image_url: String,
@@ -85,6 +115,7 @@ const UserSchema = new Schema({
         },
         price: String,
         address1: String,
+        address2: String,
         city: String,
         zip_code: String,
         country: String,
