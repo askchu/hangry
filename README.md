@@ -3,7 +3,7 @@ Use this to help you decide on your next meal!
 
 Website in progress... 
 
-Website uses: NodeJs, Mongo, Mongoose, ZomatoAPI, JavaScript, CSS, HTML, Bootstrap. 
+Website uses: NodeJs, Express, Mongo, Mongoose, API (Yelp, Zomato, MapQuest, MapBox), JavaScript, CSS, HTML, Bootstrap. 
 
 -A 
 
